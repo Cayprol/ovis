@@ -1,6 +1,6 @@
 ﻿{
-	'name': 'view_quotation_from_product',
-	'description': 'Create a smart button on product linking to historical quotation of the particular product',
+	'name': 'OVIS',
+	'description': 'Custom module for OVIS',
 	'depends': ['base', 'sale', 'product'],
 	'data': ['views/product_description.xml'], 
 }
