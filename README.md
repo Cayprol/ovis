@@ -1,2 +1,2 @@
-# Odoo-Custom-Module
-Custom views and actions for Odoo 10
+# Odoo Module for OVIS
+Custom fields, views for Odoo 10
