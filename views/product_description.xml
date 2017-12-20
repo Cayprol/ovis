@@ -11,6 +11,7 @@
 					<separator string="Description for Product" colspan="4"/>
 					<field name="description" colspan="4" nolabel="1" placeholder="This note will be displayed on product description" modifiers="{}"/>
 				</group>
+			</field>
 		</record>
 	</data>
 </odoo>
