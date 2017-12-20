@@ -5,8 +5,10 @@
 
 class Product_Description(models.Model):
 
-	_name = 'product_description'
+	_name = 'product.description'
 
-	_inherit = 'product.product'
+	_inherit = 'product.template'
 
-	product_description = fields.Char(string='Description for Product')
+	# id = 'product_description'
+
+	product_description = fields.Text(string='Description for Product')
