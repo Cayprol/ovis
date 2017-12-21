@@ -7,12 +7,16 @@
 			<field name="name">product.template.product.form.ovis</field>
     	    <field name="inherit_id" ref="product.product_template_only_form_view"></field>
 			<field name="arch" type="xml">
-				<!-- <page string="Specs" name="specs"> -->
-				<group name="description">
+
+				<xpath expr="//group[@name=description]" position="before">
+					<separator string="Description for Product" colspan="4"/>
+					<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/> 										
+				</xpath>
+
+<!-- 				<group name="description">
 					<separator string="Description for Product" colspan="4"/>
 					<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
-				</group>
-				<!-- </page> -->
+				</group> -->
 
 				<group name="group_general">
 					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>				
@@ -26,7 +30,7 @@
 
 				<!-- Hide Fields -->
 				<xpath expr="//field[@name='barcode']" position="replace">
-					<field name="barcode" invisible="1"/>
+					<field name="barcode" invisible="1" modifiers="{'invisible': true}"/>
 				</xpath>
 
 			</field>
