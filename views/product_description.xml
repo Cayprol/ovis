@@ -7,8 +7,7 @@
 			<field name="name">product.template.product.form.ovis</field>
     	    <field name="inherit_id" ref="product.product_template_only_form_view"></field>
 			<field name="arch" type="xml">
-
-				<xpath expr="//field[@name='description_sale']" position="before">
+				<xpath expr="//separator[@string='Description for Quotations']" position="before">
 					<separator string="Description for Product" colspan="4"/>
 					<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/> 										
 				</xpath>
