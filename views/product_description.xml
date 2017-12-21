@@ -15,8 +15,9 @@
 				<!-- </page> -->
 
 				<group name="group_general">
+					<field name="barcode" position="replace"></field>
 					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>
-					<field name="barcode" position="replace"/>
+					
 
 				</group>
 
