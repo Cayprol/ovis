@@ -25,6 +25,17 @@
 					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>				
 				</group>
 
+				<xpath expr="//group[@name='sale_condition']" position="after">
+					<group name="vendor_in_sale">
+						<separator string="Vendors"/>
+						<field name="seller_ids" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}" modifiers="{}"/>
+						<group name="packaging" string="Packaging" colspan="4" invisible="1" modifiers="{'invisible': true}">
+							<field name="packaging_ids" nolabel="1" modifiers="{}"/>
+						</group>
+					</group>
+				</xpath>
+
+
 				<!-- Add Product Description(Specs) & Re-layout -->
 				<xpath expr="//group[@name='description']" position="replace">
 					<group name="description">
