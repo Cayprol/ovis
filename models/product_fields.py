@@ -1,14 +1,8 @@
-﻿from odoo import models, fields
+﻿from odoo import models, fields, api
 
 
+class SaleOrderInherited(models.Model):
+	
+    _inherit = 'sale.order' 
 
-
-class Product_Description(models.Model):
-
-	_name = 'product.description'
-
-	_inherit = 'product.template'
-
-	# id = 'product_description'
-
-	product_description = fields.Text(string='Description for Product')
+    custom_field = fields.Char(string='Custom Field')
