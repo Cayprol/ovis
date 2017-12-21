@@ -4,7 +4,7 @@
 	<data>
 		<record model="ir.ui.view" id="product_description">
 			<field name="model">product.template</field>
-			<field name="name">product.template.product.form</field>
+			<field name="name">product.template.product.form.ovis</field>
     	    <field name="inherit_id" ref="product.product_template_only_form_view"></field>
 			<field name="arch" type="xml">
 				<!-- <page string="Specs" name="specs"> -->
