@@ -8,9 +8,9 @@
     	    <field name="inherit_id" ref="product.product_template_only_form_view"></field>
 			<field name="arch" type="xml">
 				<!-- <page string="Specs" name="specs"> -->
-				<group name="group_general">
-					<separator string="Specification" colspan="2"/>
-					<field name="description" colspan="1" nolabel="1" placeholder="Product specs goes here." modifiers="{}"/>
+				<group name="description">
+					<separator string="Description for Product" colspan="4"/>
+					<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
 				</group>
 				<!-- </page> -->
 			</field>
