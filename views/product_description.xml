@@ -10,7 +10,7 @@
 				<!-- <page string="Specs" name="specs"> -->
 				<group name="group_general">
 					<separator string="Specification" colspan="2"/>
-					<field name="description" colspan="2" nolabel="1" placeholder="Product specs goes here." modifiers="{}"/>
+					<field name="description" colspan="1" nolabel="1" placeholder="Product specs goes here." modifiers="{}"/>
 				</group>
 				<!-- </page> -->
 			</field>
