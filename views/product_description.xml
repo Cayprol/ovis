@@ -8,10 +8,11 @@
     	    <field name="inherit_id" ref="product.product_template_only_form_view"></field>
 			<field name="arch" type="xml">
 
-				<xpath expr="//description/field[@name=description_sale]" position="before">
+				<xpath expr="//group/field[@name=description_sale]" position="before">
 					<separator string="Description for Product" colspan="4"/>
 					<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/> 										
 				</xpath>
+
 
 <!-- 				<group name="description">
 					<separator string="Description for Product" colspan="4"/>
