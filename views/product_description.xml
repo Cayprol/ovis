@@ -7,6 +7,25 @@
 			<field name="name">product.template.product.form.ovis</field>
     	    <field name="inherit_id" ref="product.product_template_only_form_view"></field>
 			<field name="arch" type="xml">
+
+				<!-- Add Quotation Smart Button -->
+				<div class="oe_button_box" name="button_box">
+					<button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-usd">
+						<field string="Quotes" name="sales_count" widget="statinfo" modifiers="{'readonly': true}"/>
+					</button>
+				</div>
+
+				<!-- Hide Barcode -->
+				<xpath expr="//field[@name='barcode']" position="replace">
+					<field name="barcode" invisible="1" modifiers="{'invisible': true}"/>
+				</xpath>
+
+				<!-- Add Last Update -->
+				<group name="group_general">
+					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>				
+				</group>
+
+				<!-- Add Product Description(Specs) & Re-layout -->
 				<xpath expr="//group[@name='description']" position="replace">
 					<group name="description">
 						<separator string="Description for Product" colspan="4"/>
@@ -18,27 +37,6 @@
 						<separator string="Description for Pickings" colspan="4"/>
 						<field name="description_picking" placeholder="Description for Pickings (Rack, Row and Case Information)" nolabel="1" colspan="4" modifiers="{}"/>
 					</group>										
-				</xpath>
-
-
-<!-- 				<group name="description">
-					<separator string="Description for Product" colspan="4"/>
-					<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
-				</group> -->
-
-				<group name="group_general">
-					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>				
-				</group>
-
-				<div class="oe_button_box" name="button_box">
-					<button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-usd">
-						<field string="Quotes" name="sales_count" widget="statinfo" modifiers="{'readonly': true}"/>
-					</button>
-				</div>
-
-				<!-- Hide Fields -->
-				<xpath expr="//field[@name='barcode']" position="replace">
-					<field name="barcode" invisible="1" modifiers="{'invisible': true}"/>
 				</xpath>
 
 			</field>
