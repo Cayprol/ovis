@@ -6,4 +6,8 @@ class SaleOrderInherited(models.Model):
 
 	custom_field = fields.Char(string='Custom Field')
 
-	
+class ProductTemplateInherited(models.Model):
+	_inherit = 'product.template' 
+
+	customer_item = fields.Char(string='Custom Item')
+
