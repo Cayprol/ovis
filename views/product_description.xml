@@ -16,6 +16,7 @@
 
 				<group name="group_general">
 					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>
+					<field name="barcode" inivisible="1"/>
 				</group>
 
 				<div class="oe_button_box" name="button_box">
