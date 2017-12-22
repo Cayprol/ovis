@@ -1,1 +1,1 @@
-﻿from models import *
+﻿from . import product_fields
