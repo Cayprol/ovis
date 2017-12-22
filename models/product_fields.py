@@ -6,8 +6,8 @@ class SaleOrderInherited(models.Model):
 
 	custom_field = fields.Char(string='Custom Field')
 
-class ProductTemplateInherited(models.Model):
-	_inherit = 'product.template' 
+class ProductInformation(models.Model):
+	_inherit = 'product.template'
 
-	customer_item = fields.Char(string='Custom Item')
+	customer_pid = fields.Many2many('res.partner', string='Customer Product ID')
 
