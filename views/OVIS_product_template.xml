@@ -29,9 +29,7 @@
 					<!-- <group name="vendor_in_sale"> -->
 					<separator string="Customers"/>
 					<field name="seller_ids" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}" modifiers="{}"/>
-<!-- 						<group name="packaging" string="Packaging" colspan="4" invisible="1" modifiers="{'invisible': true}">
-							<field name="packaging_ids" nolabel="1" modifiers="{}"/>
-						</group> -->
+					<field name="partner_id" domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}" options="{'always_reload': True}" on_change="1" can_create="true" can_write="true" modifiers="{'readonly': [['state', 'not in', ['draft', 'sent']]], 'required': true}"/>
 					<!-- </group> -->
 				</xpath>
 

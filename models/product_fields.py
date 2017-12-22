@@ -9,5 +9,5 @@ class SaleOrderInherited(models.Model):
 class ProductInformation(models.Model):
 	_inherit = 'product.template'
 
-	customer_pid = fields.One2many('res.partner', 'name', string='Name')
+	customer_pid = fields.Many2one('res.partner', 'name', string='Buyer of this product')
 
