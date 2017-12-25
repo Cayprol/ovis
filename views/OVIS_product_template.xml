@@ -15,24 +15,22 @@
 					</button>
 				</div>
 
-				<!-- Hide Barcode -->
+				<!-- Hide Field: Barcode -->
 				<xpath expr="//field[@name='barcode']" position="replace">
 					<field name="barcode" invisible="1" modifiers="{'invisible': true}"/>
 				</xpath>
 
-				<!-- Add Last Update -->
+				<!-- Add Feild: Last Update -->
 				<group name="group_general">
 					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>				
 				</group>
 
 				<xpath expr="//group[@name='sale_condition']" position="after">
-					<!-- <group name="vendor_in_sale"> -->
-					<separator string="Customers"/>
-					<field name="seller_ids" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}" modifiers="{}"/>
+					<group name="sale_reference">
+						<field name="customers">
+					</group>
 
-					<!-- </group> -->
 				</xpath>
-
 
 				<!-- Add Product Description(Specs) & Re-layout -->
 				<xpath expr="//group[@name='description']" position="replace">
