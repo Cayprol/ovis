@@ -1,1 +1,1 @@
-﻿from models import *
+﻿from odoo.addons.OVIS.models import *
