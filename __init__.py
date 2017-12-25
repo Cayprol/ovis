@@ -1,1 +1,1 @@
-﻿from . import models
+﻿from OVIS.models import *
