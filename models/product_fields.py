@@ -11,4 +11,5 @@ class ProductInformation(models.Model):
 
 	afield = fields.Char(string='Atest') 
 
+	customers = fields.Many2one('res.partner', 'customers', readonly="True")
 
