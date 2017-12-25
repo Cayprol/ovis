@@ -8,6 +8,7 @@ class SaleOrderInherited(models.Model):
 
 class ProductInformation(models.Model):
 	_inherit = 'product.template'
-	 
+
+	afield = fields.float('Atest') 
 	customer_pid = fields.one2many('res.partner', 'name', string='customer_pid')
 
