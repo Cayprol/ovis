@@ -11,5 +11,5 @@ class ProductInformation(models.Model):
 
 	afield = fields.Char(string='Atest') 
 
-	customers = fields.Many2one('res.partner', 'Customers')
+	customers = fields.One2many('res.partner', 'Customers')
 
