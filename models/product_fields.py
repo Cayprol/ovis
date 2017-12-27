@@ -20,6 +20,6 @@ class ProductCustomerInfo(models.Model):
 
 	_description = 'Information about a product customer'
 
-	name = fields.Many2one('res.partner', 'Customer', required=True, domain=[('customer', '=', True)], ondelete='restrict')
+	name = fields.Many2one('res.partner', 'Customer', required=True, domain=[('customer', '=', True)])
 
 	pid = fields.Char(string='Product ID', required=True)
