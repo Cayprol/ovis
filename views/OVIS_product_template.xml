@@ -26,6 +26,7 @@
 				</group>
 
 				<xpath expr="//group[@name='sale_condition']" position="after">
+					<separator string="Customer Info" colspan="4"/>
 					<group name="sale_reference">
 						<field name="pid"/>
 					</group>
