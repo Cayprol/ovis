@@ -24,8 +24,8 @@ class ProductCustomerInfo(models.Model):
 
 	pid = fields.Char(string='Product ID', required=True)
 
-	company_id = fields.Many2one('res.company', string='Company')
+	company_id = fields.Many2one('res.company', string='Company', default=lumbda self: self.env.user.company_id.id, index=1)
 
-	create_uid = fields.Many2one('res.users', string='Created by')
+	# create_uid = fields.Many2one('res.users', string='Created by', readonly=)
 
-	write_uid = fields.Many2one('res.users', string='Last Updated by')
+	# write_uid = fields.Many2one('res.users', string='Last Updated by')
