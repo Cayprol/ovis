@@ -11,10 +11,11 @@ class ProductInformation(models.Model):
 
 	afield = fields.Char(string='Atest') 
 
+	pid = fields.One2many('product.customerinfo', 'customers', string='PID')
+
+
+class ProductCustomerInfo(models.Model):
+
+	_name = 'product.customerinfo'
+
 	customers = fields.Many2one('res.partner', 'Customers')
-
-
-class CustomerPID(models.Model):
-	_inherit = 'res.partner'
-
-	pid = fields.One2many('product.template', 'customers', string='PID')
