@@ -23,3 +23,9 @@ class ProductCustomerInfo(models.Model):
 	name = fields.Many2one('res.partner', string='Customer', domain=[('customer', '=', True)], ondelete='restrict', required=True, help='Customer relates to this product')
 
 	pid = fields.Char(string='Product ID', required=True)
+
+	company_id = fields.Many2one('res.company', string='Company')
+
+	create_uid = fields.Many2one('res.users', string='Created by')
+
+	write_uid = fields.Many2one('res.users', string='Last Updated by')
