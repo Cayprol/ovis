@@ -1,22 +1,16 @@
 ﻿from odoo import models, fields, api
 
 
-class SaleOrderInherited(models.Model):
-	_inherit = 'sale.order' 
-
-	custom_field = fields.Char(string='Custom Field')
+# class SaleOrderInherited(models.Model):
+# 	_inherit = 'sale.order' 
 
 class ProductTemplateInherited(models.Model):
 	_inherit = 'product.template'
 
-	afield = fields.Char(string='Atest') 
-
 	customer_pid = fields.One2many('product.customerinfo', 'name', string='Customer PID')
 
-class ResPartnerInherited(models.Model):
-	_inherit = 'res.partner'
-
-
+# class ResPartnerInherited(models.Model):
+# 	_inherit = 'res.partner'
 
 class ProductCustomerInfo(models.Model):
 
