@@ -29,7 +29,7 @@
 					<separator string="Customer Info" colspan="4"/>
 					<field name="customer_pid" nolabel="1">
 						<tree>
-							<field name="customers"/>
+							<field name="name"/>
 							<field name="pid"/>
 							<field name="__last_update"/>
 						</tree>
