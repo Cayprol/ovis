@@ -13,7 +13,8 @@ class ProductInformation(models.Model):
 
 	customers = fields.Many2one('res.partner', 'Customers')
 
+
 class CustomerPID(models.Model):
 	_inherit = 'res.partner'
 
-	# pid = fields.Many2one('product.template', 'PID')
+	pid = fields.One2many('product.template', 'customers', string='PID')
