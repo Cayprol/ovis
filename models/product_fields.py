@@ -13,7 +13,7 @@ class ProductTemplateInherited(models.Model):
 
 	customer_pid = fields.One2many('product.customerinfo', 'name', string='Customer PID')
 
-class ResPartnerInherited(modesl.Model):
+class ResPartnerInherited(models.Model):
 	_inherit = 'res.partner'
 
 
@@ -24,7 +24,7 @@ class ProductCustomerInfo(models.Model):
 
 	_description = 'Information about a product customer'
 
-	name = fields.Many2one('res.partner', 'Customer', domain=[('customer', '=', True)], ondelete='restrict', required=True, help='Customer relates to this product')
+	name = fields.Many2one('res.partner', 'Customer', index=True, domain=[('customer', '=', True)], ondelete='restrict', required=True, help='Customer relates to this product')
 
 	pid = fields.Char(string='Product ID', required=True)
 
