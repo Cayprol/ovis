@@ -11,7 +11,7 @@ class ProductInformation(models.Model):
 
 	afield = fields.Char(string='Atest') 
 
-	pid = fields.One2many('product.customerinfo', 'customers', string='PID')
+	pid = fields.One2many('product.customerinfo', 'customers')
 
 
 class ProductCustomerInfo(models.Model):
@@ -19,3 +19,6 @@ class ProductCustomerInfo(models.Model):
 	_name = 'product.customerinfo'
 
 	customers = fields.Many2one('res.partner', 'Customers')
+
+
+	pid = fields.Char(string='Product ID')
