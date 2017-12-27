@@ -18,8 +18,8 @@ class ProductCustomerInfo(models.Model):
 
 	_name = 'product.customerinfo'
 
+	_description = 'Information about a product customer'
+
 	customers = fields.Many2one('res.partner', 'Customers')
 
 	pid = fields.Char(string='Product ID')
-
-	product_tmpl_id = fields.Many2one('product.template', 'Product Template')

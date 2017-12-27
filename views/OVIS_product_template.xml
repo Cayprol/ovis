@@ -30,6 +30,8 @@
 					<field name="pid" nolabel="1">
 						<tree>
 							<field name="customers"/>
+							<field name="pid"/>
+							<field name="__last_update"/>
 						</tree>
 					</field>
 				</xpath>
