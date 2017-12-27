@@ -11,5 +11,9 @@ class ProductInformation(models.Model):
 
 	afield = fields.Char(string='Atest') 
 
-	customers = fields.Many2one('res.partner', 'Customers')
+	customers = fields.One2many('res.partner', 'Customers')
 
+class CustomerPID(models.Model):
+	_inherit = 'res.partner'
+
+	pid = fields.Many2one('product.template', 'PID')
