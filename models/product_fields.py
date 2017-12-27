@@ -16,4 +16,4 @@ class ProductInformation(models.Model):
 class CustomerPID(models.Model):
 	_inherit = 'res.partner'
 
-	pid = fields.Many2one('product.template', 'PID')
+	# pid = fields.Many2one('product.template', 'PID')
