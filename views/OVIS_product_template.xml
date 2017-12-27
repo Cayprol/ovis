@@ -25,6 +25,7 @@
 					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>				
 				</group>
 
+				<!-- Add Customer Product ID table -->
 				<xpath expr="//group[@name='sale_condition']" position="after">
 					<separator string="Customer Info" colspan="4"/>
 					<field name="customer_pid" nolabel="1" modifiers="{}">
