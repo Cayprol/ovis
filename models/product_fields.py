@@ -26,6 +26,4 @@ class ProductCustomerInfo(models.Model):
 
 	company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id.id, index=1)
 
-	# create_uid = fields.Many2one('res.users', string='Created by', readonly=)
-
-	# write_uid = fields.Many2one('res.users', string='Last Updated by')
+	sequence = fields.Integer(string='Sequence', default=1, help='Assigns the priority to the list of product customer.')
