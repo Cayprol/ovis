@@ -28,7 +28,7 @@
 				<!-- Add Customer Product ID table -->
 				<xpath expr="//group[@name='sale_condition']" position="after">
 					<separator string="Customer Info" colspan="4"/>
-					<field name="customer_pid" nolabel="1" modifiers="{}">
+					<field name="customer_pid" nolabel="1" context="{}" modifiers="{}">
 						<tree>
 							<field name="name"/>
 							<field name="pid"/>

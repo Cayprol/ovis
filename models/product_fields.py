@@ -1,4 +1,6 @@
-﻿from odoo import models, fields, api
+﻿-*- coding: utf-8 -*-
+
+from odoo import models, fields, api
 
 
 # class SaleOrderInherited(models.Model):
@@ -7,7 +9,7 @@
 class ProductTemplateInherited(models.Model):
 	_inherit = 'product.template'
 
-	customer_pid = fields.One2many('product.customerinfo', u'name', string='Customer PID')
+	customer_pid = fields.One2many('product.customerinfo', 'name', string='Customer PID')
 
 # class ResPartnerInherited(models.Model):
 # 	_inherit = 'res.partner'
@@ -18,7 +20,7 @@ class ProductCustomerInfo(models.Model):
 
 	_description = 'Information about a product customer'
 
-	name = fields.Many2one('res.partner', u'Customer', index=True, domain=[(u'customer', '=?', True)], ondelete='restrict', required=True, help='Customer relates to this product')
+	name = fields.Many2one('res.partner', 'Customer', index=True, domain=[('customer', '=?', True)], ondelete='restrict', required=True, help='Customer relates to this product')
 
 	pid = fields.Char(string='Product ID', required=True)
 
