@@ -10,7 +10,26 @@ class ProductTemplateInherited(models.Model):
 	_inherit = 'product.template'
 
 	customer_pid = fields.One2many('product.customerinfo', 'name', string='Customer PID')
+	
 
+	@api.multi
+	def action_view_quotations(self):
+		self.ensure_one()
+		action = self.env.ref('sale.action_prodcut_sale_list')
+		product_ids = self.with_context(active_test=False).product_variant_ids.ids
+
+		return {
+			'name': action.name,
+			'help': action.help,
+			'type': action.type,
+			'view_type': action.view_type,
+			'view_mode': action.view_mode,
+			'target': action.target,
+			'context': "{'default_product_id': " + str(product_ids[0]) + "}",
+			'res_model': action.res_model,
+			'domain': [('state', 'in', ['sale', 'done']), ('product_id.product_tmpl_id', '=', self.id)],
+			
+		}
 # class ResPartnerInherited(models.Model):
 # 	_inherit = 'res.partner'
 
