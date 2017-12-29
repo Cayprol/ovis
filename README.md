@@ -1,2 +1,2 @@
 # Odoo Module for OVIS
-Custom fields, views for Odoo 10
+Custom fields, views for Odoo 11
