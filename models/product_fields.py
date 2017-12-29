@@ -41,7 +41,7 @@ class ProductCustomerInfo(models.Model):
 
 	name = fields.Many2one('res.partner', 'Customer', index=True, domain=[('customer', '=?', True)], ondelete='restrict', required=True, help='Customer relates to this product')
 
-	product_tmpl_id = fields.Many2one('product.template', 'customer_pid', string='product_tmpl_id')
+	product_tmpl_id = fields.Many2one('product.template', string='product_tmpl_id')
 
 	pid = fields.Char(string='Product ID', required=True)
 
