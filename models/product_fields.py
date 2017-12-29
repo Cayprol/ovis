@@ -27,7 +27,7 @@ class ProductTemplateInherited(models.Model):
 			'target': action.target,
 			'context': "{'default_product_id': " + str(product_ids[0]) + "}",
 			'res_model': action.res_model,
-			'domain': [('state', 'in', ['sent']), ('product_id.product_tmpl_id', '=', self.id)],
+			'domain': [('state', 'in', ['draft', 'sent', 'cancel']), ('product_id.product_tmpl_id', '=', self.id)],
 			# 'domain': [('state', 'in', ['sale', 'done']), ('product_id.product_tmpl_id', '=', self.id)],
 			
 		}
