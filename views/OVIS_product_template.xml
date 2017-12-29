@@ -11,7 +11,7 @@
 				<!-- Add Quotation Smart Button -->
 				<div class="oe_button_box" name="button_box">
 					<button class="oe_stat_button" name="action_view_quotations" type="object" icon="fa-usd">
-						<field string="Quotes" name="sales_count" widget="statinfo" modifiers="{'readonly': true}"/>
+						<field string="Quotes" name="quotation_count" widget="statinfo" modifiers="{'readonly': true}"/>
 					</button>
 				</div>
 

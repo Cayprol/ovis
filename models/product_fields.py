@@ -6,11 +6,17 @@ from odoo import models, fields, api
 # class SaleOrderInherited(models.Model):
 # 	_inherit = 'sale.order' 
 
+		
+# class ResPartnerInherited(models.Model):
+# 	_inherit = 'res.partner'
+
+
 class ProductTemplateInherited(models.Model):
 	_inherit = 'product.template'
 
 	customer_pid = fields.One2many('product.customerinfo', 'product_tmpl_id', string='Customer PID')
 	
+	quotation_count = fields.Integer(compute='_quotation_count' , string='# Quotation')
 
 	@api.multi
 	def action_view_quotations(self):
@@ -28,11 +34,14 @@ class ProductTemplateInherited(models.Model):
 			'context': "{'default_product_id': " + str(product_ids[0]) + "}",
 			'res_model': action.res_model,
 			'domain': [('state', 'in', ['draft', 'sent']), ('product_id.product_tmpl_id', '=', self.id)],
-			# 'domain': [('state', 'in', ['sale', 'done']), ('product_id.product_tmpl_id', '=', self.id)],
-			
+			# 'domain': [('state', 'in', ['sale', 'done']), ('product_id.product_tmpl_id', '=', self.id)],		
 		}
-# class ResPartnerInherited(models.Model):
-# 	_inherit = 'res.partner'
+
+	@api.multi
+	@api.depends('product_variant_ids.quotation_count')
+	def _quotation_count(self):
+		for product in self:
+			product.quotation_count = sum([p.quotation_count for p in product.product_variant_ids])
 
 class ProductCustomerInfo(models.Model):
 
