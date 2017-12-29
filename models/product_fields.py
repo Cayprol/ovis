@@ -39,10 +39,10 @@ class ProductCustomerInfo(models.Model):
 
 	_description = 'Information about a product customer'
 
-	name = fields.Many2one('res.partner', string='Customer Name', index=True, domain=[('customer', '=?', True)], ondelete='restrict', onupdate='cascade', required=True, help='Customer relates to this product')
+	name = fields.Many2one('res.partner', string='Customer', index=True, domain=[('customer', '=?', True)], ondelete='restrict', onupdate='cascade', required=True, help='Customer relates to this product')
+
+	product_code = fields.Char(string='Customer PID', required=True, index=True, help="This customer's product code will be used when the customer sends request of quotation to us.")
 
 	product_tmpl_id = fields.Many2one('product.template', string='Product Name', ondelete='restrict', onupdate='cascade', index = True, readonly=True)
-
-	product_code = fields.Char(string='Customer Product Code', required=True, help="This customer's product code will be used when the customer sends request of quotation to us.")
 
 	company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id.id, index=1)
