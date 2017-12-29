@@ -9,7 +9,7 @@ from odoo import models, fields, api
 class ProductTemplateInherited(models.Model):
 	_inherit = 'product.template'
 
-	customer_pid = fields.One2many('product.customerinfo', 'name', string='Customer PID')
+	customer_pid = fields.One2many('product.customerinfo', 'product_tmpl_id', string='Customer PID')
 	
 
 	@api.multi
@@ -40,6 +40,8 @@ class ProductCustomerInfo(models.Model):
 	_description = 'Information about a product customer'
 
 	name = fields.Many2one('res.partner', 'Customer', index=True, domain=[('customer', '=?', True)], ondelete='restrict', required=True, help='Customer relates to this product')
+
+	product_tmpl_id = fields.Many2one('product.template', 'customer_pid', string='product_tmpl_id')
 
 	pid = fields.Char(string='Product ID', required=True)
 
