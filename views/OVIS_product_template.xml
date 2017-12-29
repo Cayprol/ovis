@@ -31,7 +31,7 @@
 					<field name="customer_pid" nolabel="1" context="{}" modifiers="{}">
 						<tree>
 							<field name="name"/>
-							<field name="pid"/>
+							<field name="product_code"/>
 							<field name="__last_update"/>
 						</tree>
 					</field>
