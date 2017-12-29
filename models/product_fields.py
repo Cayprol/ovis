@@ -14,7 +14,7 @@ from odoo import models, fields, api
 class ProductTemplateInherited(models.Model):
 	_inherit = 'product.template'
 
-	customer_pid = fields.One2many('product.customerinfo', 'product_tmpl_id', string='Customer PID')
+	customer_pid = fields.One2many('product.customerinfo', 'product_tmpl_id', string='Customer Product ID')
 	
 	quotation_count = fields.Integer(compute='_quotation_count' , string='# Quotation')
 
