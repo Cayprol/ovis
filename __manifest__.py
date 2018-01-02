@@ -6,5 +6,6 @@
 	'website': 'http://www.ovis.com.tw',
 	'version': '0.1',
 	'depends': ['base', 'sale', 'product'],
-	'data': ['views/OVIS_product_template.xml'], 
+	'data': ['views/OVIS_product_template.xml'],
+	'installable': True,
 }
