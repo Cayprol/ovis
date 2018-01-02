@@ -1,4 +1,5 @@
-﻿{
+﻿# -*- coding: utf-8 -*-
+{
 	'name': 'OVIS',
 	'description': 'Custom module for OVIS',
 	'author': 'Justin Chen',
