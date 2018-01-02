@@ -13,5 +13,5 @@
 	'version': '1.0',
 	'depends': ['base', 'sale', 'product'],
 	'data': ['views/OVIS_product_template.xml'],
-	'installable': True,
+	
 }
