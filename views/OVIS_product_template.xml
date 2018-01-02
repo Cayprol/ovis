@@ -26,7 +26,7 @@
 				</group>
 
 				<!-- Add Customer Product ID table -->
-				<xpath expr="//group[@name='sale_condition']" position="after">
+				<xpath expr="//group[@name='sale']" position="after">
 					<separator string="Customer Info" colspan="4"/>
 					<field name="customer_pid" nolabel="1" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}" modifiers="{}">
 						<tree>
