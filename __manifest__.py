@@ -8,7 +8,7 @@
 			- Additional Shortcut to Views
 	""",
 	'author': "Cayprol",
-	'website': 'http://www.ovis.com.tw',
+	'website': "http://www.ovis.com.tw",
 	'category': 'Test',
 	'version': '1.0',
 	'depends': ['base', 'sale', 'product'],
