@@ -1,4 +1,4 @@
-﻿#　-*- coding: utf- -*-
+﻿#　-*- coding: utf-8 -*-
 {
 	'name': "OVIS",
 	'summary': 'Custom module for OVIS',
