@@ -1,7 +1,7 @@
 ﻿#　-*- coding: utf-8 -*-
 {
 	'name': "OVIS",
-	'summary': 'Custom module for OVIS',
+	'summary': """Custom module for OVIS""",
 	'description': """Custom module for OVIS
 		OVIS module for daily operation:
 			- Additional Product Fields
