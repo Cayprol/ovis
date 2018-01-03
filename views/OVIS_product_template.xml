@@ -38,7 +38,7 @@
 				</xpath>
 
 				<!-- Add Product Description(Specs) & Re-layout -->
-				<xpath expr="//group[@name='description']" position="replace">
+<!-- 				<xpath expr="//group[@name='description']" position="replace">
 					<group name="description">
 						<separator string="Description for Product" colspan="4"/>
 						<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
@@ -49,7 +49,7 @@
 						<separator string="Description for Pickings" colspan="4"/>
 						<field name="description_picking" placeholder="Description for Pickings (Rack, Row and Case Information)" nolabel="1" colspan="4" modifiers="{}"/>
 					</group>										
-				</xpath>
+				</xpath> -->
 
 			</field>
 		</record>
