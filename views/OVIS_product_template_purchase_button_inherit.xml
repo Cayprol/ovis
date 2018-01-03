@@ -7,7 +7,7 @@
 			<field name="name">product.template.purchase.button.inherit.ovis</field>
 			<field name="inherit_id" ref="purchase.view_product_template_purchase_buttons_from"></field>
 			<field name="arch" type="xml">
-
+<!-- 
 				<xpath expr="//field[@name='arch']" position="replace">
 					<field name="arch" type="xml">
 						<button name="action_view_quotations" position="after">
@@ -16,7 +16,7 @@
 							</button>
 						</button>
 					</field>
-				</xpath>
+				</xpath> -->
 
 			</field>
 		</record>
