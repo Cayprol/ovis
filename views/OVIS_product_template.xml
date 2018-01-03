@@ -38,18 +38,13 @@
 				</xpath>
 
 				<!-- Add Product Description(Specs) & Re-layout -->
-<!-- 				<xpath expr="//group[@name='description']" position="replace">
-					<group name="description">
-						<separator string="Description for Product" colspan="4"/>
-						<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
-						<separator string="Description for Quotations" colspan="4"/>
-						<field name="description_sale" colspan="4" nolabel="1" placeholder="This note will be displayed on the quotations." modifiers="{}"/>
-						<separator string="Description for Vendors" colspan="4"/>
-						<field name="description_purchase" nolabel="1" placeholder="This note will be displayed on requests for quotation." colspan="4" modifiers="{}"/>
-						<separator string="Description for Pickings" colspan="4"/>
-						<field name="description_picking" placeholder="Description for Pickings (Rack, Row and Case Information)" nolabel="1" colspan="4" modifiers="{}"/>
-					</group>										
-				</xpath> -->
+				<xpath expr="//page[@name='notes']" position="after">
+					<group name="specification" modifiers="{}">
+						<group string="Specification" modifiers="{}">
+							<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
+						</group>
+					</group>
+				</xpath>
 
 			</field>
 		</record>
