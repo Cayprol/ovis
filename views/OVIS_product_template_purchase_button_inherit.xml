@@ -9,13 +9,13 @@
 			<field name="arch" type="xml">
 				
 				<xpath expr="//field[@name='arch']" position="replace">
-					<!-- <field name="arch" type="xml"> -->
-					<button name="action_view_quotations" position="after">
-						<button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d" type="action" icon="fa-shopping-cart">
-							<field string="Purchases" name="purchase_count" widget="statinfo"/>
+					<field name="arch" type="xml">
+						<button name="action_view_quotations" position="after">
+							<button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d" type="action" icon="fa-shopping-cart">
+								<field string="Purchases" name="purchase_count" widget="statinfo"/>
+							</button>
 						</button>
-					</button>
-					<!-- </field> -->
+					</field>
 				</xpath>
 
 			</field>
