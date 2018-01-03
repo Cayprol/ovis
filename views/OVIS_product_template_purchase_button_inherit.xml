@@ -8,14 +8,9 @@
 			<field name="inherit_id" ref="purchase.view_product_template_purchase_buttons_from"></field>
 			<field name="arch" type="xml">
 
-				<xpath expr="//field[@name='arch']" position="replace">
-					<field name="arch" type="xml">
-						<button name="action_view_quotations" position="after">
-							<button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d" type="action" icon="fa-shopping-cart">
-								<field string="Purchases" name="purchase_count" widget="statinfo"/>
-							</button>
-						</button>
-					</field>
+				<xpath expr="//button[@name='toggle_active']" position="attributes">
+					<attribute name="name">action_view_quotations</attribute>
+					<attribute name="position">after</attribute>
 				</xpath>
 
 			</field>
