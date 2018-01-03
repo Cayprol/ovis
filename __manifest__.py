@@ -27,6 +27,7 @@
         # 'security/ir.model.access.csv',
         'views/OVIS_product_template.xml',
         'views/OVIS_product_template_purchase_button_inherit.xml',
+        
     ],
 }
 
