@@ -41,7 +41,7 @@
 				<xpath expr="//group[@name='description']" position="before">
 					<group name="specification" modifiers="{}">
 						<group string="Specification" modifiers="{}">
-							<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
+							<field name="description" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
 						</group>
 					</group>
 				</xpath>
