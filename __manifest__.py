@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 {
     'name': "OVIS",
 
@@ -24,7 +24,7 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'views/OVIS_product_template_purchase_button_inherit.xml',
         'views/OVIS_product_template.xml',
     ],
 }
