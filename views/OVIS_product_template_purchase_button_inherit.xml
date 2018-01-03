@@ -8,7 +8,7 @@
 			<field name="inherit_id" ref="purchase.view_product_template_purchase_buttons_from"></field>
 			<field name="arch" type="xml">
 
-				<xpath expr="//button[@name="toggle_active"]" position="replace">
+				<xpath expr="//button[@name='toggle_active']" position="replace">
 					<button class="oe_stat_button" name="324" type="action" icon="fa-shopping-cart">
 						<field string="testingP" name="purchase_count" widget="statinfo"/>
 					</button>
