@@ -38,7 +38,7 @@
 				</xpath>
 
 				<!-- Add Product Description(Specs) & Re-layout -->
-				<xpath expr="//page[@name='notes']" position="after">
+				<xpath expr="//group[@name='description']" position="before">
 					<group name="specification" modifiers="{}">
 						<group string="Specification" modifiers="{}">
 							<field name="description" colspan="4" nolabel="1" placeholder="Description of the Prodcut Specification" modifiers="{}"/>
