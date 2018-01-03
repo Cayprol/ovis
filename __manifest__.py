@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 {
     'name': "OVIS",
 
@@ -23,6 +23,9 @@
     'depends': ['base', 'sale', 'product'],
 
     # always loaded
-    'data': ['views/OVIS_product_template.xml'],
+    'data': [
+        # 'security/ir.model.access.csv',
+        'views/OVIS_product_template.xml',
+    ],
 }
 
