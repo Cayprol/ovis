@@ -23,10 +23,6 @@
     'depends': ['base', 'sale', 'product'],
 
     # always loaded
-    'data': [
-        # 'security/ir.model.access.csv',
-        'views/OVIS_product_template.xml',
-        'views/OVIS_product_template_purchase_button_inherit.xml',
-        ],
+    'data': ['views/OVIS_product_template.xml', 'views/OVIS_product_template_purchase_button_inherit.xml',],
 }
 
