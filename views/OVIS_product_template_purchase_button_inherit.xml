@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<odoo>
+<!-- <odoo>
 	<data>
         <record id="purchase.view_product_template_purchase_buttons_from" model="ir.ui.view">
         	<field name="name">product.template.purchase.button.inherit</field>
@@ -13,6 +13,25 @@
 						<field string="Purchases" name="purchase_count" widget="statinfo"/>
 					</button>
 				</button>
+			</field>
+		</record>
+	</data>
+</odoo> -->
+<odoo>
+	<data>
+        <record id="view_product_template_purchase_buttons_from_OVIS" model="ir.ui.view">
+        	<field name="name">product.template.purchase.button.inherit.OVIS</field>
+        	<field name="model">purchase</field>
+        	<field name="inherit_id" ref="purchase.view_product_template_purchase_buttons_from"/>
+        	<field name="arch" type="xml">
+				<xpath expr="//button[@name='toggle_active']" position="replace">
+	                <button name="action_view_sales" position="before">
+	                   <button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d"
+	                       type="action" icon="fa-shopping-cart">
+	                       <field string="Purchases" name="purchase_count" widget="statinfo"/>
+	                   </button>
+	                </button>
+				</xpath>
 			</field>
 		</record>
 	</data>
