@@ -5,96 +5,14 @@
 		<record model="ir.ui.view" id="product_description">
 			<field name="model">product.template</field>
 			<field name="name">product.template.product.form.ovis</field>
-    	    <field name="inherit_id" ref="product.product_template_only_form_view"></field>
+			<field name="inherit_id" ref="product.product_template_only_form_view"></field>
 			<field name="arch" type="xml">
 
 				<!-- Add Quotation Smart Button -->
-				<xpath expr="//div[@name='button_box']" position="replace">
-					<button name="113" type="action" icon="fa-sitemap" class="oe_stat_button" invisible="1" modifiers="{'invisible':true}" options="{}">
-						<field string="Variants" name="product_variant_count" widget="statinfo" modifiers="{'readonly':true}"/>
-					</button>
-
-					<button type="object" name="action_open_quants" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-building-o" modifiers="{'invisible':[['type','!=','product']]}" options="{}">
-						<field name="qty_available" widget="statinfo" string="On Hand" modifiers="{'readonly':true}"/>
-					</button>
-
-					<button class="oe_stat_button" name="369" type="action" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" icon="fa-flask" modifiers="{'invisible':[['type','not in',['product','consu']]]}" options="{}">
-						<field string="Bill of Materials" name="bom_count" widget="statinfo" modifiers="{'readonly':true}"/>
-					</button>
-
-					<button string="Product Moves" type="object" name="action_view_stock_move_lines" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" class="oe_stat_button" icon="fa-arrows-v" modifiers="{'invisible':[['type','not in',['product','consu']]]}" options="{}"/>
-
-					<button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-usd" modifiers="{}" options="{}">
-						<field string="Sales" name="sales_count" widget="statinfo" modifiers="{'readonly':true}"/>
-					</button>
-
+				<xpath expr="//button[@name='action_view_sales']" position="after">
 					<button class="oe_stat_button" name="action_view_quotations" type="object" icon="fa-strikethrough" modifiers="{}" options="{}">
 						<field string="Quotes" name="quotation_count" widget="statinfo" modifiers="{'readonly':true}"/>
 					</button>
-
-					<button class="oe_stat_button" name="324" type="action" icon="fa-shopping-cart" modifiers="{}" options="{}">
-						<field string="Purchases" name="purchase_count" widget="statinfo" modifiers="{'readonly':true}"/>
-					</button>
-
-					<button type="action" name="258" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-building-o" modifiers="{'invisible':[['type','!=','product']]}" options="{}">
-						<div class="o_field_widget o_stat_info" modifiers="{}">
-							<span class="o_stat_value" modifiers="{}">
-								<field name="virtual_available" widget="statinfo" nolabel="1" modifiers="{'readonly':true}"/>
-								<span attrs="{'invisible':[('outgoing_qty', '=', 0),('incoming_qty','=',0)]}" modifiers="{'invisible':[['outgoing_qty','=',0],['incoming_qty','=',0]]}">
-									
-				                                (-
-									<field name="outgoing_qty" widget="statinfo" nolabel="1" modifiers="{'readonly':true}"/>
-									+
-									<field name="incoming_qty" widget="statinfo" nolabel="1" modifiers="{'readonly':true}"/>
-									)
-				                            
-								</span>
-							</span>
-							<span class="o_stat_text" modifiers="{}">
-								Forecasted
-							</span>
-						</div>
-					</button>
-					
-					<button string="Inventory Valuation" type="object" name="action_open_product_moves" class="oe_stat_button" icon="fa-cubes" attrs="{'invisible': [('cost_method', '=', 'standard')]}" modifiers="{'invisible':[['cost_method','=','standard']]}" options="{}"/>
-					<button type="object" name="action_view_orderpoints" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}" class="oe_stat_button" icon="fa-refresh" modifiers="{'invisible':['|',['type','!=','product'],['nbr_reordering_rules','==',1]]}" options="{}">
-						<field name="nbr_reordering_rules" widget="statinfo" modifiers="{'readonly':true}"/>
-					</button>
-
-					<button type="object" name="action_view_orderpoints" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '!=', 1)]}" class="oe_stat_button" icon="fa-refresh" modifiers="{'invisible':['|',['type','!=','product'],['nbr_reordering_rules','!=',1]]}" options="{}">
-						<div class="o_field_widget o_stat_info mr4" modifiers="{}">
-							<span class="o_stat_text" modifiers="{}">
-								Min:
-							</span>
-							<span class="o_stat_text" modifiers="{}">
-								Max:
-							</span>
-						</div>
-						<div class="o_field_widget o_stat_info" modifiers="{}">
-							<span class="o_stat_value" modifiers="{}">
-								<field name="reordering_min_qty" modifiers="{'readonly':true}"/>
-							</span>
-							<span class="o_stat_value" modifiers="{}">
-								<field name="reordering_max_qty" modifiers="{'readonly':true}"/>
-							</span>
-						</div>
-					</button>
-					
-					<button string="Routes" type="object" name="action_view_routes" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-cogs" modifiers="{'invisible':[['type','!=','product']]}" options="{}"/>
-					<button string="Lot/Serial Number" type="object" name="action_open_product_lot" class="oe_stat_button" icon="fa-bars" invisible="1" modifiers="{'invisible':true}" options="{}"/>
-
-					<button class="oe_stat_button" name="action_used_in_bom" type="object" attrs="{'invisible':['|',('type', 'not in', ['product', 'consu']), ('used_in_bom_count', '=', 0)]}" icon="fa-level-up" modifiers="{'invisible':['|',['type','not in',['product','consu']],['used_in_bom_count','=',0]]}" options="{}">
-						<field string="Used In" name="used_in_bom_count" widget="statinfo" modifiers="{'readonly':true}"/>
-					</button>
-
-					<button class="oe_stat_button" name="action_view_mos" type="object" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" icon="fa-list-alt" modifiers="{'invisible':[['type','not in',['product','consu']]]}" options="{}">
-						<field string="Manufacturing" name="mo_count" widget="statinfo" modifiers="{'readonly':true}"/>
-					</button>
-
-					<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive" modifiers="{}" options="{}">
-						<field name="active" widget="boolean_button" options="{'terminology': 'archive'}" modifiers="{}"/>
-					</button>
-					
 				</xpath>
 
 				<!-- Hide Field: Barcode -->
