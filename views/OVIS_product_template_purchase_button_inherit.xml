@@ -17,7 +17,7 @@
 		</record>
 	</data>
 </odoo> -->
-<odoo>
+<!-- <odoo>
 	<data>
         <record id="view_product_template_purchase_buttons_from_OVIS" model="ir.ui.view">
         	<field name="name">product.template.purchase.button.inherit.OVIS</field>
@@ -35,4 +35,4 @@
 			</field>
 		</record>
 	</data>
-</odoo>
+</odoo> -->

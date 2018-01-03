@@ -15,6 +15,12 @@
 					</button>
 				</xpath>
 
+				<xpath expr="//button[@name='action_view_sales']" position="after">
+	                <button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d" type="action" icon="fa-shopping-cart">
+                       <field string="Purchases" name="purchase_count" widget="statinfo"/>
+                   </button>
+				</xpath>
+
 				<!-- Hide Field: Barcode -->
 				<xpath expr="//field[@name='barcode']" position="replace">
 					<field name="barcode" invisible="1" modifiers="{'invisible': true}"/>
