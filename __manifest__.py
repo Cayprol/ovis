@@ -20,8 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    # 'depends': ['base', 'sale', 'product', 'purchase', 'stock'],
-    'depends': ['base', 'sale', 'product'],
+    'depends': ['base', 'sale', 'product', 'purchase'],
     # always loaded
     'data': [
         'views/override.xml',
