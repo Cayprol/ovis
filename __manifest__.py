@@ -24,7 +24,7 @@
 
     # always loaded
     'data': [
-        # 'views/OVIS_product_template_purchase_button_inherit.xml',
+        'views/OVIS_product_template_purchase_button_inherit.xml',
         'views/OVIS_product_template.xml',
     ],
 }
