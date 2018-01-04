@@ -10,7 +10,7 @@
         	<field name="inherit_id" ref="product.product_template_only_form_view"/>
         	<field name="groups_id" eval="[(4, ref('purchase.group_purchase_user'))]"/>
         	<field name="arch" type="xml">
-				<button name="action_view_sales" position="after">
+				<button name="action_open_quants" position="after">
 					<button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d" type="action" icon="fa-shopping-cart">
 						<field string="Purchases" name="purchase_count" widget="statinfo"/>
 					</button>
@@ -19,7 +19,7 @@
 		</record>
 
 		<!-- Override product_template_form_view_procurement_button in stock -->
-		<record id="stock.product_template_form_view_procurement_button" model="ir.ui.view">
+<!-- 		<record id="stock.product_template_form_view_procurement_button" model="ir.ui.view">
 			<field name="name">product.template_procurement</field>
 			<field name="model">product.template</field>
 			<field name="inherit_id" ref="product.product_template_only_form_view"/>
@@ -35,18 +35,7 @@
 						<button type="object" name="action_open_quants" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-building-o">
 							<field name="qty_available" widget="statinfo" string="On Hand"/>
 						</button>
-
-<!-- 						<button type="action" name="%(stock.action_stock_level_forecast_report_template)d" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-building-o">
-							<div class="o_field_widget o_stat_info">
-								<span class="o_stat_value"><field name="virtual_available" widget="statinfo" nolabel="1"/>
-									<span attrs="{'invisible':[('outgoing_qty', '=', 0),('incoming_qty','=',0)]}" groups="base.group_no_one">
-		                                (-<field name="outgoing_qty" widget="statinfo" nolabel="1"/>+<field name="incoming_qty" widget="statinfo" nolabel="1"/>)
-									</span>
-								</span>
-								<span class="o_stat_text">Forecasted</span>
-							</div>
-						</button> -->
-		                
+	                
 						<button string="Product Moves" type="object" name= "action_view_stock_move_lines" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" class="oe_stat_button" icon="fa-arrows-v" groups="stock.group_stock_user"/>
 						<button type="object"
 		                    name="action_view_orderpoints"
@@ -100,7 +89,7 @@
 
 		        </data>
 		    </field>
-		</record>		
+		</record> -->		
 
 	</data>
 </odoo>
