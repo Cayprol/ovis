@@ -12,7 +12,7 @@
         	<field name="arch" type="xml">
 				<button name="action_view_sales" position="after">
 					<button class="oe_stat_button" name="%(purchase.action_purchase_line_product_tree)d" type="action" icon="fa-shopping-cart">
-						<field string="Purchases" name="puchase.purchase_count" widget="statinfo"/>
+						<field string="Purchases" name="purchase.purchase_count" widget="statinfo"/>
 					</button>
 				</button>
 			</field>
