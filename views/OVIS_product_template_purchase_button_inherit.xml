@@ -1,6 +1,6 @@
-<!-- <?xml version="1.0" encoding="utf-8" ?> -->
+<?xml version="1.0" encoding="utf-8" ?>
 
-<!-- <odoo>
+<odoo>
 	<data>
         <record id="purchase.view_product_template_purchase_buttons_from" model="ir.ui.view">
         	<field name="name">product.template.purchase.button.inherit</field>
@@ -16,7 +16,7 @@
 			</field>
 		</record>
 	</data>
-</odoo> -->
+</odoo>
 <!-- <odoo>
 	<data>
         <record id="view_product_template_purchase_buttons_from_OVIS" model="ir.ui.view">
