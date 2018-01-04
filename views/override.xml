@@ -27,7 +27,7 @@
 				<data>
 
 					<header position="inside">
-						<button name="%(action_view_change_product_quantity)d" string="Update Qty On Hand" type="action" attrs="{'invisible': [('type', '!=', 'product')]}"/>
+						<button name="%(stock.action_view_change_product_quantity)d" string="Update Qty On Hand" type="action" attrs="{'invisible': [('type', '!=', 'product')]}"/>
 					</header>
 
 					<button name="toggle_active" position="before">
