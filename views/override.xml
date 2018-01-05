@@ -56,8 +56,6 @@
 							</div>
 						</button>
 
-						<button string="Routes" type="object" name="action_view_routes" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-cogs" groups="base.group_no_one"/>
-
 						<button string="Lot/Serial Number" type="object" name="action_open_product_lot" attrs="{'invisible': [('tracking', '=', 'none')]}" class="oe_stat_button" icon="fa-bars" groups="stock.group_production_lot"/>
 
 					</button>
@@ -73,6 +71,9 @@
 								<span class="o_stat_text">Forecasted</span>
 							</div>
 						</button>
+
+						<button string="Routes" type="object" name="action_view_routes" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-cogs" groups="base.group_no_one"/>
+					
 					</button>
 
 		            
@@ -86,7 +87,7 @@
 
 		        </data>
 		    </field>
-		</record>	
+		</record>
 
 	</data>
 </odoo>
