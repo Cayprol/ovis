@@ -57,8 +57,8 @@ class ProductCustomerInfo(models.Model):
 		help="Vendor of this product")
 
     product_name = fields.Char(
-    	'Vendor Product Name', 
-    	help="This vendor's product name will be used when printing a request for quotation. Keep empty to use the internal one.")
+		'Vendor Product Name', 
+		help="This vendor's product name will be used when printing a request for quotation. Keep empty to use the internal one.")
 
 	product_code = fields.Char(
 		'Vendor Product Code', 
