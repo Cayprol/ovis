@@ -56,7 +56,7 @@ class ProductCustomerInfo(models.Model):
 		domain=[('supplier', '=', True)], ondelete='cascade', required=True, 
 		help="Vendor of this product")
 
-    product_name = fields.Char('Vendor Product Name', help="This vendor's product name will be used when printing a request for quotation. Keep empty to use the internal one.")
+	product_name = fields.Char('Vendor Product Name', help="This vendor's product name will be used when printing a request for quotation. Keep empty to use the internal one.")
 
 	product_code = fields.Char(
 		'Vendor Product Code', 
