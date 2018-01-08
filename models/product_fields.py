@@ -62,7 +62,7 @@ class ProductCustomerInfo(models.Model):
 		'Vendor Product Code', 
 		help="This vendor's product code will be used when printing a request for quotation. Keep empty to use the internal one.")
 
-    sequence = fields.Integer( 
+	sequence = fields.Integer( 
     	'Sequence', default=1, help="Assigns the priority to the list of product vendor.")
 
 	product_uom = fields.Many2one(
@@ -70,7 +70,7 @@ class ProductCustomerInfo(models.Model):
 		readonly="1", related='product_tmpl_id.uom_po_id',
 		help="This comes from the product form.")
 
-    min_qty = fields.Float(
+	min_qty = fields.Float(
 		'Minimal Quantity', default=0.0, required=True, 
     	help="The minimal quantity to purchase from this vendor, expressed in the vendor Product Unit of Measure if not any, in the default unit of measure of the product otherwise.")
     
