@@ -49,9 +49,9 @@ class ProductCustomerInfo(models.Model):
 
 	_description = 'Information about a product customer'
     
-    _order = 'sequence, min_qty desc, price'
-
-    name = fields.Many2one(
+	_order = 'sequence, min_qty desc, price'
+	
+	name = fields.Many2one(
         'res.partner', 'Vendor',
         domain=[('supplier', '=', True)], ondelete='cascade', required=True,
         help="Vendor of this product")
