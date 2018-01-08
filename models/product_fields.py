@@ -55,4 +55,4 @@ class ProductCustomerInfo(models.Model):
 
 	product_tmpl_id = fields.Many2one('product.template', string='Product Name', ondelete='restrict', onupdate='cascade', index = True, readonly=True)
 
-company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id.id, index=1)
+	company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id.id, index=1)
