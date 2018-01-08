@@ -26,17 +26,19 @@
 				</group>
 
 				<!-- Add Customer Product ID table -->
-				<xpath expr="//group[@name='sale']" position="after">
-					<separator string="Customer Info" colspan="4"/>
-					<!-- <field name="customer_pid" nolabel="1" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}" modifiers="{}"> -->
-					<field name="customer_pid" nolabel="1" context="{}" modifiers="{}">
+				<xpath expr="//group[@name='sale']" position="inside">
+					<group string="Customers" name="customers" attrs="{'invisible': [('product_variant_count','&gt;',1)]}" modifiers="{'invisible':[['product_variant_count','&gt;',1]]}">
+						<field name="customer_pid" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}" nolabel="1" modifiers="{}"/>
+					</group>
+
+<!-- 					<field name="customer_pid" nolabel="1" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}" modifiers="{}">
 						<tree>
 							<field name="name"/>
-							<!-- <field name="product_name"/> -->
+							<field name="product_name"/>
 							<field name="product_code"/>
 							<field name="__last_update"/>
 						</tree>
-					</field>
+					</field> -->
 				</xpath>
 
 				<!-- Add Product Description(Specs) & Re-layout -->
