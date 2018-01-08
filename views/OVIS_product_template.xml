@@ -26,7 +26,7 @@
 				</group>
 
 				<!-- Add Customer Product ID table -->
-				<xpath expr="//group[@name='sale']" position="inside">
+				<xpath expr="//page[@name='sales']" position="inside">
 					<group string="Customers" name="customers" attrs="{}" modifiers="{}">
 						<field name="customer_pid" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id)}" nolabel="1" modifiers="{}"/>
 					</group>
