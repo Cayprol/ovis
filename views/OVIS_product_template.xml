@@ -37,15 +37,6 @@
 							</tree>
 						</field>
 					</group>
-
-<!-- 					<field name="customer_pid" nolabel="1" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}" modifiers="{}">
-						<tree>
-							<field name="name"/>
-							<field name="product_name"/>
-							<field name="product_code"/>
-							<field name="__last_update"/>
-						</tree>
-					</field> -->
 				</xpath>
 
 				<!-- Add Product Description(Specs) & Re-layout -->
