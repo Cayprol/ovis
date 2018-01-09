@@ -29,7 +29,7 @@
 				<xpath expr="//page[@name='sales']" position="inside">
 					<group string="Customers" name="customers" attrs="{}" modifiers="{}">
 						<field name="customer_pid" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id)}" nolabel="1" modifiers="{}">
-							<tree string="pid">
+							<tree string="pid" editable="bottom">
 								<field name="name"/>
 								<field name="product_name"/>
 								<field name="product_code"/>
