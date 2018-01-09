@@ -17,7 +17,7 @@ class ProductTemplateInherited(models.Model):
 	@api.multi
 	def action_view_quotations(self):
 		self.ensure_one()
-		action = self.env.ref('sale.action_product_sale_list')
+		action = self.env.ref('OVIS.action_product_quotation_list')
 		product_ids = self.with_context(active_test=False).product_variant_ids.ids
 
 		return {
@@ -34,12 +34,12 @@ class ProductTemplateInherited(models.Model):
 		}
 
 	@api.multi
-	@api.depends('product_variant_ids.quotation_count')
+	@api.depends('product_variant_ids.sales_count')
 	def _quotation_count(self):
 		for product in self:
 			product.quotation_count = sum([p.quotation_count for p in product.product_variant_ids])
 
-	
+
 	customer_pid = fields.One2many('product.customerinfo', 'product_tmpl_id', string='Customer Product ID')
 	
 	quotation_count = fields.Integer(compute='_quotation_count' , string='# Quotation')
