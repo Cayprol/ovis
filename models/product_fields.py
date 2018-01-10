@@ -13,8 +13,6 @@ from odoo import models, fields, api
 
 class ProductTemplateInherited(models.Model):
 	
-	_name = 'product.template.inherited'
-
 	_inherit = 'product.template'
 	
 	@api.multi
@@ -41,7 +39,7 @@ class ProductTemplateInherited(models.Model):
 	def _quotation_count(self):
 		for product in self:		
 			product.quotation_count = sum([p.quotation_count for p in product.product_variant_ids])
-    	return True
+		# return True
 
 
 	customer_pid = fields.One2many('product.customerinfo', 'product_tmpl_id', string='Customer Product ID')
@@ -49,8 +47,6 @@ class ProductTemplateInherited(models.Model):
 	quotation_count = fields.Integer(compute='_quotation_count' , string='# Quotation')
 
 class ProductProductInherited(models.Model):
-
-	_name = 'product.product.inherited'
 
 	_inherit = 'product.product'
 
