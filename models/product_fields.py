@@ -62,18 +62,18 @@ class ProductProductInherited(models.Model):
 	# 		product.quotation_count = len(PurchaseOrderLines.filtered(lambda r: r.product_id == product).mapped('order_id'))
 
 
-    @api.multi
-    def _quotation_count(self):
-        r = {}
-        domain = [
-            ('state', 'in', ['draft', 'sent']),
-            ('product_id', 'in', self.ids),
-        ]
-        for group in self.env['sale.report'].read_group(domain, ['product_id', 'product_uom_qty'], ['product_id']):
-            r[group['product_id'][0]] = group['product_uom_qty']
-        for product in self:
-            product.quotation_count = r.get(product.id, 0)
-        return r
+	@api.multi
+	def _quotation_count(self):
+		r = {}
+		domain = [
+			('state', 'in', ['draft', 'sent']),
+			('product_id', 'in', self.ids),
+		]
+		for group in self.env['sale.report'].read_group(domain, ['product_id', 'product_uom_qty'], ['product_id']):
+			r[group['product_id'][0]] = group['product_uom_qty']
+		for product in self:
+			product.quotation_count = r.get(product.id, 0)
+		return r
 
 	quotation_count = fields.Integer(compute='_quotation_count', string='# Quotation')
 
