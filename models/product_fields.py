@@ -50,18 +50,6 @@ class ProductProductInherited(models.Model):
 
 	_inherit = 'product.product'
 
-	# @api.multi
-	# def _quotation_count(self):
-	# 	domain = [
-	# 		('state', 'in', ['draft', 'sent']), 
-	# 		('product_id', 'in', self.mapped('id')),
-	# 		]
-
-	# 	PurchaseOrderLines = self.env['purchase.order.line'].search(domain)
-	# 	for product in self:
-	# 		product.quotation_count = len(PurchaseOrderLines.filtered(lambda r: r.product_id == product).mapped('order_id'))
-
-
 	@api.multi
 	def _quotation_count(self):
 		r = {}
@@ -76,8 +64,6 @@ class ProductProductInherited(models.Model):
 		return r
 
 	quotation_count = fields.Integer(compute='_quotation_count', string='# Quotation')
-
-    # sales_count = fields.Integer(compute='_sales_count', string='# Sales')
 
 
 class ProductCustomerInfo(models.Model):
