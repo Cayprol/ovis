@@ -12,6 +12,9 @@ from odoo import models, fields, api
 
 
 class ProductTemplateInherited(models.Model):
+	
+	_name = 'product.template.inherited'
+
 	_inherit = 'product.template'
 	
 	@api.multi
@@ -36,14 +39,49 @@ class ProductTemplateInherited(models.Model):
 	@api.multi
 	@api.depends('product_variant_ids.sales_count')
 	def _quotation_count(self):
-		for product in self:
+		for product in self:		
 			product.quotation_count = sum([p.quotation_count for p in product.product_variant_ids])
+    	return True
 
 
 	customer_pid = fields.One2many('product.customerinfo', 'product_tmpl_id', string='Customer Product ID')
 	
 	quotation_count = fields.Integer(compute='_quotation_count' , string='# Quotation')
 
+class ProductProductInherited(models.Model):
+
+	_name = 'product.product.inherited'
+
+	_inherit = 'product.product'
+
+	# @api.multi
+	# def _quotation_count(self):
+	# 	domain = [
+	# 		('state', 'in', ['draft', 'sent']), 
+	# 		('product_id', 'in', self.mapped('id')),
+	# 		]
+
+	# 	PurchaseOrderLines = self.env['purchase.order.line'].search(domain)
+	# 	for product in self:
+	# 		product.quotation_count = len(PurchaseOrderLines.filtered(lambda r: r.product_id == product).mapped('order_id'))
+
+
+    @api.multi
+    def _quotation_count(self):
+        r = {}
+        domain = [
+            ('state', 'in', ['draft', 'sent']),
+            ('product_id', 'in', self.ids),
+        ]
+        for group in self.env['sale.report'].read_group(domain, ['product_id', 'product_uom_qty'], ['product_id']):
+            r[group['product_id'][0]] = group['product_uom_qty']
+        for product in self:
+            product.quotation_count = r.get(product.id, 0)
+        return r
+
+	quotation_count = fields.Integer(compute='_quotation_count', string='# Quotation')
+
+    # sales_count = fields.Integer(compute='_sales_count', string='# Sales')
 
 
 class ProductCustomerInfo(models.Model):
