@@ -9,7 +9,7 @@
 			<field name="arch" type="xml">
 
 				<xpath expr="//field[@name='partner_id']" position="after">
-					<field name="passed_override_write_function" string="passed"/>
+					<field name="material_work_order" string="passed"/>
 				</xpath>
 
 			</field>
