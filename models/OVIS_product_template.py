@@ -2,15 +2,6 @@
 
 from odoo import models, fields, api
 
-
-# class SaleOrderInherited(models.Model):
-# 	_inherit = 'sale.order' 
-
-		
-# class ResPartnerInherited(models.Model):
-# 	_inherit = 'res.partner'
-
-
 class ProductTemplateInherited(models.Model):
 	
 	_inherit = 'product.template'
