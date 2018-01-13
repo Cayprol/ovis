@@ -8,13 +8,13 @@ class SaleOrderInherited(models.Model):
 
 	passed_override_write_function = fields.Boolean(string='Has passed our super method')
 
-	@api.model
-	def create(self, values):
-		record = super(sale_order, self).create(values)
-		record['passed_override_write_function'] = True
-		print 'Passed this function. passed_override_write_function value: ' + str(record['passed_override_write_function'])
+	# @api.model
+	# def create(self, values):
+	# 	record = super(sale_order, self).create(values)
+	# 	record['passed_override_write_function'] = True
+	# 	print 'Passed this function. passed_override_write_function value: ' + str(record['passed_override_write_function'])
 
-	return record
+	# return record
 
 	# @api.model
 	# def create(self, vals):
