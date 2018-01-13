@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 class SaleOrderInherited(models.Model): 
 
-	_inherited = 'sale.order'
+	_inherit = 'sale.order'
 
 	passed_override_write_function = fields.Boolean(string='Has passed our super method')
 
