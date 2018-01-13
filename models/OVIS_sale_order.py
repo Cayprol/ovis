@@ -8,15 +8,15 @@ class SaleOrderInherited(models.Model):
 
 	material_work_order = fields.Boolean(string='MWO')
 
-	@api.model
-	def create(self, values):
-		record = super(sale_order, self).create(values)
-		if record['material_work_order'] == True:
-			pass
-		else:
-			pass
+	# @api.model
+	# def create(self, values):
+	# 	record = super(sale_order, self).create(values)
+	# 	if record['material_work_order'] == True:
+	# 		pass
+	# 	else:
+	# 		pass
 
-	return record
+	# return record
 
 	# @api.model
 	# def create(self, vals):
