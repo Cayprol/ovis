@@ -2,21 +2,21 @@
 
 from odoo import models, fields, api
 
-class SaleOrderInherited(models.Model): 
+# class SaleOrderInherited(models.Model): 
 
-	_inherit = 'sale.order'
+# 	_inherit = 'sale.order'
 
-	material_work_order = fields.Boolean(string='MWO')
+# 	material_work_order = fields.Boolean(string='MWO')
 
-	@api.model
-	def create(self, values):
-		record = super(sale_order, self).create(values)
-		if record['material_work_order'] == True:
-			pass
-		else:
-			pass
+# 	@api.model
+# 	def create(self, values):
+# 		record = super(sale_order, self).create(values)
+# 		if record['material_work_order'] == True:
+# 			pass
+# 		else:
+# 			pass
 
-	return record
+# 	return record
 
 	# @api.model
 	# def create(self, vals):
