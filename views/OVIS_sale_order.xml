@@ -14,7 +14,7 @@
 
 			</field>
 		</record> -->
-		<menuitem id="material_prepare" name="Material Prepare" parent="sale.Sales/Orders"/>
+		<menuitem id="material_prepare" name="Material Prepare" parent="sale.sale_menu_root"/>
 
 	</data>
 </odoo>
