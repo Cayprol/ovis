@@ -2,7 +2,7 @@
 
 <odoo>
 	<data>
-		<record model="ir.ui.view" id="OVIS_sale_order">
+<!-- 		<record model="ir.ui.view" id="OVIS_sale_order">
 			<field name="model">sale.order</field>
 			<field name="name">sale.order.form.ovis</field>
 			<field name="inherit_id" ref="sale.view_order_form"></field>
@@ -13,7 +13,8 @@
 				</xpath>
 
 			</field>
-		</record>
+		</record> -->
+		<menuitem id="material_prepare" name="Material Prepare" parent="Sales/Orders"/>
 
 	</data>
 </odoo>
