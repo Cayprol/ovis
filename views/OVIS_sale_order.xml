@@ -14,6 +14,22 @@
 
 			</field>
 		</record> -->
+<!-- 		<record model="ir.actions.act_window" id="OVIS_material_prepare_menu">
+			<field name="name">Material Prepare</field>
+			<field name="res_model">openacademy.course</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Create the first course</p>
+			</field>
+		</record> -->
+		<record id="OVIS_material_prepare_menu" model="ir.actions.act_window">
+			<field name="name">Material Prepare</field>
+			<field name="res_model">sale.order.line</field>
+			<field name="view_mode">tree</field>
+			<field name="context">{'search_default_product_id': [active_id], 'default_product_id': active_id}</field>
+			<field name="domain">[('state', 'in', ['draft', 'sent'])]</field>
+		</record>
 		<menuitem id="material_prepare" name="Material Prepare" parent="sale.sale_order_menu" sequence="4"/>
 
 	</data>
