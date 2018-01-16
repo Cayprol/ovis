@@ -12,11 +12,11 @@ class SaleOrderInherited(models.Model):
 	state = fields.Selection(selection_add=[('material_prepare','Material Preparing')])
 
 	# creating order in certain state
-	@api.one
+	@api.one # @api.multi & ensure_one()
 	def action_material_prepare(self):
 		self.state = 'material_prepare'
 
-		
+
 
 
 
