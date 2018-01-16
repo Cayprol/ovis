@@ -30,7 +30,7 @@
 			<field name="context">{'search_default_product_id': [active_id], 'default_product_id': active_id}</field>
 			<field name="domain">[('state', 'in', ['draft', 'sent'])]</field>
 		</record>
-		<menuitem id="material_prepare" name="Material Prepare" parent="sale.sale_order_menu" sequence="4"/>
+		<menuitem id="material_prepare" name="Material Prepare" parent="sale.sale_order_menu" sequence="4" action="OVIS_material_prepare_menu"/>
 
 	</data>
 </odoo>
