@@ -30,7 +30,7 @@ class SaleOrderInherited(models.Model):
 	# return record
 
 	@api.multi
-	def _action_prepare_material(self):
+	def action_prepare_material(self):
 		for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
 			order.message_subscribe([order.partner_id.id])
 

@@ -15,7 +15,7 @@
 				</xpath>				
 	
 				<xpath expr="//button[@name='action_cancel']" position="after">
-					<button name="_action_prepare_material" type="object" string="MP"/>
+					<button name="action_prepare_material" type="object" string="MP"/>
 				</xpath>
 
 			</field>
