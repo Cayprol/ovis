@@ -11,20 +11,6 @@ class SaleOrderInherited(models.Model):
 	# # Adding a state to exisiting states
 	state = fields.Selection(selection_add=[('material_prepare','Material Preparing')])
 
-
-	# # creating order in certain state
-	# @api.one # @api.multi & ensure_one()
-	# def action_material_prepare(self):
-	# 	self.state = 'material_prepare'
-
-	# @api.model
-	# def _action_confirm(self, values):
- #        # Override the original create function for the res.partner model
-	# 	record = super(sale_order, self)._action_confirm(values)
-
-	# # Return the record so that the changes are applied and everything is stored.
-	# return True
-
 	@api.multi
 	def action_prepare_material(self):
 		if self.is_prepare == True:
@@ -32,8 +18,15 @@ class SaleOrderInherited(models.Model):
 
 		return True
 
+	@api.model
+	def _action_confirm(self, vals):
 
+		record = super(sale_order, self)._action_confirm(vals)
 
+		if self.is_prepare == True:
+			self.write({'state': 'material_prepare', 'confirmation_date': fields.Datetime.now()})
+
+		
 ####################################################################################
 	# @api.multi
 	# def action_prepare_material(self):
@@ -48,12 +41,6 @@ class SaleOrderInherited(models.Model):
 	# 	return True
 ####################################################################################
 
-	# @api.multi
-	# def action_prepare_material(self):
-	# 	self._action_prepare_material()
-	# 	if self.env['ir.config_parameter'].sudo().get_param('sale.auto_done_setting'):
-	# 		self.action_done()
-	# 	return True
 
 	# @api.multi
 	# def _action_confirm(self):
