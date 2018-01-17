@@ -3,6 +3,22 @@
 <odoo>
 	<data>
 
+		<record model="ir.ui.view" id="view_order_form_ovis">
+			<field name="model">sale.order</field>
+			<field name="name">sale.view.order.form.ovis</field>
+			<field name="inherit_id" ref="sale.view_order_form"></field>
+			<field name="arch" type="xml">
+
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="material_prepare" string="material_prepare"/>
+
+				</xpath>				
+				
+
+
+			</field>
+		</record>
+		<!-- Adding view action OVIS_material_prepare_menu -->
 		<record id="view_material_prepare_tree" model="ir.ui.view">
 			<field name="name">material.prepare.order.tree</field>
 			<field name="model">sale.order</field>
@@ -32,26 +48,7 @@
 			<field name="context">{}</field>
 			<field name="domain">[('state', 'in', ['draft', 'sent'])]</field>
 		</record>
-<!--         <record id="action_orders" model="ir.actions.act_window">
-            <field name="name">Sales Orders</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">sale.order</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
-            <field name="search_view_id" ref="sale_order_view_search_inherit_sale"/>
-            <field name="context">{}</field>
-            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-                    Create a Quotation, the first step of a new sale.
-                </p><p>
-                    Once the quotation is confirmed, it becomes a sales order.
-                    You'll be able to invoice it and collect payments.
-                    From the <i>Sales Orders</i> menu, you can track delivery
-                    orders or services.
-                </p>
-            </field>
-        </record> -->
+
 		<!-- Adding menuitem to dispaly -->
 		<menuitem id="material_prepare" name="Material Prepare" parent="sale.sale_order_menu" sequence="4" action="OVIS_material_prepare_menu"/>
 
