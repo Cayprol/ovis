@@ -9,7 +9,7 @@ class SaleOrderInherited(models.Model):
 	material_prepare = fields.Boolean(string='Material Prepare')
 
 	# # Adding a state to exisiting states
-	# state = fields.Selection(selection_add=[('material_prepare','Material Preparing')])
+	state = fields.Selection(selection_add=[('material_prepare','Material Preparing')])
 
 	# # creating order in certain state
 	# @api.one # @api.multi & ensure_one()
