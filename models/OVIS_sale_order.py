@@ -16,13 +16,14 @@ class SaleOrderInherited(models.Model):
 	def action_material_prepare(self):
 		self.state = 'material_prepare'
 
-    @api.model
-    def _action_confirm(self, values):
+	@api.model
+	def _action_confirm(self, values):
         # Override the original create function for the res.partner model
-        record = super(sale_order, self)._action_confirm(values)
+		record = super(sale_order, self)._action_confirm(values)
 
-        if record['material_prepare'] == True:
-        	record['state'] = 'material_prepare'
+		if record['material_prepare'] == True:
+			# record['state'] = 'material_prepare'
+			self.write({'state': 'material_prepare', 'confirmation_date': fields.Datetime.now()})
 
         # Return the record so that the changes are applied and everything is stored.
 	return record
