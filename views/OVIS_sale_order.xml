@@ -10,7 +10,7 @@
 			<field name="arch" type="xml">
 
 				<xpath expr="//field[@name='partner_id']" position="after">
-					<field name="material_prepare" string="material_prepare"/>
+					<field name="is_prepare" string="is_prepare"/>
 					<field name="state" string="state" readonly="1"/>
 				</xpath>				
 	
