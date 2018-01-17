@@ -12,34 +12,36 @@ class SaleOrderInherited(models.Model):
 	state = fields.Selection(selection_add=[('material_prepare','Material Preparing')])
 
 
-	# # creating order in certain state
-	# @api.one # @api.multi & ensure_one()
-	# def action_material_prepare(self):
-	# 	self.state = 'material_prepare'
+	# creating order in certain state
+	@api.one # @api.multi & ensure_one()
+	def action_material_prepare(self):
+		self.state = 'material_prepare'
 
-	# @api.model
-	# def _action_confirm(self, values):
- #        # Override the original create function for the res.partner model
-	# 	record = super(sale_order, self)._action_confirm(values)
+	@api.model
+	def _action_confirm(self, values):
+        # Override the original create function for the res.partner model
+		record = super(sale_order, self)._action_confirm(values)
 
-	# 	if record['material_prepare'] == True:
-	# 		# record['state'] = 'material_prepare'
-	# 		self.write({'state': 'material_prepare', 'confirmation_date': fields.Datetime.now()})
+	# Return the record so that the changes are applied and everything is stored.
+	return True
 
- #        # Return the record so that the changes are applied and everything is stored.
-	# return record
 
-	@api.multi
-	def action_prepare_material(self):
-		for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
-			order.message_subscribe([order.partner_id.id])
 
-		self.write({'state': 'material_prepare', 'confirmation_date': fields.Datetime.now()})
 
-		if self.env.context.get('send_email'):
-			self.force_quotation_send()
 
-		return True
+####################################################################################
+	# @api.multi
+	# def action_prepare_material(self):
+	# 	for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
+	# 		order.message_subscribe([order.partner_id.id])
+
+	# 	self.write({'state': 'material_prepare', 'confirmation_date': fields.Datetime.now()})
+
+	# 	if self.env.context.get('send_email'):
+	# 		self.force_quotation_send()
+
+	# 	return True
+####################################################################################
 
 	# @api.multi
 	# def action_prepare_material(self):
