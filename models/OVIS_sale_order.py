@@ -19,14 +19,14 @@ class SaleOrderInherited(models.Model):
 		return True
 
 	@api.model
-	def _action_confirm(self, vals):
+	def _action_confirm(self):
 
-		record = super(sale_order, self)._action_confirm(vals)
+		record = super()._action_confirm()
 
 		if self.is_prepare == True:
 			self.write({'state': 'material_prepare', 'confirmation_date': fields.Datetime.now()})
 
-		
+
 ####################################################################################
 	# @api.multi
 	# def action_prepare_material(self):
