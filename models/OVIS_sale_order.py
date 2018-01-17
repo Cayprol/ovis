@@ -27,7 +27,7 @@ class SaleOrderInherited(models.Model):
 
 	@api.multi
 	def action_prepare_material(self):
-		if is_prepare == True:
+		if self.is_prepare == True:
 			self.write({'state': 'material_prepare', 'confirmation_date': fields.Datetime.now()})
 
 		return True
