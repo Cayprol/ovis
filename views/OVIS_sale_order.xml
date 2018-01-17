@@ -13,8 +13,10 @@
 					<field name="material_prepare" string="material_prepare"/>
 					<field name="state" string="state" readonly="1"/>
 				</xpath>				
-				
-
+	
+				<xpath expr="//button[@name='action_cancel']" position="after">
+					<button name="_action_prepare_material" type="object" string="MP"/>
+				</xpath>
 
 			</field>
 		</record>

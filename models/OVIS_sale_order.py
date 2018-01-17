@@ -11,6 +11,7 @@ class SaleOrderInherited(models.Model):
 	# # Adding a state to exisiting states
 	state = fields.Selection(selection_add=[('material_prepare','Material Preparing')])
 
+
 	# # creating order in certain state
 	# @api.one # @api.multi & ensure_one()
 	# def action_material_prepare(self):
@@ -27,6 +28,25 @@ class SaleOrderInherited(models.Model):
 
  #        # Return the record so that the changes are applied and everything is stored.
 	# return record
+
+	@api.multi
+	def _action_prepare_material(self):
+		for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
+			order.message_subscribe([order.partner_id.id])
+
+		self.write({'state': 'material_prepare', 'confirmation_date': fields.Datetime.now()})
+
+		if self.env.context.get('send_email'):
+			self.force_quotation_send()
+
+		return True
+
+	# @api.multi
+	# def action_prepare_material(self):
+	# 	self._action_prepare_material()
+	# 	if self.env['ir.config_parameter'].sudo().get_param('sale.auto_done_setting'):
+	# 		self.action_done()
+	# 	return True
 
 	# @api.multi
 	# def _action_confirm(self):
