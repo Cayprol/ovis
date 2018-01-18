@@ -19,7 +19,7 @@
 				</xpath>
 
 				<xpath expr="//button[@name='action_cancel']" position="attributes">
-					<attribute name="states">"draft,sent,sale,material_prepare"</attribute>
+					<attribute name="states">draft,sent,sale,material_prepare</attribute>
 				</xpath>
 
 			</field>
