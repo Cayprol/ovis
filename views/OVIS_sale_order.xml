@@ -18,7 +18,7 @@
 					<button name="action_prepare_material" type="object" string="MP"/>
 				</xpath>
 
-				<xpath expr="//button[@name='action_cancel']" position="attribute">
+				<xpath expr="//button[@name='action_cancel']" position="attributes">
 					<attribute name="states">"draft,sent,sale,material_prepare"</attribute>
 				</xpath>
 
