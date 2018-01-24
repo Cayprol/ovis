@@ -20,7 +20,7 @@
 					<field name="exception"/>
 				</xpath>
 
-				<xpath expr="//page[@name='Products']" position="after">
+				<xpath expr="//page[@string='Deliveries &amp; Invoices']" position="after">
 					<page string="Exception">
 						<field name="note_exception" attrs="{'invisible': [('exception', '=', 'False')]}"/>
 					</page>
