@@ -19,7 +19,11 @@
 				<xpath expr="//field[@name='origin']" position="after">
 					<field name="exception"/>
 				</xpath>
-				
+
+				<xpath expr="//page[@name='Deliveries &amp; Invoices']" position="after">
+					<field name="note_exception" attrs="{'invisible': [('exception', '==', 'False')]}"/>
+				</xpath>
+
 			</field>
 		</record>
 
