@@ -26,7 +26,7 @@
         'views/override.xml',
         'views/OVIS_product_template.xml',
         'views/OVIS_purchase_views.xml',
-        'views/OVIS_sale_order.xml',
+
     ],
 }
 
