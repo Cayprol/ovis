@@ -10,6 +10,18 @@
 			<field name="domain">[('state', 'in', ['draft', 'sent'])]</field>
 		</record>
 
+		<record model="ir.ui.view" id="purhcase_order_form_ovis">
+			<field name="model">purchase.order</field>
+			<field name="name">purchase.order.form.ovis</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"></field>
+			<field name="arch" type="xml">
+			
+				<xpath expr="//field[@name='origin']" position="after">
+					<field name="exception"/>
+				</xpath>
+				
+			</field>
+		</record>
 
 	</data>
 </odoo>
