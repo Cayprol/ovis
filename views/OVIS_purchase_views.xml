@@ -21,7 +21,7 @@
 					<field name="note_exception" attrs="{'invisible':[('exception','=','False')]}" modifiers="{'invisible':[['exception','=',false]]}"/>
 				</xpath>
 
-				<xpath expr="//page[2]" position="after">
+				<xpath expr="//page[1]" position="after">
 					<page string="Exception"/>
 				</xpath>
 <!-- 				<xpath expr="//page[2]" position="after">
