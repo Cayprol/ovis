@@ -23,7 +23,7 @@
 				<xpath expr="//page[1]" position="after">
 					<page string="Exception" name="exception_page" attrs="{'invisible':[('exception','=',False)]}" modifiers="{'invisible':[['exception','=',false]]}">
 						<group string="Exception Description" name="exception_description" modifiers="{}">
-							<field name="note_exception" nolabel="1" attrs="{'invisible':[('exception','=','False')]}" modifiers="{'invisible':[['exception','=',false]]}"/>
+							<field name="note_exception" nolabel="1" attrs="{'invisible':[('exception','=','False')]}" placeholder="Description of the Exception and reasons." modifiers="{'invisible':[['exception','=',false]]}"/>
 						</group>
 					</page>
 				</xpath>
