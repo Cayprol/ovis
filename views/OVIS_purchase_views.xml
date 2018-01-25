@@ -18,14 +18,15 @@
 			
 				<xpath expr="//field[@name='origin']" position="after">
 					<field name="exception"/>
+					<field name="note_exception"/>
 				</xpath>
 
-				<xpath expr='//page[2]' position="after">
+<!-- 				<xpath expr="//page[2]" position="after">
 					<page string="Exception">
-						<!-- <field name="note_exception" attrs="{'invisible': [('exception', '=', 'False')]}"/> -->
+						<field name="note_exception" attrs="{'invisible': [('exception', '=', 'False')]}"/>
 						<field name="note_exception"/>
 					</page>
-				</xpath>
+				</xpath> -->
 
 			</field>
 		</record>
