@@ -18,7 +18,7 @@
 			
 				<xpath expr="//field[@name='origin']" position="after">
 					<field name="exception"/>
-					<field name="note_exception"/>
+					<field name="note_exception" attrs="{'invisible': [('exception', '=', 'False')]}"/>
 				</xpath>
 
 <!-- 				<xpath expr="//page[2]" position="after">
