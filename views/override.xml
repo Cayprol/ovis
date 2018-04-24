@@ -31,7 +31,7 @@
 					</header>
 
 					<!-- Sorting orders of smart buttons when viewing products. -->
-<!-- 
+ 
 					<button name="toggle_active" position="before">
 
 						<button type="object" name="action_open_quants" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-building-o">
@@ -86,7 +86,7 @@
 					<xpath expr="//group[@name='group_lots_and_weight']" position="inside">
 						<field name="responsible_id"/>
 					</xpath>
--->
+
 
 		        </data>
 			</field>
