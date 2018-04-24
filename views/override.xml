@@ -77,7 +77,7 @@
 						<button string="Routes" type="object" name="action_view_routes" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-cogs" groups="base.group_no_one"/>
 					
 					</button>
--->
+
 		            
 					<xpath expr="//group[@name='group_lots_and_weight']" position="attributes">
 						<attribute name="attrs">{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}</attribute>
@@ -86,9 +86,10 @@
 					<xpath expr="//group[@name='group_lots_and_weight']" position="inside">
 						<field name="responsible_id"/>
 					</xpath>
+-->
 
 		        </data>
-		    </field>
+			</field>
 		</record>
 
 	</data>
