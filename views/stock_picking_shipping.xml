@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_stock_picking_shipping" model="ir.ui.view">
+		<field name="name">stock.picking.shipping</field>
+		<field name="model">stock.picking.shipping</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<h1>
+						<field name="name"/>
+					</h1>
+					<group col="4">
+						<field name="departure_id"/>
+						<field name="destination_id"/>
+						<field name="way" placeholder="eg. SEA or AIR"/>
+						<field name="sailing"/>
+						<field name="marks_made_in_id"/>
+						<field name="marks_carton" placeholder="eg. 01-15 or A1-C22"/>
+						<field name="forwarder_id" domain="[('forwarder','=','True')]"/>
+
+
+					</group>
+
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+</odoo>
