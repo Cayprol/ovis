@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 
 class InheritProductTemplate(models.Model):
 	
@@ -36,8 +36,9 @@ class InheritSupplierInfo(models.Model):
 
 	sp_qty = fields.Float(string='Smallest Pack Quantity', help="Smallest Packing Quantity available from Vendor.")
 
-	@api.one
+	@api.multi
 	@api.constrains('sp_qty', 'min_qty')
 	def _check_qty(self):
+		self.ensure_one()
 		if self.sp_qty > self.min_qty:
-			raise ValidationError("Field sp_qty cannot be larger than min_qty.")
+			raise exceptions.ValidationError("Smallest Packing Quantity must be smaller than or equal to Minimal Quantity.")

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
+
 
 class InheritStockMoveLine(models.Model):
 
@@ -20,9 +21,19 @@ class InheritStockMove(models.Model):
 
 	_order = 'carton asc'
 
+	@api.multi
+	@api.constrains('net_weight', 'gross_weight')
+	def _check_weight(self):
+		self.ensure_one()
+		if self.net_weight > self.gross_weight:
+			raise exceptions.ValidationError('Net Weight must be smaller than or equal to Gross Weight.')
+		else:
+			pass
+
 	net_weight = fields.Float(string='Net Weight', help='Sum of the net weight of each line product')
 	gross_weight = fields.Float(string='Gross Weight', help='Sum of the total weight of each line product')
 	carton = fields.Char(string='Carton No.', help='Carton number each product is placed in.')
+
 
 
 class InheritStockPicking(models.Model):
@@ -59,16 +70,6 @@ class InheritStockPicking(models.Model):
 		self.initial_total = sum(line.product_uom_qty for line in self.move_lines)
 		self.reserved_total = sum(line.reserved_availability for line in self.move_lines)
 
-	# @api.multi
-	# def _compute_show_check_weight(self):
-	# 	for picking in self:
-	# 		has_moves_to_reserve = any(
-	# 			move.state in ('waiting', 'confirmed', 'partially_available') and
-	# 			float_compare(move.product_uom_qty, 0, precision_rounding=move.product_uom.rounding)
-	# 			for move in picking.move_lines
-	# 		)
-	# 		picking.show_check_availability = picking.is_locked and picking.state in ('confirmed', 'waiting', 'assigned') and has_moves_to_reserve
-
 class StockPickingShipping(models.Model):
 
 	_name = 'stock.picking.shipping'
@@ -88,9 +89,10 @@ class StockPickingShipping(models.Model):
 	sailing = fields.Char(string='Sailing On', help="Which port.")
 	marks_carton = fields.Char(string='C/NO.', help="Marks & NO. of total cartons.")
 
-	@api.one
+	@api.multi
 	@api.depends('forwarder_id', 'departure_id', 'destination_id')
 	def _name_create(self):
+		self.ensure_one()
 		_output = {
 					"forwarder":"",
 					"departure":"",
