@@ -32,5 +32,5 @@
 			</field>
 	</record>
 
-	<!-- <menuitem id="res_partner_menu_forwarders_in_sales" name="Forwarders" parent="sale.sale_order_menu" action="ovis.action_partner_form" sequence="4"/> -->
+	<menuitem id="res_partner_menu_forwarders_in_sales" name="Forwarders" parent="sale.sale_order_menu" action="OVIS.action_partner_form" sequence="4"/>
 </odoo>
