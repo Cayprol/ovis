@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<!-- <menuitem id="res_partner_menu_forwarders_in_purhcases" name="Forwarders" parent="purchase.menu_procurement_management" action="ovis.action_partner_form" sequence="17"/> -->
+	<menuitem id="res_partner_menu_forwarders_in_purhcases" name="Forwarders" parent="purchase.menu_procurement_management" action="ovis.action_partner_form" sequence="17"/>
 <!-- 
 	Search view is defined in 'views/sales_menu.xml'
 	Action "ovis.action_partner_form" is defined in 'views/sales_menu.xml' which apply search "Forwarders" by default.
