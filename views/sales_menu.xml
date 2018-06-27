@@ -8,7 +8,6 @@
 				<field name="name"/>
 				<field name="forwarder"/>
 				<filter name="forwarder" string="Forwarders" domain="[('forwarder','=',True)]"/>
-				<!-- filter name is referred in context for purpose such as default filter -->
 			</search> 
 		</field> 
 	</record>
@@ -31,6 +30,5 @@
 			  </p>
 			</field>
 	</record>
-
 	<menuitem id="res_partner_menu_forwarders_in_sales" name="Forwarders" parent="sale.sale_order_menu" action="ovis.action_partner_form" sequence="4"/>
 </odoo>

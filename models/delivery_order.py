@@ -21,14 +21,14 @@ class InheritStockMove(models.Model):
 
 	_order = 'carton asc'
 
-	@api.multi
-	@api.constrains('net_weight', 'gross_weight')
-	def _check_weight(self):
-		self.ensure_one()
-		if self.net_weight > self.gross_weight:
-			raise exceptions.ValidationError('Net Weight must be smaller than or equal to Gross Weight.')
-		else:
-			pass
+	# @api.multi
+	# @api.constrains('net_weight', 'gross_weight')
+	# def _check_weight(self):
+	# 	self.ensure_one()
+	# 	if self.net_weight > self.gross_weight:
+	# 		raise exceptions.ValidationError('Net Weight must be smaller than or equal to Gross Weight.')
+	# 	else:
+	# 		pass
 
 	net_weight = fields.Float(string='Net Weight', help='Sum of the net weight of each line product')
 	gross_weight = fields.Float(string='Gross Weight', help='Sum of the total weight of each line product')
@@ -58,8 +58,13 @@ class InheritStockPicking(models.Model):
 	remarks = fields.Text(string='REMARKS', help='Remarks for D/O.')
 
 	shipping_id = fields.Many2one('stock.picking.shipping', string='Shipper', help="Shipping details")
+	way = fields.Char(string='By', help="By air or by sea.")
+	sailing = fields.Char(string='Sailing On', help="Which port.")
+	marks_carton = fields.Char(string='C/NO.', help="Marks & NO. of total cartons.")	
 
-	shipping_to = fields.Many2one('res.partner', 'Ship To', states={'done': [('readonly', True)], 'cancel': [('readonly', True)]})
+
+	bill_to = fields.Many2one('res.partner', 'Bill To', states={'done': [('readonly', True)], 'cancel': [('readonly', True)]}, domain="[('type', '=', 'invoice')]")
+
 
 	@api.one
 	@api.depends('move_lines.net_weight', 'move_lines.gross_weight', 'move_lines.product_uom_qty', 'move_lines.reserved_availability','move_lines.quantity_done')
@@ -83,11 +88,8 @@ class StockPickingShipping(models.Model):
 	destination_id = fields.Many2one('res.country', string='Destination', required="True", help="Destination location of the Delivery Slip.")
 	marks_made_in_id = fields.Many2one('res.country', string='Made In', required="True", help="Where the contained items are Made in.")
 	
-	forwarder_id = fields.Many2one('res.partner', string='Forwarder', required="True", help="Name of the Forwarder.")
+	forwarder_id = fields.Many2one('res.partner', string='Forwarder', required="True", help="Name of the Forwarder.", domain="[('forwarder','=', True)]")
 
-	way = fields.Char(string='By', help="By air or by sea.")
-	sailing = fields.Char(string='Sailing On', help="Which port.")
-	marks_carton = fields.Char(string='C/NO.', help="Marks & NO. of total cartons.")
 
 	@api.multi
 	@api.depends('forwarder_id', 'departure_id', 'destination_id')

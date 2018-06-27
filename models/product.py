@@ -7,7 +7,7 @@ class InheritProductTemplate(models.Model):
 	_inherit = 'product.template'
 
 	drawing = fields.Char(string='Drawaing', help="Engineer Drawing file name.")
-	specification = fields.Text(string='Specification', help="Specification of product.")
+
 	buyer_ids = fields.One2many('product.purchaserinfo', 'product_tmpl_id', string='Customers')	
 
 
@@ -35,7 +35,8 @@ class InheritSupplierInfo(models.Model):
 	_inherit = 'product.supplierinfo'
 
 	sp_qty = fields.Float(string='Smallest Pack Quantity', help="Smallest Packing Quantity available from Vendor.")
-
+	info = fields.Text(string='Additional Information', help="Additional Information regarding this Vendor's pricing details.")
+	
 	@api.multi
 	@api.constrains('sp_qty', 'min_qty')
 	def _check_qty(self):

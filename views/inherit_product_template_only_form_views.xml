@@ -17,13 +17,6 @@
 					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>
 				</xpath>
 
-				<!-- Add Field "specification" -->
-				<xpath expr="//page[@name='general_information']" position="inside">
-					<group string="Specification">
-						<field name="specification" nolabel="1"/>
-					</group>
-				</xpath>
-
 				<!-- Add Field "buyer_ids" -->
 				<xpath expr="//page[@name='sales']//div[@name='pricelist_item']" position="before">
 					<group string="Customers" name="customers">

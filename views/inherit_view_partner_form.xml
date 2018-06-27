@@ -7,15 +7,15 @@
 			<field name="inherit_id" ref="base.view_partner_form"></field>
 			<field name="arch" type="xml">
 
-				<!-- Add Farwarder Section under page sales_purchaees -->
-				<xpath expr="//group[@name='container_row_2']" position="attributes">
-					<attribute name="col">6</attribute>
-
-				</xpath>
-				<xpath expr="//group[@name='purchase']" position="after">
-					<group string="Forwarder" name="forwarder">
-						<field name="forwarder"/>
-					</group>		
+				<!-- Add Page and Field Forwarder -->
+				<xpath expr="//page[@name='sales_purchases']" position="after">
+					<page name="forwarder" string="Forwarder">
+						<group name="container_row_2">					
+							<group string="Forwarder" name="forwarder">
+								<field name="forwarder"/>
+							</group>
+						</group>
+					</page>
 				</xpath>
 
 			</field>
