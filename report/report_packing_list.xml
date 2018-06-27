@@ -246,8 +246,8 @@
 							<p style="margin-left:12px;">
 								<span t-field="o.shipping_id.forwarder_id"/><br></br>
 								<span>FROM <span t-field="o.shipping_id.departure_id"/> TO <span t-field="o.shipping_id.destination_id"/></span><br></br>
-								<span>BY <span t-field="o.shipping_id.way"/></span><br></br>
-								<span>SAILING ON <span t-field="o.shipping_id.sailing"/></span><br></br>
+								<span>BY <span t-field="o.way"/></span><br></br>
+								<span>SAILING ON <span t-field="o.sailing"/></span><br></br>
 							</p>
 						</div>
 
@@ -256,7 +256,7 @@
 							<p style="margin-left:12px;">
 								<span t-field="o.name"/><br></br>
 								(IN DIA)<br></br>
-								C/NO: <span t-field="o.shipping_id.marks_carton"/><br></br>
+								C/NO: <span t-field="o.marks_carton"/><br></br>
 								MADE IN <span t-field="o.shipping_id.marks_made_in_id"/><br></br>
 							</p>
 						</div>
