@@ -1,12 +1,27 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, exceptions
+from odoo.addons import decimal_precision as dp
+from odoo.exceptions import ValidationError
 
 class InheritProductTemplate(models.Model):
 	
 	_inherit = 'product.template'
-
+	_parent_name = "parent_id"
+	_parent_store = True
+	_parent_order = 'name'
 	drawing = fields.Char(string='Drawaing', help="Engineer Drawing file name.")
+
+	# molding_id = fields.One2many('product.molding', 'product_molding_id', string="Molding", help="Molding & Tooling information of the product.")
+	tooling = fields.Boolean(string='Is tooling', index=True, default=False)
+	parent_id = fields.Many2one('product.template', string='Parent', index=True, ondelete='cascade')
+	child_ids = fields.One2many('product.template', 'parent_id', string='Old Versions')	
+	parent_left = fields.Integer('Left Parent', index=1)
+	parent_right = fields.Integer('Right Parent', index=1)
+	@api.constrains('parent_id')
+	def _check_parent_id(self):
+		if not self._check_recursion():
+			raise exceptions.ValidationError('Error ! You can not create recursive tags.')
 
 	buyer_ids = fields.One2many('product.purchaserinfo', 'product_tmpl_id', string='Customers')	
 
@@ -37,9 +52,41 @@ class InheritSupplierInfo(models.Model):
 	sp_qty = fields.Float(string='Smallest Pack Quantity', help="Smallest Packing Quantity available from Vendor.")
 	info = fields.Text(string='Additional Information', help="Additional Information regarding this Vendor's pricing details.")
 	
-	@api.multi
-	@api.constrains('sp_qty', 'min_qty')
-	def _check_qty(self):
-		self.ensure_one()
-		if self.sp_qty > self.min_qty:
-			raise exceptions.ValidationError("Smallest Packing Quantity must be smaller than or equal to Minimal Quantity.")
+	# Use xml attribute "decoration-danger" for coherence of code.
+	# @api.multi
+	# @api.constrains('sp_qty', 'min_qty')
+	# def _check_qty(self):
+	# 	self.ensure_one()
+	# 	if self.sp_qty > self.min_qty:
+	# 		raise exceptions.ValidationError("Smallest Packing Quantity must be smaller than or equal to Minimal Quantity.")
+
+
+# custom class for tooling if it is NOT a product, BUT instead being a separate entity. 
+# class ProductMolding(models.Model):
+# 	_name = 'product.molding'
+# 	_parent_name = "parent_id"
+# 	_parent_store = True
+# 	_parent_order = 'name'
+# 	_rec_name = 'name'
+
+# 	product_molding_id = fields.Many2one('product.template', 'molding')
+
+# 	name = fields.Char(string='Molding Name', required=True, translate=True)
+# 	customer_id = fields.Many2one('res.partner', 'Customer', domain=[('customer', '=', True)], ondelete='cascade', help="Customer of this Molding.")
+# 	vendor_id = fields.Many2one('res.partner', 'Vendor', domain=[('supplier', '=', True)], ondelete='cascade', help="Vendor of this Molding.")
+# 	arrival = fields.Date(string='Arrival Date', help="Date when this molding comes in stock.")
+# 	price = fields.Float('Price', default=0.0, required=True, help="The price of this molding.")
+# 	currency_id = fields.Many2one('res.currency', 'Currency', default=lambda self: self.env.user.company_id.currency_id.id, required=True)
+
+# 	parent_id = fields.Many2one('product.molding', string='Related Molding', index=True, ondelete='cascade')
+# 	child_ids = fields.One2many('product.molding', 'parent_id', string='Old Versions')
+# 	parent_left = fields.Integer('Left Parent', index=1)
+# 	parent_right = fields.Integer('Right Parent', index=1)
+# 	@api.constrains('parent_id')
+# 	def _check_parent_id(self):
+# 		if not self._check_recursion():
+# 			raise exceptions.ValidationError('Error ! You can not create recursive tags.')
+
+	# @api.model
+	# def name_create(self, name):
+	# 	return self.create({'name': name}).name_get()[0]

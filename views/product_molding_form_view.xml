@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_molding_form" model="ir.ui.view">
+		<field name="name">product.molding.form</field>
+		<field name="model">product.molding</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<h1>
+						<field name="name"/>
+					</h1>
+					<group col="4">
+						<field name="customer_id"/>
+						<field name="vendor_id"/>
+						<field name="arrival"/>
+						<field name="price"/>
+						<field name="currency_id"/>
+						<field name="parent_id"/>		
+					</group>
+					<group>
+						<field name="child_ids" readonly="1"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+</odoo>
