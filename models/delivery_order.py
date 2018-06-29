@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, exceptions
-
+from odoo import models, fields, api
+from odoo.addons import decimal_precision as dp
+from odoo.exceptions import ValidationError
 
 class InheritStockMoveLine(models.Model):
 
@@ -47,11 +48,11 @@ class InheritStockPicking(models.Model):
 	weight_unit = fields.Selection([('kg', 'Kilogram(s)'), ('lb', 'Pound(s)'), ('g', 'Gram(s)')], string='Weight Unit', default='kg')
 	
 	carton_total = fields.Integer(string='Cartons')
-	initial_total = fields.Float(string='Initial Demend', compute='_compute_amount', store=False)
-	reserved_total = fields.Float(string='Reservered', compute='_compute_amount', store=False)
-	done_total = fields.Float(string='Done', compute='_compute_amount')
-	net_weight_total = fields.Float(string='Net Weight', compute='_compute_amount', store=False)	
-	gross_weight_total = fields.Float(string='Gross Weight', compute='_compute_amount', store=False)	
+	initial_total = fields.Float(string='Initial Demend', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)
+	reserved_total = fields.Float(string='Reservered', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)
+	done_total = fields.Float(string='Done', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), readonly=True)
+	net_weight_total = fields.Float(string='Net Weight', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)	
+	gross_weight_total = fields.Float(string='Gross Weight', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)	
 
 	product_uom_id = fields.Many2one(related='move_line_ids.product_uom_id', readonly=True)
 

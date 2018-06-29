@@ -17,6 +17,13 @@
 					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>
 				</xpath>
 
+				<!-- Add Field "memo" -->
+				<xpath expr="//group[@name='description_internal']" position="inside">
+					<group name="memorundam" string="Memorandum">
+						<field name="memo" nolabel="1" placeholder="Memo for this product."/>
+					</group>
+				</xpath>
+
 				<!-- Add Field "buyer_ids" -->
 				<xpath expr="//page[@name='sales']//div[@name='pricelist_item']" position="before">
 					<group string="Customers" name="customers">
@@ -51,24 +58,32 @@
 				</xpath>
 
 
-				<!-- Add new page "Manufacturing" for drawing and molding. -->
-				<xpath expr="//page[@name='purchase']" position="after">
+				<!-- Add new page "Manufacturing" for drawing and tooling. -->
+<!-- 				<xpath expr="//page[@name='purchase']" position="after">
 					<page string="Manufacturing" name="manufacturing">
 						<group string="Drawing" name="drawing">
 						</group>
 						<group string="Tooling" name="tooling" col="4">
-					
 							<field name="tooling" col="2"/>
-							<field name="parent_id" col="2"/>								
-						
+							<field name="parent_id" attrs="{'invisible':[('tooling', '=', False)]}"/>
 							<field name="child_ids" nolabel="1" readonly="1" colspan="4">
 								<tree>
 									<field name="name"/>
 									<field name="price"/>
-									<field name="active"/>
-									<field name="__last_update"/>
+									<field name="arrival" widget="date"/>
+									<field name="__last_update" widget="date"/>
 								</tree>
 							</field>
+						</group>
+					</page>
+				</xpath> -->
+
+
+				<xpath expr="//page[@name='purchase']" position="after">
+					<page name="manufacturing" string="Manufacturing">
+						<group name="tooling" string="Tooling">
+							<field name="tooling_ids" widget="many2many_tags"/>
+							<field name="make_ids" widget="many2many_tags"/>
 						</group>
 					</page>
 				</xpath>
