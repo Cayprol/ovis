@@ -82,8 +82,10 @@
 				<xpath expr="//page[@name='purchase']" position="after">
 					<page name="manufacturing" string="Manufacturing">
 						<group name="tooling" string="Tooling">
-							<field name="tooling_ids" widget="many2many_tags"/>
-							<field name="make_ids" widget="many2many_tags"/>
+							<field name="tooling"/>
+							<field name="arrival" attrs="{'invisible':[('tooling', '=', True)]}" widget="date"/>
+							<field name="tooling_ids" attrs="{'invisible':[('tooling', '=', True)]}" widget="many2many_tags"/>
+							<field name="producing_ids" attrs="{'invisible':[('tooling', '=', False)]" widget="many2many_tags"/>
 						</group>
 					</page>
 				</xpath>

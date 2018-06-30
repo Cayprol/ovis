@@ -15,8 +15,8 @@ class InheritProductTemplate(models.Model):
 	buyer_ids = fields.One2many('product.purchaserinfo', 'product_tmpl_id', string='Customers')	
 	
 	drawing = fields.Char(string='Drawaing', help="Engineer Drawing file name.")
-	tooling_ids = fields.Many2many(comodel_name='product.template', relation='product_template_rel', column1='tooling_ids', column2='make_ids', string="Tooling")
-	make_ids = fields.Many2many(comodel_name='product.template', relation='product_template_rel', column1='make_ids', column2='tooling_ids', string="Making")
+	tooling_ids = fields.Many2many(comodel_name='product.template', relation='product_template_rel', column1='tooling_ids', column2='producing_ids', string="Tooling")
+	producing_ids = fields.Many2many(comodel_name='product.template', relation='product_template_rel', column1='producing_ids', column2='tooling_ids', string="Producing")
 	tooling = fields.Boolean(string='Is Tooling', index=True, default=False)
 	# parent_id = fields.Many2one('product.template', string='Parent', index=True, ondelete='cascade', domain="[('tooling','!=',True)]")
 	# child_ids = fields.One2many('product.template', 'parent_id', string='Old Versions')	
