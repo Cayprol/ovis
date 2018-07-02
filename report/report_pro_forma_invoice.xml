@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+	<!-- External layouts styles -->
+	<template id="invoice_external_layout_background">
+		<div class="header o_background_header">
+			<div class="pull-right">
+				<h3 class="mt0 text-right" t-field="company.report_header"/>
+			</div>
+			<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" class="pull-left"/>
+			<div class="pull-left company_address">
+				<div>
+					<strong t-field="company.partner_id.name"/>
+				</div>
+				<span t-field="company.partner_id"
+					t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+			</div>
+			<div class="clearfix mb8"/>
+		</div>
+
+		<div class="article o_report_layout_background">
+			<t t-raw="0" />
+		</div>
+
+		<div class="footer o_background_footer">
+			<div class="text-center">
+				<ul class="list-inline">
+					<li t-if="company.phone"><i class="fa fa-phone"/> <span t-field="company.phone"/></li>
+					<li t-if="company.email"><i class="fa fa-at"/> <span t-field="company.email"/></li>
+					<li t-if="company.website"><i class="fa fa-globe"/> <span t-field="company.website"/></li>
+					<li t-if="company.vat"><i class="fa fa-building-o"/><t t-esc="company.country_id.vat_label or 'TIN'"/>: <span t-field="company.vat"/></li>
+				</ul>
+				<div t-field="company.report_footer"/>
+				<div class="text-muted">
+					Page:
+					<span class="page"/>
+					of
+					<span class="topage"/>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<template id="invoice_external_layout_boxed">
+		<div class="header o_boxed_header">
+			<div class="row mb8">
+				<div class="col-xs-6">
+					<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+				</div>
+				<div class="col-xs-6 text-right mb4">
+					<h4 class="mt0" t-field="company.report_header"/>
+					<div name="company_address" class="mb4">
+						<span class="company_address" t-field="company.partner_id"
+							t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="article o_report_layout_boxed">
+		  <t t-raw="0" />
+		</div>
+
+		<div class="footer o_boxed_footer">
+			<div class="text-center">
+				<ul class="list-inline">
+					<li t-if="company.phone">Tel: <span t-field="company.phone"/></li>
+					<li t-if="company.email">Mail: <span t-field="company.email"/></li>
+					<li t-if="company.website">Web: <span t-field="company.website"/></li>
+					<li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'TIN'"/>: <span t-field="company.vat"/></li>
+				</ul>
+				<div t-field="company.report_footer"/>
+				<div>
+					Page: <span class="page"/> / <span class="topage"/>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<template id="invoice_external_layout_clean">
+		<div class="header o_clean_header">
+			<div class="row">
+				<div class="col-xs-6">
+					<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"/>
+				</div>
+				<!-- <div class="col-xs-5 col-xs-offset-1" name="company_address">
+					<ul class="list-unstyled">
+						<strong><li t-if="company.name"><span t-field="company.name"/></li></strong>
+						<li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'TIN'"/>: <span t-field="company.vat"/></li>
+						<li t-if="company.phone">Tel: <span t-field="company.phone"/></li>
+						<li t-if="company.email"><span t-field="company.email"/></li>
+						<li t-if="company.website"><span t-field="company.website"/></li>
+					</ul>
+				</div> -->
+			</div>
+		</div>
+
+		<div class="article o_report_layout_clean">
+			<t t-raw="0" />
+		</div>
+
+		<div class="footer o_clean_footer">
+			<div class="row mt8">
+				<div class="col-xs-3">
+					<span t-field="company.report_footer"/>
+				</div>
+				<div class="col-xs-4 text-right">
+					<span class="company_address" t-field="company.partner_id"
+						t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+				</div>
+				<div class="col-xs-4">
+					<h4 class="mt0 mb0 text-uppercase" t-field="company.report_header"/>
+				</div>
+				<div class="col-xs-1">
+					<ul class="list-inline pagenumber pull-right text-center">
+						<li><strong><span class="page"/></strong></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<!-- Main style -->
+	<template id="invoice_external_layout_standard">
+		<div class="header" style="">
+			<div t-if="o.signature == 'ovis'" class="row">
+				<div class="col-xs-4">
+					<!-- <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="max-height: 125px;"/> -->
+					<img src="/ovis/static/logo/ovis.png" style="max-height: 125px;"/>
+				</div>
+				<div class="col-xs-5 col-xs-offset-3" style="margin-top:18px;">
+					<p>
+						<span style="font-size:19px;"><strong>長 徑 企 業 股 份 有 限 公 司</strong></span><br></br>
+						新北市新莊區中正路６４９之８號４樓<br></br>
+						4F, No. 649-8, Zhongzheng Rd., Xinzhuang Dist.,<br></br>
+						New Taipei City 242, Taiwan ROC<br></br>
+					</p>
+				</div> 
+			</div>
+			<div t-if="o.signature == 'ovis_int'" class="row">
+				<div class="col-xs-4">
+					<img src="/ovis/static/logo/ovis_int.png" style="max-height: 125px;"/>
+				</div>
+				<div class="col-xs-5 col-xs-offset-3" style="margin-top:18px;">
+					<p>
+						<span style="font-size:19px;"><strong>TAIWAN OFFICE</strong></span><br></br>
+						4F, No. 649-8, Zhongzheng Rd., Xinzhuang Dist.,<br></br>
+						New Taipei City 242, Taiwan ROC<br></br>
+					</p>
+				</div> 
+			</div>
+			<div t-if="o.signature == 'pangu'" class="row">
+				<div class="col-xs-4 text-center">
+					<img src="/ovis/static/logo/pangu.png" style="max-height: 125px;"/>
+				</div>
+				<div class="col-xs-5 col-xs-offset-3" style="margin-top:18px;">
+					<p>
+						<span style="font-size:19px;"><strong>磐 古 电 子 有 限 公 司</strong></span><br></br>
+						广东省东莞市塘厦镇高丽六路６号<br></br>
+						No. 6, GaoLi 6th Rd., TangXia Town<br></br>
+						Dongguan City, GuangDong, China<br></br>
+					</p>
+				</div> 
+			</div>
+		</div>
+		<div class="article o_report_layout_standard">
+			<t t-raw="0" />
+		</div>
+
+		<div class="footer">
+			<div class="row last-page" style="margin-bottom:6px;margin-right:10px;page-break-inside:avoid;">
+				<div t-if="o.signature == 'pangu'" class="pull-right">
+					<h3 align="center"><span t-field="o.signature"/></h3>
+					<h3>&#160;</h3>
+					<p align="center">__________________________<br></br>Authorized Signature</p>
+				</div>
+				<div t-if="o.signature == 'ovis'" class="pull-right">
+					<h3 align="center"><span t-field="o.signature"/></h3>
+					<h3>&#160;</h3>
+					<p align="center">___________________________________<br></br>Authorized Signature</p>						
+				</div>
+				<div t-if="o.signature == 'ovis_int'" class="pull-right">
+					<h3 align="center"><span t-field="o.signature"/></h3>
+					<h3>&#160;</h3>
+					<p align="center">______________________________________<br></br>Authorized Signature</p>
+				</div>
+			</div>
+			<div class="text-center" style="border-top: 1px solid black;">
+				<ul class="list-inline mb4">
+					<li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
+					<li t-if="company.email">Email: <span t-field="company.email"/></li>
+					<li t-if="company.website">Web: <span t-field="company.website"/></li>
+					<li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'TIN'"/>: <span t-field="company.vat"/></li>
+				</ul>
+
+				<div name="financial_infos">
+					<span t-field="company.report_footer"/>
+				</div>
+
+				<div class="text-muted">
+					Page: <span class="page"/> / <span class="topage"/>
+				</div>
+			</div>
+		</div>
+	</template>
+
+	<!-- This template will be called, and based on condition choosing a style above -->
+	<template id="invoice_external_layout">
+		<!-- Multicompany -->
+		<t t-if="not o and doc">
+			<t t-set="o" t-value="doc"/>
+		</t>
+
+		<t t-if="o and 'company_id' in o">
+			<t t-set="company" t-value="o.company_id.sudo()"/>
+		</t>
+		<t t-if="not o or not 'company_id' in o">
+			<t t-set="company" t-value="res_company"/>
+		</t>
+
+		<t t-if="company.external_report_layout == 'background'">
+			<t t-call="ovis.invoice_external_layout_background"><t t-raw="0"/></t>
+		</t>
+		<t t-if="company.external_report_layout == 'boxed'">
+			<t t-call="ovis.invoice_external_layout_boxed"><t t-raw="0"/></t>
+		</t>
+		<t t-if="company.external_report_layout == 'clean'">
+			<t t-call="ovis.invoice_external_layout_clean"><t t-raw="0"/></t>
+		</t>
+		<t t-if="company.external_report_layout in (False, 'standard')">
+			<t t-call="ovis.invoice_external_layout_standard"><t t-raw="0"/></t>
+		</t>
+	</template>
+	<!--  -->
+
+	<!-- Pro-forma Invoice -->
+	<template id="report_saleorder_document">
+		<t t-call="ovis.invoice_external_layout">
+			<t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
+			<div class="page">
+				<div class="oe_structure"/>
+				<h1>TEST</h1>
+			</div>
+		</t>
+	</template>
+
+
+	<template id="report_saleorder_pro_forma">
+		<t t-call="web.html_container">
+			<t t-set="is_pro_forma" t-value="True"/>
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="ovis.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+			</t>
+		</t>
+	</template>
+
+</odoo>

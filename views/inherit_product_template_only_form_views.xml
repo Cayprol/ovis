@@ -82,10 +82,15 @@
 				<xpath expr="//page[@name='purchase']" position="after">
 					<page name="manufacturing" string="Manufacturing">
 						<group name="tooling" string="Tooling" col="4">
-							<field name="tooling" col="2"/>
-							<field name="arrival" col="2" attrs="{'invisible':[('tooling', '=', False)]}" widget="date"/>
-							<field name="tooling_ids" attrs="{'invisible':[('tooling', '=', True)]}" widget="many2many_tags"/>
-							<field name="producing_ids" attrs="{'invisible':[('tooling', '=', False)]}" widget="many2many_tags"/>
+							<field name="tooling"/>
+							<field name="tooling_ids" widget="many2many_tags"/>
+							
+							<field name="scrapped" attrs="{'invisible': [('tooling', '=', False)]}"/>
+							<field name="exported" attrs="{'invisible': [('tooling', '=', False)]}"/>
+							<field name="producing_ids" widget="many2many_tags" attrs="{'required': [('tooling','=', True)], 'invisible': [('tooling', '=', False)]}"/>
+							<field name="arrival" widget="date" attrs="{'required': [('tooling','=', True)], 'invisible': [('tooling', '=', False)]}"/>
+							<field name="last_po" attrs="{'invisible': [('tooling', '=', False)]}"/>
+							<field name="last_so" attrs="{'invisible': [('tooling', '=', False)]}"/>
 						</group>
 					</page>
 				</xpath>

@@ -1,0 +1,838 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* ovis
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0-20180626\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-02 04:24+0000\n"
+"PO-Revision-Date: 2018-07-02 04:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<br/>\n"
+"								(IN DIA)<br/>\n"
+"								C/NO:"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<br/>\n"
+"								MADE IN"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "<span style=\"font-size:19px;\"><strong>TAIWAN OFFICE</strong></span><br/>\n"
+"						4F, No. 649-8, Zhongzheng Rd., Xinzhuang Dist.,<br/>\n"
+"						New Taipei City 242, Taiwan ROC<br/>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "<span style=\"font-size:19px;\"><strong>磐 古 电 子 有 限 公 司</strong></span><br/>\n"
+"						广东省东莞市塘厦镇高丽六路６号<br/>\n"
+"						No. 6, GaoLi 6th Rd., TangXia Town<br/>\n"
+"						Dongguan City, GuangDong, China<br/>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "<span style=\"font-size:19px;\"><strong>長 徑 企 業 股 份 有 限 公 司</strong></span><br/>\n"
+"						新北市新莊區中正路６４９之８號４樓<br/>\n"
+"						4F, No. 649-8, Zhongzheng Rd., Xinzhuang Dist.,<br/>\n"
+"						New Taipei City 242, Taiwan ROC<br/>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<span><strong>BILL TO: </strong></span><br/>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<span><strong>SHIP TO: </strong></span><br/>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<span><strong>SHIPPER: </strong></span><br/>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<strong>C/No.</strong>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<strong>Gross Weight  </strong>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<strong>MARKS &amp; NOS.</strong><br/>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<strong>Net Weight    </strong>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<strong>Product</strong>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<strong>Quantity</strong>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<strong>Source: </strong>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "<strong>Total:</strong>"
+msgstr ""
+
+#. module: ovis
+#: code:addons/ovis/models/product.py:36
+#, python-format
+msgid "A non-tooling product cannot produce others."
+msgstr "非工具產品不能生產別項產品"
+
+#. module: ovis
+#: code:addons/ovis/models/product.py:28
+#, python-format
+msgid "A tooling product cannot have tooling."
+msgstr "工具產品不能被其他工具產品生產"
+
+#. module: ovis
+#: code:addons/ovis/models/product.py:32
+#, python-format
+msgid "A tooling product must have at least one non-tooling product to produce."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_supplierinfo_info
+#: model:ir.ui.view,arch_db:ovis.inherit_product_supplierinfo_form_view
+msgid "Additional Information"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_supplierinfo_info
+msgid "Additional Information regarding this Vendor's pricing details."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "All items couldn't be shipped, the remaining ones will be shipped as soon as they become available."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_product_arrival
+#: model:ir.model.fields,field_description:ovis.field_product_template_arrival
+msgid "Arrival Date"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_product_arrival
+#: model:ir.model.fields,help:ovis.field_product_template_arrival
+msgid "Arrival Date when this tooling comes in stock."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_sequence
+msgid "Assigns the priority to the list of product customer."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "BY"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_bill_to
+msgid "Bill To"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_way
+msgid "By"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_way
+msgid "By air or by sea."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_marks_carton
+msgid "C/NO."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_move_carton
+#: model:ir.model.fields,field_description:ovis.field_stock_move_line_carton
+msgid "Carton No."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_move_carton
+#: model:ir.model.fields,help:ovis.field_stock_move_line_carton
+msgid "Carton number each product is placed in."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+msgid "Carton:"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_carton_total
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "Cartons"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_res_partner_forwarder
+#: model:ir.model.fields,help:ovis.field_res_users_forwarder
+msgid "Check this box if this contact is a forwarder."
+msgstr ""
+
+#. module: ovis
+#: model:ir.actions.act_window,help:ovis.action_partner_form
+msgid "Click to add a contact in your address book."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_company_id
+msgid "Company"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_create_uid
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_create_date
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_name
+msgid "Customer"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_product_code
+msgid "Customer Product Code"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_product_name
+msgid "Customer Product Name"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_product_uom
+msgid "Customer Unit of Measure"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_name
+msgid "Customer of this product"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_product_buyer_ids
+#: model:ir.model.fields,field_description:ovis.field_product_template_buyer_ids
+#: model:ir.ui.view,arch_db:ovis.inherit_product_template_only_form_view
+msgid "Customers"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_departure_id
+msgid "Departure"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_shipping_departure_id
+msgid "Departure location of the Delivery Slip."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_destination_id
+msgid "Destination"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_shipping_destination_id
+msgid "Destination location of the Delivery Slip."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_display_name
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_display_name
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_shipping_name
+msgid "Display name of this shipping method."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_done_total
+msgid "Done"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_product_drawing
+#: model:ir.model.fields,field_description:ovis.field_product_template_drawing
+msgid "Drawaing"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "Email:"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_date_end
+msgid "End Date"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_date_end
+msgid "End date for this customer price"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_product_drawing
+#: model:ir.model.fields,help:ovis.field_product_template_drawing
+msgid "Engineer Drawing file name."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "FROM"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_forwarder_id
+#: model:ir.ui.view,arch_db:ovis.inherit_view_partner_form
+msgid "Forwarder"
+msgstr ""
+
+#. module: ovis
+#: model:ir.actions.act_window,name:ovis.action_partner_form
+#: model:ir.ui.menu,name:ovis.res_partner_menu_forwarders_in_purhcases
+#: model:ir.ui.menu,name:ovis.res_partner_menu_forwarders_in_sales
+#: model:ir.ui.view,arch_db:ovis.view_filter_forwarder
+msgid "Forwarders"
+msgstr ""
+
+#. module: ovis
+#: selection:stock.picking,weight_unit:0
+msgid "Gram(s)"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_move_gross_weight
+#: model:ir.model.fields,field_description:ovis.field_stock_move_line_gross_weight
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_gross_weight_total
+msgid "Gross Weight"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_id
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_id_8455
+msgid "ID"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_product_id
+msgid "If not set, the customer price will apply to all variants of this products."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_product_purchaserinfo
+msgid "Information about a product customer."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_product_supplierinfo
+msgid "Information about a product vendor"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_initial_total
+msgid "Initial Demend"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_product_tooling
+#: model:ir.model.fields,field_description:ovis.field_product_template_tooling
+msgid "Is Tooling"
+msgstr "為工具"
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_res_partner_forwarder
+#: model:ir.model.fields,field_description:ovis.field_res_users_forwarder
+msgid "Is a Forwader"
+msgstr "貨運商"
+
+#. module: ovis
+#: selection:stock.picking,weight_unit:0
+msgid "Kilogram(s)"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo___last_update
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_product_template_only_form_view
+msgid "Last Update"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_write_uid
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_write_date
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "Lot/Serial Number"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_product_template_only_form_view
+msgid "MOQ"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_marks_made_in_id
+msgid "Made In"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_boxed
+msgid "Mail:"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_product_template_only_form_view
+msgid "Manufacturing"
+msgstr "製造"
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_marks_carton
+msgid "Marks & NO. of total cartons."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_product_template_only_form_view
+msgid "Memo for this product."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_product_memo
+#: model:ir.model.fields,field_description:ovis.field_product_template_memo
+#: model:ir.ui.view,arch_db:ovis.inherit_product_template_only_form_view
+msgid "Memorandum"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_min_qty
+msgid "Minimal Quantity"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_shipping_forwarder_id
+msgid "Name of the Forwarder."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_move_line_net_weight
+#: model:ir.model.fields,field_description:ovis.field_stock_move_net_weight
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_net_weight_total
+msgid "Net Weight"
+msgstr ""
+
+#. module: ovis
+#: selection:stock.picking,signature:0
+msgid "OVIS Enterprise Co.,Ltd."
+msgstr ""
+
+#. module: ovis
+#: selection:stock.picking,signature:0
+msgid "OVIS Enterprise Int'l Co.,Ltd."
+msgstr ""
+
+#. module: ovis
+#: model:ir.actions.act_window,help:ovis.action_partner_form
+msgid "Odoo helps you easily track all activities related to\n"
+"				a forwarder: discussions, history of business opportunities,\n"
+"				documents, etc."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "PACKING LIST"
+msgstr ""
+
+#. module: ovis
+#: model:ir.actions.report,name:ovis.action_report_packing_list
+msgid "Packing List"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_stock_move_line
+msgid "Packing Operation"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_background
+msgid "Page:\n"
+"					<span class=\"page\"/>\n"
+"					of\n"
+"					<span class=\"topage\"/>"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_boxed
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: ovis
+#: selection:stock.picking,signature:0
+msgid "Pangu Electronics"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_product_supplierinfo_form_view
+msgid "Payment terms & conditions, extra pricing details, etc..."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "Phone:"
+msgstr ""
+
+#. module: ovis
+#: selection:stock.picking,weight_unit:0
+msgid "Pound(s)"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_price
+msgid "Price"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_product_producing_ids
+#: model:ir.model.fields,field_description:ovis.field_product_template_producing_ids
+msgid "Producing"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_product_template
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_product_tmpl_id
+msgid "Product Template"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_product_id
+msgid "Product Variant"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+msgid "Quantity:"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_sale_order
+msgid "Quotation"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_remarks
+msgid "REMARKS"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "REMARKS:"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+msgid "Remarks"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_remarks
+msgid "Remarks for D/O."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+msgid "Remarks for this D/O."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_reserved_total
+msgid "Reservered"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "SAILING ON"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_product_template_only_form_view
+msgid "SPQ"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_sailing
+msgid "Sailing On"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_shipping_id
+msgid "Shipper"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+msgid "Shipping"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_shipping_id
+msgid "Shipping details"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_signature
+msgid "Signature"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_product_supplierinfo_form_view
+msgid "Smallest Pack"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_supplierinfo_sp_qty
+msgid "Smallest Pack Quantity"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_supplierinfo_sp_qty
+msgid "Smallest Packing Quantity available from Vendor."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_date_start
+msgid "Start Date"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_date_start
+msgid "Start date for this customer price"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_move_line_net_weight
+#: model:ir.model.fields,help:ovis.field_stock_move_net_weight
+msgid "Sum of the net weight of each line product"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_move_gross_weight
+#: model:ir.model.fields,help:ovis.field_stock_move_line_gross_weight
+msgid "Sum of the total weight of each line product"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "TO"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_boxed
+msgid "Tel:"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_min_qty
+msgid "The minimal quantity to sell to this customer, expressed in the customer Product Unit of Measure if not any, in the default unit of measure of the product otherwise."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_price
+msgid "The price to sell a product to particular customer."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_product_uom
+msgid "This comes from the product form."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_product_name
+msgid "This customer's product name will be used when printing a request for quotation. Keep empty to use the internal one."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.report_packing_document
+msgid "This shipment is a backorder of"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_product_purchaserinfo_product_code
+msgid "This vendor's product code will be used when printing a request for quotation. Keep empty to use the internal one."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_product_tooling_ids
+#: model:ir.model.fields,field_description:ovis.field_product_template_tooling_ids
+#: model:ir.ui.view,arch_db:ovis.inherit_product_template_only_form_view
+msgid "Tooling"
+msgstr "工具"
+
+#. module: ovis
+#: code:addons/ovis/models/product.py:24
+#, python-format
+msgid "Tooling and Producing do not co-exist."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_product_uom_id
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_product_variant_count
+msgid "Variant Count"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_boxed
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "Web:"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_stock_move_line_weight_unit_id
+#: model:ir.model.fields,field_description:ovis.field_stock_picking_weight_unit
+msgid "Weight Unit"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_shipping_marks_made_in_id
+msgid "Where the contained items are Made in."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,help:ovis.field_stock_picking_sailing
+msgid "Which port."
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "__________________________<br/>Authorized Signature"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "___________________________________<br/>Authorized Signature"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
+msgid "______________________________________<br/>Authorized Signature"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+msgid "eg. 01-15 or A1-C22"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+msgid "eg. PORT 19"
+msgstr ""
+
+#. module: ovis
+#: model:ir.ui.view,arch_db:ovis.inherit_stock_picking_views
+msgid "eg. SEA or AIR"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_product_molding
+msgid "product.molding"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_stock_picking_shipping
+msgid "stock.picking.shipping"
+msgstr ""
+

@@ -2,45 +2,51 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 class InheritProductTemplate(models.Model):
 	
 	_inherit = 'product.template'
-	# _parent_name = "parent_id"
-	# _parent_store = True
-	# _parent_order = 'name'
 	
 	memo = fields.Text(string='Memorandum', translate=True)
 
 	buyer_ids = fields.One2many('product.purchaserinfo', 'product_tmpl_id', string='Customers')	
 	
 	drawing = fields.Char(string='Drawaing', help="Engineer Drawing file name.")
-	tooling_ids = fields.Many2many(comodel_name='product.template', relation='product_template_rel', column1='tooling_ids', column2='producing_ids', string="Tooling")
-	producing_ids = fields.Many2many(comodel_name='product.template', relation='product_template_rel', column1='producing_ids', column2='tooling_ids', string="Producing")
-	tooling = fields.Boolean(string='Is Tooling', index=True, default=False)
-	# parent_id = fields.Many2one('product.template', string='Parent', index=True, ondelete='cascade', domain="[('tooling','!=',True)]")
-	# child_ids = fields.One2many('product.template', 'parent_id', string='Old Versions')	
-	# parent_left = fields.Integer('Left Parent', index=1)
-	# parent_right = fields.Integer('Right Parent', index=1)
+	tooling_ids = fields.Many2many(comodel_name='product.template', relation='product_template_rel', column1='tooling_ids', column2='producing_ids', string="Tooling", ondelete='cascade', onupdate='cascade', readonly=True)
+	producing_ids = fields.Many2many(comodel_name='product.template', relation='product_template_rel', column1='producing_ids', column2='tooling_ids', string="Producing", ondelete='cascade', onupdate='cascade')
+	tooling = fields.Boolean(string='Is Tooling', index=True, default=False, required=True)
+
 	arrival = fields.Date(string='Arrival Date', help="Arrival Date when this tooling comes in stock.")
+	scrapped = fields.Boolean(string='Scrapped', default=False, help="This tooling product is scrapped.")
+	exported = fields.Boolean(string='Exported', default=False, help="This tooling product is exported.")
+	last_po = fields.Many2one('purchase.order', string='Last P/O', domain=[('state', '!=', 'draft')])
+	last_so = fields.Many2one('sale.order', string='Last S/O', domain=[('state', '!=', 'draft')])
 
-	# @api.constrains('parent_id')
-	# def _check_parent_id(self):
-	# 	if not self._check_recursion():
-	# 		raise ValidationError('Error ! You can not create recursive tags.')
-	# 	if self.parent_id.tooling == True:
-	# 		raise ValidationError('Error ! Parent cannot have be tooling product.')
+	@api.constrains('tooling', 'tooling_ids', 'producing_ids')
+	def _check_tooling_producing(self):
+		if len(self.producing_ids) > 0 and len(self.tooling_ids) > 0:
+			raise ValidationError(_('Tooling and Producing do not co-exist.'))
 
-	# @api.constrains('tooling', 'parent_id')
-	# def _check_tooling_parent_id(self):
-	# 	if self.tooling == False and self.parent_id != None:
-	# 		raise ValidationError('Error ! Non-tooling product cannot have parent.')
+		if self.tooling == True:
+			if len(self.tooling_ids) > 0:
+				raise ValidationError(_('A tooling product cannot have tooling.'))
+			else:
+				pass
+			if len(self.producing_ids) <= 0:
+				raise ValidationError(_('A tooling product must have at least one non-tooling product to produce.'))
+			else:
+				pass
+		elif len(self.producing_ids) > 0:
+				raise ValidationError(_('A non-tooling product cannot produce others.'))
 
-	# @api.constrains('tooling', 'child_ids')
-	# def _check_tooling_child_ids(self):
-	# 	if self.tooling == True and len(self.child_ids) != 0:
-	# 		raise ValidationError('Error ! Tooling product cannot have children.')
-
+	@api.multi
+	@api.onchange('tooling')
+	def reset_tooling_onchange(self):
+		self.ensure_one()
+		if self.tooling == False:
+			self.scrapped = False
+			self.exported = False
 
 class PurchaserInfo(models.Model):
 	_name = "product.purchaserinfo"
