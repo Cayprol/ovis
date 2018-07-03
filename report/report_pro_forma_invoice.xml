@@ -3,7 +3,7 @@
 	<template id="inherit_report_saleorder_document" inherit_id="sale.report_saleorder_document">
 
 		<xpath expr="//t[@t-call='web.external_layout']" position="attributes">
-			<attribute name="t-call">ovis.invoice_external_layout</attribute>
+			<attribute name="t-call">ovis.external_layout</attribute>
 		</xpath>
 
 	</template>
