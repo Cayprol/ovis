@@ -16,7 +16,24 @@
 		<field name="dpi">90</field> 
 	</record>
 
-	 <report string="Packing List" 
+	<record id="paperformat_pro_forma_invoice" model="report.paperformat"> 
+		<field name="name">Pro-forma Invoice</field> 
+		<field name="default" eval="True" /> 
+		<field name="format">A4</field> 
+		<field name="page_height">0</field> 
+		<field name="page_width">0</field> 
+		<field name="orientation">Portrait</field> 
+		<field name="margin_top">45</field> 
+		<field name="margin_bottom">60</field> 
+		<field name="margin_left">7</field> 
+		<field name="margin_right">7</field> 
+		<field name="header_line" eval="False"/> 
+		<field name="header_spacing">20</field>
+		<field name="footer_spacing">60</field> 
+		<field name="dpi">90</field> 
+	</record>
+
+	<report string="Packing List" 
 	 id="action_report_packing_list" 
 	 model="stock.picking" 
 	 report_type="qweb-pdf" 
@@ -25,14 +42,16 @@
 	 print_report_name="'Packing List - %s - %s' % (object.partner_id.name or '', object.name)" 
 	 paperformat="paperformat_packing_list"/>
  
- 	 <report string="P/I" 
-	 id="action_report_pi" 
-	 model="sale.order" 
+
+	<report string="PRO-FORMA Invoice1"
+	 id="action_report_pro_forma_invoice"
+	 model="sale.order"
 	 report_type="qweb-pdf"
-	 groups="sale.group_proforma_sales" 
-	 name="ovis.report_saleorder_pro_forma" 
+	 groups="sale.group_proforma_sales"
 	 file="ovis.report_saleorder_pro_forma"
-	 print_report_name="'PRO-FORMA - %s' % (object.name)" 
-	 />
+	 name="ovis.report_saleorder_pro_forma"
+	 print_report_name="'PRO-FORMA1 - %s' % (object.name)"
+	 paperformat="paperformat_pro_forma_invoice"/>
+
 
 </odoo> 
