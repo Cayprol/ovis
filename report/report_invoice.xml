@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<template id="inherit_report_invoice_document" inherit_id="account.report_invoice_document">
+
+		<xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+			<attribute name="t-call">ovis.external_layout</attribute>
+		</xpath>
+
+	</template>
+
+</odoo>

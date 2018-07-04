@@ -122,7 +122,7 @@
 	<!-- Main style -->
 	<template id="external_layout_standard">
 		<div class="header" style="">
-			<div t-if="o.signature == 'ovis'" class="row">
+			<div t-if="o.company_id.name == 'OVIS ENTERPRISES CO., LTD.'" class="row">
 				<div class="col-xs-4">
 					<!-- <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="max-height: 125px;"/> -->
 					<img src="/ovis/static/logo/ovis.png" style="max-height: 125px;"/>
@@ -136,7 +136,7 @@
 					</p>
 				</div> 
 			</div>
-			<div t-if="o.signature == 'ovis_int'" class="row">
+			<div t-if="o.company_id.name == 'OVIS ENTERPRISES INT\'L CO., LTD.'" class="row">
 				<div class="col-xs-4">
 					<img src="/ovis/static/logo/ovis_int.png" style="max-height: 125px;"/>
 				</div>
@@ -148,7 +148,7 @@
 					</p>
 				</div> 
 			</div>
-			<div t-if="o.signature == 'pangu'" class="row">
+			<div t-if="o.company_id.name == 'pangu'" class="row">
 				<div class="col-xs-4 text-center">
 					<img src="/ovis/static/logo/pangu.png" style="max-height: 125px;"/>
 				</div>
@@ -168,18 +168,18 @@
 
 		<div class="footer">
 			<div class="row last-page" style="margin-bottom:6px;margin-right:10px;page-break-inside:avoid;">
-				<div t-if="o.signature == 'pangu'" class="pull-right">
-					<h3 align="center"><span t-field="o.signature"/></h3>
+				<div t-if="o.company_id.name == 'pangu'" class="pull-right">
+					<h4 align="center"><span t-field="o.company_id.name"/></h4>
 					<h3>&#160;</h3>
 					<p align="center">__________________________<br></br>Authorized Signature</p>
 				</div>
-				<div t-if="o.signature == 'ovis'" class="pull-right">
-					<h3 align="center"><span t-field="o.signature"/></h3>
+				<div t-if="o.company_id.name == 'OVIS ENTERPRISES CO., LTD.'" class="pull-right">
+					<h4 align="center"><span t-field="o.company_id.name"/></h4>
 					<h3>&#160;</h3>
 					<p align="center">___________________________________<br></br>Authorized Signature</p>						
 				</div>
-				<div t-if="o.signature == 'ovis_int'" class="pull-right">
-					<h3 align="center"><span t-field="o.signature"/></h3>
+				<div t-if="o.company_id.name == 'OVIS ENTERPRISES INT\'L CO., LTD.'" class="pull-right">
+					<h4 align="center"><span t-field="o.company_id.name"/></h4>
 					<h3>&#160;</h3>
 					<p align="center">______________________________________<br></br>Authorized Signature</p>
 				</div>
@@ -241,7 +241,7 @@
 		<field name="page_width">0</field> 
 		<field name="orientation">Portrait</field> 
 		<field name="margin_top">40</field> 
-		<field name="margin_bottom">45</field> 
+		<field name="margin_bottom">40</field> 
 		<field name="margin_left">7</field> 
 		<field name="margin_right">7</field> 
 		<field name="header_line" eval="False"/> 
@@ -261,6 +261,14 @@
 	 print_report_name="'Packing List - %s - %s' % (object.partner_id.name or '', object.name)" 
 	 paperformat="paperformat_logo_addr"/>
  
+	<report string="Quotation / Order"
+	 id="sale.action_report_saleorder"
+	 model="sale.order" 
+	 report_type="qweb-pdf"
+	 file="sale.report_saleorder" 
+	 name="sale.report_saleorder"
+	 print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)"
+	 paperformat="paperformat_logo_addr"/>
 
 	<report string="PRO-FORMA Invoice"
 	 id="sale.action_report_pro_forma_invoice"
@@ -270,6 +278,17 @@
 	 file="sale.report_saleorder_pro_forma"
 	 name="sale.report_saleorder_pro_forma"
 	 print_report_name="'P/I - %s' % (object.name)"
+	 paperformat="paperformat_logo_addr"/>
+
+	<report string="Invoices"
+	 id="account.account_invoices"
+	 model="account.invoice"
+	 report_type="qweb-pdf"
+	 name="account.report_invoice_with_payments"
+	 file="account.report_invoice_with_payments"
+	 attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+	 print_report_name="(object._get_printed_report_name())"
+	 groups="account.group_account_invoice"
 	 paperformat="paperformat_logo_addr"/>
 	 <!--  -->
 </odoo> 

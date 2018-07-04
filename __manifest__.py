@@ -25,6 +25,7 @@
     'depends': ['base', 'web', 'sale', 'purchase', 'product', 'stock', 'mrp'],
     # always loaded
     'data': [
+        'security/ir.model.access.csv',
         'views/inherit_product_supplierinfo_form_view.xml',
         'views/inherit_product_template_only_form_views.xml',
         'views/inherit_stock_picking_views.xml',
@@ -34,6 +35,7 @@
         'views/stock_picking_shipping.xml',
         'views/sales_menu.xml',
         'views/purchases_menu.xml',
+        'report/report_invoice.xml',
         'report/report_packing_list.xml',
         'report/report_pro_forma_invoice.xml',
         'report/report_views.xml',
