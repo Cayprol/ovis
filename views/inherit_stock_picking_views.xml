@@ -25,7 +25,6 @@
 
 				<!-- Add fields under Main Title -->
 				<xpath expr="//field[@name='backorder_id']" position="after">
-					<field name="signature"/>
 					<field name="bill_to" attrs="{'invisible': [('picking_type_code', '=', 'internal')]}"/>
 				</xpath>
 

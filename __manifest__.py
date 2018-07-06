@@ -35,6 +35,7 @@
         'views/stock_picking_shipping.xml',
         'views/sales_menu.xml',
         'views/purchases_menu.xml',
+        'report/report_account_receivable.xml',
         'report/report_invoice.xml',
         'report/report_packing_list.xml',
         'report/report_pro_forma_invoice.xml',

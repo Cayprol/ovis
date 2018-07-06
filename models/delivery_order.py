@@ -41,10 +41,6 @@ class InheritStockPicking(models.Model):
 
 	_inherit = 'stock.picking'
 
-	signature = fields.Selection([('ovis','OVIS Enterprise Co.,Ltd.'),('ovis_int','OVIS Enterprise Int\'l Co.,Ltd.'),('pangu','Pangu Electronics')],
-									string='Signature',
-									default='ovis',
-									)
 	weight_unit = fields.Selection([('kg', 'Kilogram(s)'), ('lb', 'Pound(s)'), ('g', 'Gram(s)')], string='Weight Unit', default='kg')
 	
 	carton_total = fields.Integer(string='Cartons')
