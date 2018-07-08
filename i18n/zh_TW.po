@@ -16,19 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ovis
-#: model:ir.ui.view,arch_db:ovis.report_packing_document
-msgid "<br/>\n"
-"								(IN DIA)<br/>\n"
-"								C/NO:"
-msgstr ""
-
-#. module: ovis
-#: model:ir.ui.view,arch_db:ovis.report_packing_document
-msgid "<br/>\n"
-"								MADE IN"
-msgstr ""
-
-#. module: ovis
 #: model:ir.ui.view,arch_db:ovis.packing_list_external_layout_standard
 msgid "<span style=\"font-size:19px;\"><strong>TAIWAN OFFICE</strong></span><br/>\n"
 "						4F, No. 649-8, Zhongzheng Rd., Xinzhuang Dist.,<br/>\n"
