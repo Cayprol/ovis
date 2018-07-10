@@ -6,6 +6,25 @@
 			<attribute name="t-call">ovis.external_layout</attribute>
 		</xpath>
 
+
+		<!-- Hide title of Quotation, Order, Pro-forma Invoice -->
+		<xpath expr="//div[@class='page']//h2[1]" position="replace"/>
+
+		<!-- Add title of Quotation, Order, Pro-forma Invoice to the desired place -->
+		<xpath expr="//div[@class='row']" position="before">
+			<h2>
+				<t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+					<span t-if="doc.state not in ['draft','sent']">Order # </span>
+					<span t-if="doc.state in ['draft','sent']">Quotation # </span>
+				</t>
+				<t t-if="env.context.get('proforma', False) or is_pro_forma">
+					<span>Pro-Forma Invoice # </span>
+				</t>
+				<span t-field="doc.name"/>
+			</h2>
+		</xpath>
+
+
 	</template>
 
 </odoo>
