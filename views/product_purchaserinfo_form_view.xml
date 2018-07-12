@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="product_purchaserinfo_form_view" model="ir.ui.view">
+			<field name="name">product.purchaserinfo.form.view</field>
+			<field name="model">product.purchaserinfo</field>
+			<field name="arch" type="xml">
+				<form string="Customer Information">
+					<group>
+						<group string="Customer">
+							<field name="product_variant_count" invisible="1"/>
+							<field name="product_id" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]"/>
+							<field name="name" context="{'search_default_customer': 1, 'default_customer': 1, 'default_supplier': 0}"/>
+							<field name="product_name"/>
+							<field name="product_code"/>
+							<label for="delay"/>
+							<div>
+								<field name="delay" class="oe_inline"/> days
+							</div>
+						</group>
+						<group string="Price List">
+							<field name="product_tmpl_id" string="Product" invisible="context.get('visible_product_tmpl_id', True)"/>
+							<label for="min_qty"/>
+							<div>
+								<field name="min_qty" class="oe_inline"/>
+								<field name="product_uom" class="oe_inline" groups="product.group_uom"/>
+							</div>
+							<label for="price"/>
+							<div>
+								<field name="price" class="oe_inline"/><field name="currency_id" class="oe_inline" groups="base.group_multi_currency"/>
+							</div>
+							<label for="date_start" string="Validity"/>
+							<div><field name="date_start" class="oe_inline"/> to <field name="date_end" class="oe_inline"/></div>
+						</group>
+						<group string="Description">
+							<field name="description" nolabel='1' style="max-width: 438px;" placeholder="Payment terms &amp; conditions, extra pricing details, etc..."/>
+						</group>
+						<group string="Other Information" groups="base.group_multi_company">
+							<field name="company_id" options="{'no_create': True}"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+	</data>
+</odoo>

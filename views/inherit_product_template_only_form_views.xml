@@ -28,11 +28,14 @@
 				<xpath expr="//page[@name='sales']//div[@name='pricelist_item']" position="before">
 					<group string="Customers" name="customers">
 						<field name="buyer_ids" nolabel="1">
-							<tree>
+							<tree decoration-info="description != False and description != ''">
 								<field name="name"/>
-								<field name="product_name"/>
-								<field name="product_code"/>
+								<field name="min_qty" string="MOQ"/>
 								<field name="price"/>
+								<field name="currency_id"/>
+								<field name="__last_update" string="Last Modified" widget="date" modifiers="{'readonly': true}"/>
+								<field name="company_id"/>
+								<field name="description" invisible='1'/>
 							</tree>
 						</field>
 					</group>
@@ -41,13 +44,15 @@
 				<!-- Modify Field "seller_ids" -->
 				<xpath expr="//field[@name='seller_ids']" position="replace">
 					<field name="seller_ids" nolabel="1">
-						<tree>
+						<tree decoration-info="description != False and description != ''">
 							<field name="name"/>
 							<field name="min_qty" string="MOQ"/>
 							<field name="sp_qty" string="SPQ"/>
 							<field name="price"/>
-							<field name="__last_update" widget="date"/>
-							<field name="info"/>
+							<field name="currency_id" readonly='1'/>
+							<field name="__last_update" string="Last Modified" widget="date" modifiers="{'readonly': true}"/>
+							<field name="company_id"/>
+							<field name="description" invisible='1'/>
 						</tree>
 					</field>
 				</xpath>
@@ -56,28 +61,6 @@
 					<attribute name="decoration-danger">min_qty &lt; sp_qty</attribute>
 					<!-- <attribute name="decoration-info">info != None</attribute> -->
 				</xpath>
-
-
-				<!-- Add new page "Manufacturing" for drawing and tooling. -->
-<!-- 				<xpath expr="//page[@name='purchase']" position="after">
-					<page string="Manufacturing" name="manufacturing">
-						<group string="Drawing" name="drawing">
-						</group>
-						<group string="Tooling" name="tooling" col="4">
-							<field name="tooling" col="2"/>
-							<field name="parent_id" attrs="{'invisible':[('tooling', '=', False)]}"/>
-							<field name="child_ids" nolabel="1" readonly="1" colspan="4">
-								<tree>
-									<field name="name"/>
-									<field name="price"/>
-									<field name="arrival" widget="date"/>
-									<field name="__last_update" widget="date"/>
-								</tree>
-							</field>
-						</group>
-					</page>
-				</xpath> -->
-
 
 				<xpath expr="//page[@name='purchase']" position="after">
 					<page name="manufacturing" string="Manufacturing">

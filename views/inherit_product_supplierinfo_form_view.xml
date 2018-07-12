@@ -16,9 +16,9 @@
 				</div>
 			</xpath>
 
-			<xpath expr="//group" position="inside">
-				<group string="Additional Information" col="4">
-					<field name="info" nolabel="1" placeholder="Payment terms &amp; conditions, extra pricing details, etc..."/>
+			<xpath expr="//group[1]//group[2]" position="after">
+				<group string="Description">
+					<field name="description" nolabel="1" style="max-width: 438px;" placeholder="Payment terms &amp; conditions, extra pricing details, etc..."/>
 				</group>
 			</xpath>
 		</field>

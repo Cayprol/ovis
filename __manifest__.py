@@ -31,10 +31,10 @@
         'views/inherit_stock_picking_views.xml',
         'views/inherit_view_partner_form.xml',
         'views/inherit_view_order_form.xml',
-        # 'views/product_molding_form_view.xml',  THIS WAS CREATED DURING TESTING
         'views/stock_picking_shipping.xml',
         'views/sales_menu.xml',
         'views/purchases_menu.xml',
+        'views/product_purchaserinfo_form_view.xml',
         'report/report_account_receivable.xml',
         'report/report_invoice.xml',
         'report/report_packing_list.xml',

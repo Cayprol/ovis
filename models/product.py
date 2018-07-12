@@ -67,17 +67,12 @@ class PurchaserInfo(models.Model):
 	product_id = fields.Many2one('product.product', 'Product Variant', help="If not set, the customer price will apply to all variants of this products.")
 	product_tmpl_id = fields.Many2one('product.template', 'Product Template', index=True, ondelete='cascade', oldname='product_id')
 	product_variant_count = fields.Integer('Variant Count', related='product_tmpl_id.product_variant_count')
+	delay = fields.Integer('Delivery Lead Time', default=1, required=True, help="Lead time in days between the confirmation of the sales order and the products going out of your warehouse.")
+	description = fields.Text(string='Description', help="Description regarding this Customer's pricing details.")
+
 
 class InheritSupplierInfo(models.Model):
 	_inherit = 'product.supplierinfo'
 
 	sp_qty = fields.Float(string='Smallest Pack Quantity', help="Smallest Packing Quantity available from Vendor.")
-	info = fields.Text(string='Additional Information', help="Additional Information regarding this Vendor's pricing details.")
-	
-	# Use xml attribute "decoration-danger" for coherence of code.
-	# @api.multi
-	# @api.constrains('sp_qty', 'min_qty')
-	# def _check_qty(self):
-	# 	self.ensure_one()
-	# 	if self.sp_qty > self.min_qty:
-	# 		raise exceptions.ValidationError("Smallest Packing Quantity must be smaller than or equal to Minimal Quantity.")
+	description = fields.Text(string='Description', help="Description regarding this Vendor's pricing details.")
