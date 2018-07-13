@@ -2,9 +2,9 @@
 
 from odoo import models, fields, api
 
-class InheritSaleOrder(models.Model):
+class InheritPurchaseOrder(models.Model):
 
-	_inherit = 'sale.order'
+	_inherit = 'purchase.order'
 
 	invoice_create = fields.Boolean(string='Invoice Create', compute='_compute_creation')
 
