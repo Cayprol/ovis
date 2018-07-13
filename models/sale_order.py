@@ -8,13 +8,13 @@ class InheritSaleOrder(models.Model):
 
 	user_company_id = fields.Many2one('res.company', 'User Current Company')
 
-	match = fields.Boolean(string='Match', default=False)
+	match = fields.Boolean(string='Match')
 
-	# @api.onchange('user_company_id')
-	# @api.multi
-	# def _check_match(self):
-	# 	if self.company_id != self.user_company_id:
-	# 		self.match = False
-
-	# 	else:
-	# 		self.match = True
+	@api.multi
+	@api.onchange('user_company_id', 'company_id', 'match')
+	def check_match(self):
+		self.ensure_one()
+		if self.user_company_id != self.company_id:
+			self.match = False
+		else:
+			self.match = True
