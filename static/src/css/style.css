@@ -1,4 +1,6 @@
-.o_sub_menu{
-	
-	background:red;
+.o_control_panel {
+    background-color: #ffffff;
+    .breadcrumb {
+        padding:0 ;
+    }
 }

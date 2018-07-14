@@ -41,7 +41,7 @@
         'report/report_packing_list.xml',
         'report/report_pro_forma_invoice.xml',
         'report/report_views.xml',
-        'views/theme.xml',
+        'views/assets.xml',
 
     ],
 }
