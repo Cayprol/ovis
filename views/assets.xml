@@ -4,7 +4,7 @@
 	<data>
 		<template id="assets_backend" name="custom assets" inherit_id="web.assets_backend">
 			<xpath expr="." position="inside">
-				<link rel="stylesheet" href="/ovis/static/src/css/style.css"/>
+				<link rel="stylesheet" href="/ovis/static/src/less/style.less"/>
 			</xpath>
 		</template>
 	</data>
