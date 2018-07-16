@@ -13,7 +13,7 @@
 				</xpath>
 
 				<xpath expr="//field[@name='move_lines']//tree" position="inside">
-							<field name="net_weight"/>
+							<field name="net_weight" attrs="{'invisible': [('picking_id.weight_unit', '!=', 'kg')]}"/>
 							<field name="gross_weight"/>
 				</xpath>
 

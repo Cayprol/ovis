@@ -32,9 +32,17 @@ class InheritStockMove(models.Model):
 	# 		pass
 
 	net_weight = fields.Float(string='Net Weight', help='Sum of the net weight of each line product')
+	net_weight_g = field.Float(string='Net Weight (g)', compute="_compute_weight_unit")
+	net_weight_lb = field.Float(string='Net Weight (lb)', compute="_compute_weight_unit")
 	gross_weight = fields.Float(string='Gross Weight', help='Sum of the total weight of each line product')
 	carton = fields.Char(string='Carton No.', help='Carton number each product is placed in.')
 
+	@api.depends('net_weight')
+	def _compute_weight_unit(self):
+		if self.net_weight != None and self.net_weight >= 0:
+			self.net_weight_g = self.net_weight / 1000
+			self.net_weight_lb = self.net_weight * 0.00220462
+			
 
 
 class InheritStockPicking(models.Model):
@@ -44,7 +52,7 @@ class InheritStockPicking(models.Model):
 	weight_unit = fields.Selection([('kg', 'Kilogram(s)'), ('lb', 'Pound(s)'), ('g', 'Gram(s)')], string='Weight Unit', default='kg')
 	
 	carton_total = fields.Integer(string='Cartons')
-	initial_total = fields.Float(string='Initial Demend', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)
+	initial_total = fields.Float(string='Initial Demand', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)
 	reserved_total = fields.Float(string='Reservered', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)
 	done_total = fields.Float(string='Done', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), readonly=True)
 	net_weight_total = fields.Float(string='Net Weight', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)	
