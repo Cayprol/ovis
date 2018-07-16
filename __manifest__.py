@@ -22,7 +22,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web', 'sale', 'purchase', 'product', 'stock', 'mrp'],
+    'depends': ['base', 'web', 'sale', 'purchase', 'product', 'stock', 'mrp', 'ovis_theme'],
     # always loaded
     'data': [
         'security/ir.model.access.csv',
@@ -41,8 +41,6 @@
         'report/report_packing_list.xml',
         'report/report_pro_forma_invoice.xml',
         'report/report_views.xml',
-        'views/assets.xml',
-
-    ],
+        ],
 }
 
