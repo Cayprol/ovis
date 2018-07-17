@@ -176,7 +176,7 @@ msgstr "BY"
 #. module: ovis
 #: model:ir.model.fields,field_description:ovis.field_stock_picking_bill_to
 msgid "Bill To"
-msgstr "Bill To"
+msgstr "發票地址"
 
 #. module: ovis
 #: model:ir.model.fields,field_description:ovis.field_stock_picking_way
@@ -415,7 +415,7 @@ msgstr "公克"
 #: model:ir.model.fields,field_description:ovis.field_stock_move_line_gross_weight
 #: model:ir.model.fields,field_description:ovis.field_stock_picking_gross_weight_total
 msgid "Gross Weight"
-msgstr "毛重"
+msgstr "總重"
 
 #. module: ovis
 #: model:ir.model.fields,field_description:ovis.field_product_purchaserinfo_id
@@ -568,7 +568,7 @@ msgstr "Name of the Forwarder."
 #: model:ir.model.fields,field_description:ovis.field_stock_move_net_weight
 #: model:ir.model.fields,field_description:ovis.field_stock_picking_net_weight_total
 msgid "Net Weight"
-msgstr "Net Weight"
+msgstr "淨重"
 
 #. module: ovis
 #: model:ir.actions.act_window,help:ovis.action_partner_forwarder_form
@@ -717,7 +717,7 @@ msgstr "Remarks for this D/O."
 #. module: ovis
 #: model:ir.model.fields,field_description:ovis.field_stock_picking_reserved_total
 msgid "Reservered"
-msgstr "已預定"
+msgstr "已預留"
 
 #. module: ovis
 #: model:ir.ui.view,arch_db:ovis.report_packing_document
