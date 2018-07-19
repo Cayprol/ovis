@@ -1,30 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-	<template id="report_receivable_document">
+	<template id="report_account_receivable">
 		<t t-call="web.html_container">
-			<t t-call="ovis.external_layout">
-				<t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+			<t t-call="web.external_layout">
 				<div class="page">
-					<h2 align="center">Account Receivable</h2>
-					<div class="row" style="margin-top:16px;border-bottom: 1px solid black;">
-						<div class="col-xs-4">
-							<span t-field="o.partner_id"/>
 
-						</div>
-					</div>
+					<t t-set="companies" t-value="list(set([o.partner_id for o in docs if o.state!='draft' and o.state!='cancel']))"/>
+					
+					<t t-foreach="companies" t-as="c">
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th><strong>Partner</strong></th>
+									<th><strong>Invoice No.</strong></th>
+									<th><strong>Amount</strong></th>
+									<th><strong>Tax</strong></th>
+									<th><strong>Total</strong></th>
+									<th><strong>To Pay</strong></th>
+									<th><strong>Due Date</strong></th>
+									<th><strong>Term</strong></th>
+								</tr>								
+							</thead>
+							<tbody>
+								<tr t-foreach="docs" t-as="o" t-if="o.state!='draft' and o.state!='cancel' and c.id == o.partner_id.id">
+									<td><span t-field="o.partner_id"/></td>
+									<td><span t-field="o.number"/></td>
+									<td><span t-field="o.amount_untaxed"/></td>
+									<td><span t-field="o.amount_tax"/></td>
+									<td><span t-field="o.amount_total_signed"/></td>
+									<td><span t-field="o.residual_signed"/></td>
+									<td><span t-field="o.date_due"/></td>
+									<td><span t-field="o.payment_term_id.line_ids.days"/></td>
+								</tr>
+								<tr>
+									<td/>
+									<td/>
+									<td><span t-esc="sum([o.amount_untaxed for o in docs if c.id == o.partner_id.id])"/></td>
+									<td><span t-esc="sum([o.amount_tax for o in docs if c.id == o.partner_id.id])"/></td>
+									<td><span t-esc="sum([o.amount_total_signed for o in docs if c.id == o.partner_id.id])"/></td>
+									<td><span t-esc="sum([o.residual_signed for o in docs if c.id == o.partner_id.id])"/></td>
+									<td/>
+									<td/>
+								</tr>
+							</tbody>
+						</table>
+					</t>
+
+					<t t-set="EUR" t-value="sum([o.amount_untaxed for o in docs if o.state!='draft' and o.state!='cancel' and o.currency_id.id==1])"/>
+					<t t-set="USD" t-value="sum([o.amount_untaxed for o in docs if o.state!='draft' and o.state!='cancel' and o.currency_id.id==3])"/>
+					<t t-set="CNY" t-value="sum([o.amount_untaxed for o in docs if o.state!='draft' and o.state!='cancel' and o.currency_id.id==8])"/>
+					<t t-set="HKD" t-value="sum([o.amount_untaxed for o in docs if o.state!='draft' and o.state!='cancel' and o.currency_id.id==25])"/>
+					<t t-set="TWD" t-value="sum([o.amount_untaxed for o in docs if o.state!='draft' and o.state!='cancel' and o.currency_id.id==140])"/>
+					<table class="table table-bordered mt48" style="border: 2px solid black">
+						<thead>
+							<th><strong>EUR</strong></th>
+							<th><strong>USD</strong></th>
+							<th><strong>CNY</strong></th>
+							<th><strong>HKD</strong></th>
+							<th><strong>TWD</strong></th>
+						</thead>
+						<tbody>
+							<tr>
+								<td><span t-esc="EUR"/></td>
+								<td><span t-esc="USD"/></td>
+								<td><span t-esc="CNY"/></td>
+								<td><span t-esc="HKD"/></td>
+								<td><span t-esc="TWD"/></td>
+							</tr>
+						</tbody>				
+					</table>
 				</div>
 			</t>
 		</t>
-	</template>
-
-
-	<template id="report_account_receivable">
-
-		<t t-foreach="docs" t-as="o">
-			<t t-call="ovis.report_receivable_document" t-lang="o.partner_id.lang"/>
-		</t>
-
 	</template>
 
 </odoo>

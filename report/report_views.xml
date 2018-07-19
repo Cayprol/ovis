@@ -260,13 +260,14 @@
 	 file="ovis.report_packing_list"
 	 print_report_name="'Packing List - %s - %s' % (object.partner_id.name or '', object.name)"/>
  
-	 <report string="Account Receivable"
-	  id="action_account_receivable"
-	  model="account.invoice"
-	  report_type="qweb-pdf"
-	  name="ovis.report_account_receivable"
-	  file="ovis.report_account_receivable"
-	  print_report_name="'AR'"/>
+	<report string="Account Receivable"
+	 id="action_account_receivable"
+	 model="account.invoice"
+	 report_type="qweb-pdf"
+	 name="ovis.report_account_receivable"
+	 file="ovis.report_account_receivable"
+	 print_report_name="'AR'"
+	 paperformat="base.paperformat_euro"/>
 
 <!-- 	<report string="Quotation / Order"
 	 id="sale.action_report_saleorder"
@@ -275,27 +276,6 @@
 	 file="sale.report_saleorder" 
 	 name="sale.report_saleorder"
 	 print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)"
-	 paperformat="paperformat_logo_addr"/>
-
-	<report string="PRO-FORMA Invoice"
-	 id="sale.action_report_pro_forma_invoice"
-	 model="sale.order"
-	 report_type="qweb-pdf"
-	 groups="sale.group_proforma_sales"
-	 file="sale.report_saleorder_pro_forma"
-	 name="sale.report_saleorder_pro_forma"
-	 print_report_name="'P/I - %s' % (object.name)"
-	 paperformat="paperformat_logo_addr"/>
-
-	<report string="Invoices"
-	 id="account.account_invoices"
-	 model="account.invoice"
-	 report_type="qweb-pdf"
-	 name="account.report_invoice_with_payments"
-	 file="account.report_invoice_with_payments"
-	 attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
-	 print_report_name="(object._get_printed_report_name())"
-	 groups="account.group_account_invoice"
 	 paperformat="paperformat_logo_addr"/> -->
-	 <!--  -->
+
 </odoo> 

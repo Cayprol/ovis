@@ -9,12 +9,12 @@
 
 				<!-- Add fields to One2many field in "Operations"-->
 				<xpath expr="//field[@name='move_lines']//tree//field[@name='product_id']" position="before">
-							<field name="carton"/>
+					<field name="carton"/>
 				</xpath>
 
 				<xpath expr="//field[@name='move_lines']//tree" position="inside">
-							<field name="net_weight" attrs="{'invisible': [('picking_id.weight_unit', '!=', 'kg')]}"/>
-							<field name="gross_weight"/>
+					<field name="net_weight" sum="Total"/>
+					<field name="gross_weight" sum="Total"/>
 				</xpath>
 
 				<xpath expr="//field[@name='move_lines']//tree" position="attributes">
@@ -60,8 +60,6 @@
 							<field name="done_total"/>
 						</group>
 						<group string="Carton:">
-							<field name="net_weight_total"/>
-							<field name="gross_weight_total"/>
 							<field name="carton_total" placeholder="Cartons" colspan="4"/>
 						</group>
 					</group>

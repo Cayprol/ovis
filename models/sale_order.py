@@ -11,7 +11,7 @@ class InheritSaleOrder(models.Model):
 	@api.multi
 	def _compute_creation(self):
 		self.ensure_one()
-		if self.company_id.name != self.env.user.company_id.name:
+		if self.company_id.id != self.env.user.company_id.id:
 			self.invoice_create = False
 		else:
 			self.invoice_create = True

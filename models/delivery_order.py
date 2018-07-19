@@ -32,16 +32,16 @@ class InheritStockMove(models.Model):
 	# 		pass
 
 	net_weight = fields.Float(string='Net Weight', help='Sum of the net weight of each line product')
-	net_weight_g = field.Float(string='Net Weight (g)', compute="_compute_weight_unit")
-	net_weight_lb = field.Float(string='Net Weight (lb)', compute="_compute_weight_unit")
+	# net_weight_g = field.Float(string='Net Weight (g)', compute="_compute_weight_unit")
+	# net_weight_lb = field.Float(string='Net Weight (lb)', compute="_compute_weight_unit")
 	gross_weight = fields.Float(string='Gross Weight', help='Sum of the total weight of each line product')
 	carton = fields.Char(string='Carton No.', help='Carton number each product is placed in.')
 
-	@api.depends('net_weight')
-	def _compute_weight_unit(self):
-		if self.net_weight != None and self.net_weight >= 0:
-			self.net_weight_g = self.net_weight / 1000
-			self.net_weight_lb = self.net_weight * 0.00220462
+	# @api.depends('net_weight')
+	# def _compute_weight_unit(self):
+	# 	if self.net_weight != None and self.net_weight >= 0:
+	# 		self.net_weight_g = self.net_weight / 1000
+	# 		self.net_weight_lb = self.net_weight * 0.00220462
 			
 
 
@@ -55,8 +55,6 @@ class InheritStockPicking(models.Model):
 	initial_total = fields.Float(string='Initial Demand', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)
 	reserved_total = fields.Float(string='Reservered', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)
 	done_total = fields.Float(string='Done', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), readonly=True)
-	net_weight_total = fields.Float(string='Net Weight', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)	
-	gross_weight_total = fields.Float(string='Gross Weight', compute='_compute_amount', digits=dp.get_precision('Product Unit of Measure'), store=False, readonly=True)	
 
 	product_uom_id = fields.Many2one(related='move_line_ids.product_uom_id', readonly=True)
 
@@ -74,8 +72,6 @@ class InheritStockPicking(models.Model):
 	@api.one
 	@api.depends('move_lines.net_weight', 'move_lines.gross_weight', 'move_lines.product_uom_qty', 'move_lines.reserved_availability','move_lines.quantity_done')
 	def _compute_amount(self):
-		self.net_weight_total = sum(line.net_weight for line in self.move_lines)
-		self.gross_weight_total = sum(line.gross_weight for line in self.move_lines)
 		self.done_total = sum(line.quantity_done for line in self.move_lines)
 		self.initial_total = sum(line.product_uom_qty for line in self.move_lines)
 		self.reserved_total = sum(line.reserved_availability for line in self.move_lines)
