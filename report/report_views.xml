@@ -259,23 +259,15 @@
 	 name="ovis.report_packing_list" 
 	 file="ovis.report_packing_list"
 	 print_report_name="'Packing List - %s - %s' % (object.partner_id.name or '', object.name)"/>
- 
+
 	<report string="Accounts Summary"
 	 id="action_account_summary"
 	 model="account.invoice"
 	 report_type="qweb-pdf"
 	 name="ovis.report_account_summary"
 	 file="ovis.report_account_summary"
-	 print_report_name="(object.type in ('in_invoice') and 'Payable' + or 'R'"
+	 print_report_name="'Account Summary ' + time.strftime('%Y-%m-%d')"
 	 paperformat="base.paperformat_euro"/>
 
-<!-- 	<report string="Quotation / Order"
-	 id="sale.action_report_saleorder"
-	 model="sale.order" 
-	 report_type="qweb-pdf"
-	 file="sale.report_saleorder" 
-	 name="sale.report_saleorder"
-	 print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)"
-	 paperformat="paperformat_logo_addr"/> -->
-
+	<!-- "('Payable' if object.type == 'in_invoice' else 'Receivable')" -->
 </odoo> 

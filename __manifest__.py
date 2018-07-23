@@ -31,6 +31,7 @@
         'views/inherit_product_template_only_form_views.xml',
         'views/inherit_purchase_order_form.xml',
         'views/inherit_stock_picking_views.xml',
+        'views/inherit_invoice_supplier_form.xml',
         # 'views/inherit_invoice_supplier_tree_views.xml',
         'views/inherit_view_partner_form.xml',
         'views/inherit_view_order_form.xml',

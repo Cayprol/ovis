@@ -3,10 +3,11 @@
 
 	<template id="report_account_summary">
 		<t t-call="web.html_container">
-			<t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
-			<t t-call="web.external_layout">
+			<t t-call="web.internal_layout" t-lang="request.env.user.partner_id.lang">
 				<div class="page">
-
+<!-- 					<div>
+						<p>Report Generated On: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></p>
+					</div> -->
 					<t t-set="companies" t-value="list(set([o.partner_id for o in docs if o.state!='draft' and o.state!='cancel']))"/>
 					<t t-set="type" t-value="list(set([o.type for o in docs if o.state!='draft' and o.state!='cancel']))"/>
 
@@ -57,10 +58,10 @@
 										<tr>
 											<td/>
 											<td class="text-right"><span>Subtotal:</span></td>
-											<td><span t-esc="sum([o.amount_untaxed for o in docs if c.id == o.partner_id.id])"/></td>
-											<td><span t-esc="sum([o.amount_tax for o in docs if c.id == o.partner_id.id])"/></td>
-											<td><span t-esc="sum([o.amount_total_signed for o in docs if c.id == o.partner_id.id])"/></td>
-											<td><span t-esc="sum([o.residual_signed for o in docs if c.id == o.partner_id.id])"/></td>
+											<td><span t-esc="round(sum([o.amount_untaxed for o in docs if c.id == o.partner_id.id]), 2)"/></td>
+											<td><span t-esc="round(sum([o.amount_tax for o in docs if c.id == o.partner_id.id]), 2)"/></td>
+											<td><span t-esc="round(sum([o.amount_total_signed for o in docs if c.id == o.partner_id.id]), 2)"/></td>
+											<td><span t-esc="round(sum([o.residual_signed for o in docs if c.id == o.partner_id.id]), 2)"/></td>
 											<td/>
 											<td/>
 										</tr>
@@ -221,10 +222,10 @@
 								</tr>
 								<tr>
 									<td class="text-right"><span>Subtotal (Exchanged):</span></td>
-									<td><strong><span t-esc="EUR_amount_untaxed_signed+USD_amount_untaxed_signed+CNY_amount_untaxed_signed+HKD_amount_untaxed_signed+TWD_amount_untaxed_signed"/></strong></td>
-									<td><strong><span t-esc="EUR_amount_tax_signed+USD_amount_tax_signed+CNY_amount_tax_signed+HKD_amount_tax_signed+TWD_amount_tax_signed"/></strong></td>
-									<td><strong><span t-esc="EUR_amount_total_company_signed+USD_amount_total_company_signed+CNY_amount_total_company_signed+HKD_amount_total_company_signed+TWD_amount_total_company_signed"/></strong></td>
-									<td><strong><span t-esc="EUR_residual_company_signed+USD_residual_company_signed+CNY_residual_company_signed+HKD_residual_company_signed+TWD_residual_company_signed"/></strong></td>				
+									<td><strong><span t-esc="round(EUR_amount_untaxed_signed+USD_amount_untaxed_signed+CNY_amount_untaxed_signed+HKD_amount_untaxed_signed+TWD_amount_untaxed_signed, 2)"/></strong></td>
+									<td><strong><span t-esc="round(EUR_amount_tax_signed+USD_amount_tax_signed+CNY_amount_tax_signed+HKD_amount_tax_signed+TWD_amount_tax_signed, 2)"/></strong></td>
+									<td><strong><span t-esc="round(EUR_amount_total_company_signed+USD_amount_total_company_signed+CNY_amount_total_company_signed+HKD_amount_total_company_signed+TWD_amount_total_company_signed, 2)"/></strong></td>
+									<td><strong><span t-esc="round(EUR_residual_company_signed+USD_residual_company_signed+CNY_residual_company_signed+HKD_residual_company_signed+TWD_residual_company_signed, 2)"/></strong></td>				
 								</tr>
 							</tbody>			
 						</table>

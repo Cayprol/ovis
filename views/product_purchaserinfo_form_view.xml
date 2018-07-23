@@ -38,6 +38,10 @@
 						</group>
 						<group string="Other Information" groups="base.group_multi_company">
 							<field name="company_id" options="{'no_create': True}"/>
+							<label for="write_date" string="Last Modified"/>
+							<div>
+								<field name="write_date" class="oe_inline" modifiers="{'readonly': true}"/> by <field name="write_uid" class="oe_inline" modifiers="{'readonly': true}"/>
+							</div>
 						</group>
 					</group>
 				</form>

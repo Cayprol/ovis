@@ -21,6 +21,13 @@
 					<field name="description" nolabel="1" style="max-width: 438px;" placeholder="Payment terms &amp; conditions, extra pricing details, etc..."/>
 				</group>
 			</xpath>
+
+			<xpath expr="//field[@name='company_id']" position="after">
+				<label for="write_date" string="Last Modified"/>
+				<div>
+					<field name="write_date" class="oe_inline" modifiers="{'readonly': true}"/> by <field name="write_uid" class="oe_inline" modifiers="{'readonly': true}"/>
+				</div>
+			</xpath>
 		</field>
 	</record>
 

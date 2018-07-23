@@ -11,10 +11,10 @@
 					<attribute name="invisible">1</attribute>
 				</xpath>
 
-				<!-- Add Field "drawing", "__last_update" -->
+				<!-- Add Field "drawing", "write_date" -->
 				<xpath expr="//field[@name='default_code']" position="before">
 					<field name="drawing"/>
-					<field name="__last_update" string="Last Update" modifiers="{'readonly': true}"/>
+					<field name="write_date" string="Last Modified" widget="date" modifiers="{'readonly': true}"/>
 				</xpath>
 
 				<!-- Add Field "memo" -->
@@ -33,7 +33,7 @@
 								<field name="min_qty" string="MOQ"/>
 								<field name="price"/>
 								<field name="currency_id"/>
-								<field name="__last_update" string="Last Modified" widget="date" modifiers="{'readonly': true}"/>
+								<field name="write_date" string="Last Modified" widget="date" modifiers="{'readonly': true}"/>
 								<field name="company_id"/>
 								<field name="description" invisible='1'/>
 							</tree>
@@ -50,7 +50,7 @@
 							<field name="sp_qty" string="SPQ"/>
 							<field name="price"/>
 							<field name="currency_id" readonly='1'/>
-							<field name="__last_update" string="Last Modified" widget="date" modifiers="{'readonly': true}"/>
+							<field name="write_date" string="Last Modified" widget="date" modifiers="{'readonly': true}"/>
 							<field name="company_id"/>
 							<field name="description" invisible='1'/>
 						</tree>
