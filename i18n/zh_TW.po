@@ -954,3 +954,27 @@ msgstr "stock.picking.shipping"
 msgid "to"
 msgstr "到"
 
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+#: model:ir.ui.view,arch_db:account.invoice_supplier_tree
+msgid "Bill Date"
+msgstr "結帳日"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/controllers/portal.py:71
+#: code:addons/account/static/src/xml/account_reconciliation.xml:234
+#: model:ir.model.fields,field_description:account.field_account_invoice_date_due
+#: model:ir.model.fields,field_description:account.field_account_invoice_report_date_due
+#: model:ir.ui.view,arch_db:account.portal_my_invoices
+#: model:ir.ui.view,arch_db:account.report_overdue_document
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+#, python-format
+msgid "Due Date"
+msgstr "付款日"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_reference
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+msgid "Vendor Reference"
+msgstr "發票號碼"

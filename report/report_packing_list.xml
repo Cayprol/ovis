@@ -162,14 +162,14 @@
 									<span t-field="o.done_total" t-esc="'%.3f'%"/>
 									 <span t-field="o.product_uom_id"/>
 								</td>
-<!-- 								<td class="text-right">
-									<span t-field="o.net_weight_total"/>
+								<td class="text-right">
+									<span t-esc="round(sum([record.net_weight for record in o.move_line_ids]), 2)"/>
 									<span t-field="o.weight_unit"/>
 								</td>
 								<td class="text-right">
-									<span t-field="o.gross_weight_total"/>
+									<span t-esc="round(sum([record.gross_weight for record in o.move_line_ids]), 2)"/>									
 									<span t-field="o.weight_unit"/>
-								</td> -->
+								</td>
 							</tr>
 						</tbody>
 					</table>

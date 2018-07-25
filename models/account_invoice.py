@@ -8,6 +8,31 @@ class InheritAccountInvoice(models.Model):
 
 	amount_tax_signed = fields.Monetary(string='Tax Signed', store=True, readonly=True, compute='_compute_amount', currency_field='company_currency_id')
 
+	# temp = fields.Many2one('account.payment.term', string="temp")
+	temp = fields.Boolean(string='Temp')
+
+	# @api.onchange('temp')
+	# @api.depends('temp')
+	# @api.multi
+	# def _filter_company(self):
+	# 	match_company = self.env['account.payment.term'].search([('company_id.id', '=', self.env.user.company_id.id)])
+
+	# 	self.write({'payment_term_id': match_company})
+
+
+	@api.multi 
+	@api.onchange('temp')
+	def on_change_company_id(self):
+		res= {}
+		term_list= []	
+		if self.company_id:
+			payment_term = self.env['account.payment.term']
+			payment_term_ids = payment_term.search([('company_id','=', self.company_id.id)]) 
+			for record in payment_term_ids:
+				term_list.append(record.id)	
+		res= {'domain':{'company_id':[('id', 'in', term_list)]}} 
+		return res
+
 class InheritAccountPaymentTermLine(models.Model):
 
 	_inherit = 'account.payment.term.line'
@@ -45,7 +70,7 @@ class InheritAccountPaymentTerm(models.Model):
 
 				elif line.option == 'fix_day_after_following_month':
 					next_first_date = next_date + relativedelta(day=1, months=2)  # Getting 1st of next next month
-					next_date = next_first_date + relativedelta(days=line.days)
+					next_date = next_first_date + relativedelta(days=line.days - 30)
 
 				elif line.option == 'last_day_following_month':
 					next_date += relativedelta(day=31, months=1)  # Getting last day of next month
