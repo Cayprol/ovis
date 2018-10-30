@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="product_buyerinfo_form_view" model="ir.ui.view">
+			<field name="name">product.buyerinfo.form.view</field>
+			<field name="model">product.buyerinfo</field>
+			<field name="arch" type="xml">
+				<form string="Customer Information">
+					<group>
+						<group string="Customer">
+							<field name="product_variant_count" invisible="1"/>
+							<field name="product_id" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]"/>
+							<field name="name" context="{'default_customer': 0, 'search_default_customer': 1, 'default_customer': 1}"/>
+							<field name="product_name"/>
+							<field name="product_code"/>
+							<label for="delay"/>
+							<div>
+								<field name="delay" class="oe_inline"/> days
+							</div>
+						</group>
+						<group string="Price List">
+							<field name="product_tmpl_id" string="Product" invisible="context.get('visible_product_tmpl_id', True)"/>
+							<label for="min_qty"/>
+							<div>
+								<field name="min_qty" class="oe_inline"/>
+								<field name="product_uom" class="oe_inline" groups="uom.group_uom"/>
+							</div>
+							<label for="price"/>
+							<div>
+								<field name="price" class="oe_inline"/><field name="currency_id" class="oe_inline" groups="base.group_multi_currency"/>
+							</div>
+							<label for="date_start" string="Validity"/>
+							<div><field name="date_start" class="oe_inline"/> to <field name="date_end" class="oe_inline"/></div>
+						</group>
+						<group string="Other Information" groups="base.group_multi_company">
+							<field name="company_id" options="{'no_create': True}"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record id="product_buyerinfo_search_view" model="ir.ui.view">
+			<field name="name">product.buyerinfo.search.view</field>
+			<field name="model">product.buyerinfo</field>
+			<field name="arch" type="xml">
+				<search string="Customer">
+					<field name="name"/>
+					<field name="product_tmpl_id"/>
+					<filter string="Active" name="active" domain="[('date_end', '&gt;=',  (context_today() - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d'))]"/>
+					<filter string="Archived" name="archived" domain="[('date_end', '&lt;',  (context_today() - datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d'))]"/>
+					<group expand="0" string="Group By">
+						<filter string="Product" name="groupby_product" domain="[]" context="{'group_by': 'product_tmpl_id'}"/>
+						<filter string="Customer" name="groupby_vendor" domain="[]" context="{'group_by': 'name'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="product_buyerinfo_view_kanban" model="ir.ui.view">
+			<field name="name">product.buyerinfo.kanban</field>
+			<field name="model">product.buyerinfo</field>
+			<field name="arch" type="xml">
+				<kanban class="o_kanban_mobile">
+					<field name="min_qty"/>
+					<field name="delay"/>
+					<field name="price"/>
+					<field name="name"/>
+					<field name="currency_id"/>
+					<templates>
+						<t t-name="kanban-box">
+							<div class="oe_kanban_global_click">
+								<div class="row mb4">
+									<strong class="col-6">
+										<span t-esc="record.name.value"/>
+									</strong>
+									<strong class="col-6 text-right">
+										<strong><field name="price" widget="monetary"/></strong>
+									</strong>
+									<div class="col-6">
+										<span t-esc="record.min_qty.value"/>
+									</div>
+									<div class="col-6 text-right">
+										<span t-esc="record.delay.value"/> days
+									</div>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+		
+		<record id="product_buyerinfo_tree_view" model="ir.ui.view">
+			<field name="name">product.buyerinfo.tree.view</field>
+			<field name="model">product.buyerinfo</field>
+			<field name="arch" type="xml">
+				<tree string="Customer Information">
+					<field name="sequence" widget="handle"/>
+					<field name="name"/>
+					<field name="product_id" invisible="context.get('product_template_invisible_variant', False)" groups="product.group_product_variant"/>
+					<field name="product_tmpl_id" string="Product" invisible="context.get('visible_product_tmpl_id', True)"/>
+					<field name="min_qty"/>
+					<field name="product_uom" groups="uom.group_uom"/>
+					<field name="price" string="Price"/>
+					<field name="currency_id" groups="base.group_multi_currency"/>
+					<field name="date_start"/>
+					<field name="date_end"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="product_buyerinfo_type_action" model="ir.actions.act_window">
+			<field name="name">Customer Pricelists</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">product.buyerinfo</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,kanban</field>
+			<field name="context">{'visible_product_tmpl_id':False}</field>
+		</record>
+
+	</data>
+</odoo>
