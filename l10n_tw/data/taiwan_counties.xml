@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Taiwan Counties and Municipalities updated 2018, 民國107年 -->
+
+<odoo>
+	<data noupdate="0">
+		<record id="state_tw_cha" model="res.country.state">
+			<field name="name">Changhua County</field>
+			<field name="code">CHA</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_cyi" model="res.country.state">
+			<field name="name">Chiayi City</field>
+			<field name="code">CYI</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_cyq" model="res.country.state">
+			<field name="name">Chiayi County</field>
+			<field name="code">CYQ</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_hsq" model="res.country.state">
+			<field name="name">Hsinchu County</field>
+			<field name="code">HSQ</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_hsz" model="res.country.state">
+			<field name="name">Hsinchu City</field>
+			<field name="code">HSZ</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_hua" model="res.country.state">
+			<field name="name">Hualien County</field>
+			<field name="code">HUA</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_ila" model="res.country.state">
+			<field name="name">Yilan County</field>
+			<field name="code">ILA</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_kee" model="res.country.state">
+			<field name="name">Keelung City</field>
+			<field name="code">KEE</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_khh" model="res.country.state">
+			<field name="name">Kaohsiung City</field>
+			<field name="code">KHH</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_kin" model="res.country.state">
+			<field name="name">Kinmen County</field>
+			<field name="code">KIN</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_lie" model="res.country.state">
+			<field name="name">Lienchiang County</field>
+			<field name="code">LIE</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_mia" model="res.country.state">
+			<field name="name">Miaoli County</field>
+			<field name="code">MIA</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_nan" model="res.country.state">
+			<field name="name">Nantou County</field>
+			<field name="code">NAN</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_nwt" model="res.country.state">
+			<field name="name">New Taipei City</field>
+			<field name="code">NWT</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_pen" model="res.country.state">
+			<field name="name">Penghu County</field>
+			<field name="code">PEN</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_pif" model="res.country.state">
+			<field name="name">Pingtung County</field>
+			<field name="code">PIF</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_tao" model="res.country.state">
+			<field name="name">Taoyuan City</field>
+			<field name="code">TAO</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_tnn" model="res.country.state">
+			<field name="name">Tainan City</field>
+			<field name="code">TNN</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_tpe" model="res.country.state">
+			<field name="name">Taipei City</field>
+			<field name="code">TPE</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_ttt" model="res.country.state">
+			<field name="name">Taitung County</field>
+			<field name="code">TTT</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_txg" model="res.country.state">
+			<field name="name">Taichung City</field>
+			<field name="code">TXG</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+		<record id="state_tw_yun" model="res.country.state">
+			<field name="name">Yunlin County</field>
+			<field name="code">YUN</field>
+			<field name="country_id" ref="base.tw"/>
+		</record>
+	</data>
+</odoo>

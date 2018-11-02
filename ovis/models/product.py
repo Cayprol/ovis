@@ -47,3 +47,4 @@ class BuyerInfo(models.Model):
 			'label': _('Import Template for Vendor Pricelists'),
 			'template': '/product/static/xls/product_supplierinfo.xls'
 		}]
+

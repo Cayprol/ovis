@@ -6,7 +6,7 @@
     'category': 'Other',
     'description': """Custom Module For OVIS.""",
     'author': 'Cayprol',
-    "depends" : ['base', 'mrp', 'product', 'purchase', 'sale', 'web'],
+    "depends" : ['base', 'mrp', 'product', 'purchase', 'sale', 'web', 'l10n_tw', 'l10n_cn_province'],
     'data': ['security/ir.model.access.csv',
              'views/inherit_product_template_only_form_views.xml',
              'views/product_views.xml',
