@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="inherit_view_picking_form">
+			<field name="model">stock.picking</field>
+			<field name="name">inherit.stock.picking.form</field>
+			<field name="inherit_id" ref="stock.view_picking_form"/>
+			<field name="arch" type="xml">
+
+				<!-- Add net weight and gross weight to tree view -->
+				<xpath expr="//field[@name='move_ids_without_package']//tree//button[@name='action_show_details']" position="before">
+					<field name="net_weight"/>
+					<field name="gross_weight"/>
+				</xpath>
+
+				<!-- Add attribute to validate net weight and gross weight in tree view to turn red in each line -->
+				<xpath expr="//field[@name='move_ids_without_package']//tree" position="attributes">
+					<attribute name="decoration-danger" add="net_weight > gross_weight" separator=" or "/>
+				</xpath>
+
+				<!-- Add selection of forwarders -->
+				<xpath expr="//field[@name='origin']" position="after">
+					<field name="forwarder_id"/>
+				</xpath>
+				
+			</field>
+		</record>
+	</data>
+</odoo>
