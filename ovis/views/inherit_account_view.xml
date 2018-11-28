@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!--Payment Terms -->
+		<record id="inherit_view_payment_term_line_tree" model="ir.ui.view">
+			<field name="model">account.payment.term.line</field>
+			<field name="name">inherit.account.payment.term.line.tree</field>
+			<field name="inherit_id" ref="account.view_payment_term_line_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//tree">
+					<field name="months"/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>
