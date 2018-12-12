@@ -12,9 +12,11 @@ class InheritStockMove(models.Model):
 	net_weight = fields.Float('Net Weight', compute="_net_weight", digits=dp.get_precision('Stock Weight'), help="Net Weight of movement, calculated by the product weight per unit times quantity done.")
 	gross_weight = fields.Float('Gross Weight', digits=dp.get_precision('Stock Weight'), help="Gross Weight of movement.")
 
+	@api.multi
 	@api.depends('product_id', 'quantity_done')
 	def _net_weight(self):
-		self.net_weight = self.product_id.weight * self.quantity_done
+		for move in self:
+			move.net_weight = move.product_id.weight * move.quantity_done
 
 
 

@@ -1,1 +1,1 @@
-﻿from . import product, res_partner, stock_move, stock_picking, account_invoice
+﻿from . import product, res_partner, stock_move, stock_picking, account_invoice, sale
