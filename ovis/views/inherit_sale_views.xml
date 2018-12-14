@@ -14,15 +14,68 @@
 				</xpath>
 
  -->
- 				<xpath expr="//header//field[@name='state']" position="attributes">
- 					<attribute name="statusbar_visible">draft,to approve,sent,sale</attribute>
- 				</xpath>
+				<xpath expr="//header" position="replace">
+					<header>
+						<field name="authorized_transaction_ids" invisible="1"/>
+						<button name="payment_action_capture" type="object"
+								string="Capture Transaction" class="oe_highlight"
+								attrs="{'invisible': [('authorized_transaction_ids', '=', [])]}"/>
+						<button name="payment_action_void" type="object"
+								string="Void Transaction"
+								confirm="Are you sure you want to void the authorized transaction? This action can't be undone."
+								attrs="{'invisible': [('authorized_transaction_ids', '=', [])]}"/>
+						<!-- <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary"/> -->
+						<!-- <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" class="btn-primary" attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/> -->
+						<!-- <button name="print_quotation" string="Print" type="object" states="draft" class="btn-primary o_sale_print"/> -->
+						<button name="action_confirm" id="action_confirm"
+							string="Confirm" class="btn-primary" type="object"
+							attrs="{'invisible': [('state', 'not in', ['sent'])]}" groups="sales_team.group_sale_manager"/>
 
- 				<xpath expr="//button[@name='action_confirm'][1]" position="before">
- 					<button name="action_ask_approve" id="action_ask_approve" states='draft' string="Ask Approval" type="object" class="oe_highlight" groups="	sales_team.group_sale_salesman"/>
- 					<button name="action_approve" id="action_approve" states='to approve' string="Approve Order" type="object" class="oe_highlight" groups="sales_team.group_sale_manager"/>
- 				</xpath>
+						<button name="action_ask_approve" id="action_ask_approve" states='draft' string="Ask Approval" type="object" class="btn-primary" groups="sales_team.group_sale_salesman"/>
+						<button name="action_approve" id="action_approve" states='to approve' string="Approve Quotation" type="object" class="btn-primary" groups="sales_team.group_sale_manager"/>
+
+						<!-- <button name="action_confirm" string="Confirm" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}" groups="sales_team.group_sale_manager"/> -->
+						<button name="preview_sale_order" type="object" string="Preview"/>
+						<!-- <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/> -->
+						<button name="print_quotation" string="Print" type="object" states="sent,sale" class="o_sale_print"/>
+						<!-- <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale"/> -->
+
+						<button name="action_cancel" states="draft" type="object" string="Cancel"/>
+						<button name="action_cancel" states="to approve,sent,sale" type="object" string="Cancel" groups="sales_team.group_sale_manager"/>
+						<button name="action_draft" states="cancel" type="object" string="Set to Quotation"/>
+						<button name="action_done" type="object" string="Lock" states="sale"
+							help="If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."/>
+						<button name="action_unlock" type="object" string="Unlock" states="done" groups="sales_team.group_sale_manager"/>
+
+						<field name="state" widget="statusbar" statusbar_visible="draft,to approve,sent,sale"/>
+					</header>
+				</xpath>
+
+				<xpath expr="//group[@name='sale_pay']" position="after">
+					<group string="Validation" name='validation'>
+						<field name="ask_approve_date"/>
+						<field name="approve_date"/>
+						<field name="approver_id"/>
+					</group>
+
+				</xpath>
+
+
+			</field>
+		</record>
+
+
+		<record id="inherit_sale_order_view_search_inherit_quotation" model="ir.ui.view" >
+			<field name="model">sale.order</field>
+			<field name="name">inherit.sale.order.search.inherit.quotation</field>
+			<field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+			<field name="arch" type="xml">
 				
+				<!-- Add Filter for sale order in state 'to approve' -->
+				<xpath expr="//filter[@name='draft']" position="after">
+					<filter string="To Approve" name="to_approve" domain="[('state', '=', 'to approve')]"/>
+				</xpath>
+
 			</field>
 		</record>
 	</data>
