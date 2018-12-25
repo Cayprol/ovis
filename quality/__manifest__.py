@@ -2,7 +2,7 @@
 {
     'name': "Quality",
     'version': '12.0.0',
-    'summary': 'App for Quality Assurance and Quality Control',
+    'summary': 'Quality Assurance and Control',
     'category': 'Other',
     'description': """
                     This Application is designed to work with Inventory App.
@@ -14,7 +14,12 @@
                  'product',
                  'stock',
                  ],
-    'data': [],
+    'data': ['data/quality_data.xml',
+             'security/quality_security.xml',
+             'security/ir.model.access.csv',
+             'views/quality_views.xml',
+
+             ],
     "images": [],
     'license': 'LGPL-3',
     'qweb': [
