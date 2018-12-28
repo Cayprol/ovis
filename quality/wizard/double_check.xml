@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!-- 	
+	<record id="action_double_check" model="ir.actions.act_window">
+		<field name="name">Double Check</field>
+		<field name="src_model">quality.order</field>
+		<field name="res_model">doublecheck.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+
+ -->	
+ 	<record id="wizard_double_check_form" model="ir.ui.view">
+		<field name="name">doublecheck.form</field>
+		<field name="model">doublecheck.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Friendly Reminder">
+				<group>
+					<field name="text"/>
+				</group>
+				<p>Would you like to proceed?</p>
+			</form>
+		</field>
+	</record>
+
+</odoo>

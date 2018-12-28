@@ -18,7 +18,7 @@
              'security/quality_security.xml',
              'security/ir.model.access.csv',
              'views/quality_views.xml',
-
+             'wizard/double_check.xml',
              ],
     "images": [],
     'license': 'LGPL-3',

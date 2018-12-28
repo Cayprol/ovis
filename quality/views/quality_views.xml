@@ -20,6 +20,12 @@
 		<field name="arch" type="xml">
 			<form string="Quality Orders">
 				<header>
+					<button name="button_confirm" string="Confirm" states="draft" class="oe_highlight" type="object"/>
+					<button name="button_validate" string="Validate" states="waiting" class="oe_highlight" groups="quality.group_quality_manager" type="object"/>
+					<button name="button_cancel" string="Cancel" states="draft,waiting,done" type="object"/>
+					<button name="button_draft" string="Set to Draft" states="cancel" type="object"/>
+					<button name="button_unlock" string="Unlock" states="locked" groups="quality.group_quality_manager" type="object"/>
+					<button name="wizard_double_check" string="Double Check" type="object"/>
 					<field name="state" widget="statusbar" statusbar_visible="draft,waiting,done"/>
 				</header>
 				<sheet>
@@ -31,20 +37,53 @@
 							<field name="name" readonly="1"/>
 						</h1>
 					</div>
-					<group>
-						<group>
-							<field name="origin"/>
+					<group name="top half">
+						<group name="left side">
+							<field name="origin" attrs="{'readonly': [('state', 'not in', ('draft', False))]}"/>
+							<field name="user_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', 'not in', ('draft', 'waiting', False))]}"/>
+						</group>
+						<group name="right side">
+							<field name="date"/>
+							<field name="date_done"/>
 						</group>
 					</group>
 					<notebook>
 						<page string="Order Lines" name="order_lines">
-							<field name="order_line"/>
+							<field name="order_line">
+								<tree string="Quality Order Lines" editable="bottom">
+									<field name="state" invisible="1"/>
+									<field name="sequence" widget="handle"/>
+									<field name="product_id" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" context="{'quantity':product_qty,'uom':product_uom}" force_save="1"/>
+									<field name="name" attrs="{'readonly': [('state', 'not in', ('draft', 'waiting', False))]}"/>
+									<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+									<field name="product_qty" attrs="{'readonly': [('state', 'not in', ('draft', False))]}"/>
+									<field name="product_uom" groups="uom.group_uom" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" force_save="1"/>
+								</tree>
+							</field>
 						</page>
 					</notebook>
 				</sheet>
-
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers"/>
+					<field name="activity_ids" widget="mail_activity"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
 			</form>
 		</field>
 	</record>
-
+		
+	<record id="quality_order_line_tree" model="ir.ui.view">
+		<field name="name">quality.order.line.tree</field>
+		<field name="model">quality.order.line</field>
+		<field name="arch" type="xml">
+			<tree string="Quality Order Lines" create="false">
+				<field name="order_id"/>
+				<field name="name"/>
+				<field name="product_id"/>
+				<field name="product_qty"/>
+				<field name="qty_done"/>
+				<field name="product_uom" groups="uom.group_uom"/>
+			</tree>
+		</field>
+	</record>
 </odoo>
