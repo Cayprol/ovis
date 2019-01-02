@@ -21,11 +21,11 @@
 			<form string="Quality Orders">
 				<header>
 					<button name="button_confirm" string="Confirm" states="draft" class="oe_highlight" type="object"/>
-					<button name="button_validate" string="Validate" states="waiting" class="oe_highlight" groups="quality.group_quality_manager" type="object"/>
+					<button name="wizard_double_check" string="Validate" states="waiting" class="oe_highlight" groups="quality.group_quality_manager" type="object"/>
 					<button name="button_cancel" string="Cancel" states="draft,waiting,done" type="object"/>
 					<button name="button_draft" string="Set to Draft" states="cancel" type="object"/>
 					<button name="button_unlock" string="Unlock" states="locked" groups="quality.group_quality_manager" type="object"/>
-					<button name="wizard_double_check" string="Double Check" type="object"/>
+					<button name="action_view_invoice" string="Create Bill" state="done,locked" groups="quality.group_quality_manager" type="object"/>
 					<field name="state" widget="statusbar" statusbar_visible="draft,waiting,done"/>
 				</header>
 				<sheet>

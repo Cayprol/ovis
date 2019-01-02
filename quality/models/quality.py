@@ -45,7 +45,7 @@ class QualityOrder(models.Model):
 
 	def wizard_double_check(self):
 		view = self.env.ref('quality.wizard_double_check_form')
-		wiz = self.env['doublecheck.wizard'].create({'text': 'wiz record is created.'})
+		wiz = self.env['doublecheck.wizard'].create({})
 
 		return {'name': _('Double Check !'),
 				'type': 'ir.actions.act_window',
@@ -81,11 +81,14 @@ class QualityOrder(models.Model):
 
 	@api.multi
 	def button_validate(self):
-		self.wizard_double_check()
-		for order in self:
-			if order.state == 'waiting':
-				order.write({'state': 'done'})
-		return True
+		self.ensure_one()
+		if self.state == 'waiting':
+			self.write({'state': 'done',
+						'date_done': fields.datetime.now(),
+						'user_id': self.env.user.id})
+			return True
+		else:
+			return False
 
 	@api.multi
 	def button_cancel(self):
@@ -96,14 +99,43 @@ class QualityOrder(models.Model):
 
 	@api.multi
 	def button_draft(self):
-		for order in self:
-			if order.state != 'draft':
-				order.write({'state': 'draft'})
+		self.ensure_one()
+		if self.state != 'draft':
+			self.write({'state': 'draft',
+						'date_done': None})
 		return True
 
 	@api.multi
 	def button_unlock(self):
 		self.write({'state': 'done'})
+
+	@api.multi
+	def action_view_invoice(self):
+		'''
+		This function returns an action that display existing vendor bills of given purchase order ids.
+		When only one found, show the vendor bill immediately.
+		'''
+		action = self.env.ref('account.action_vendor_bill_template')
+		result = action.read()[0]
+		create_bill = self.env.context.get('create_bill', False)
+		# override the context to get rid of the default filtering
+		result['context'] = {
+			'type': 'in_invoice',
+			'default_purchase_id': self.id,
+			'default_currency_id': self.currency_id.id,
+			'default_company_id': self.company_id.id,
+			'company_id': self.company_id.id
+		}
+		# choose the view_mode accordingly
+		if len(self.invoice_ids) > 1 and not create_bill:
+			result['domain'] = "[('id', 'in', " + str(self.invoice_ids.ids) + ")]"
+		else:
+			res = self.env.ref('account.invoice_supplier_form', False)
+			result['views'] = [(res and res.id or False, 'form')]
+			# Do not set an invoice_id if we want to create a new bill.
+			if not create_bill:
+				result['res_id'] = self.invoice_ids.id or False
+		return result
 
 class QualityOrderLine(models.Model):
 
@@ -111,7 +143,7 @@ class QualityOrderLine(models.Model):
 	_description = 'Quality Order Line'
 	_order = 'order_id, sequence, id'
 
-	name = fields.Text(string='Description', required=True)
+	name = fields.Text(string='Description')
 	sequence = fields.Integer(string='Sequence', default=10)
 	product_qty = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True)
 	qty_done = fields.Float(string="Qty Done", digits=dp.get_precision('Product Unit of Measure'), copy=False)
