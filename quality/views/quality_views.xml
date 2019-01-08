@@ -11,7 +11,7 @@
 		</field>
 	</record>
 	<menuitem name="Quality" id="menu_quality_root" sequence="33"/>
-	<menuitem id="quality_order_menu" parent="menu_quality_root" name="Quality" action="quality_menu_action"/>
+	<menuitem name="Quality" id="quality_order_menu" parent="menu_quality_root" action="quality_menu_action"/>
 
 
 	<record id="quality_order_form" model="ir.ui.view">
@@ -25,7 +25,7 @@
 					<button name="button_cancel" string="Cancel" states="draft,waiting,done" type="object"/>
 					<button name="button_draft" string="Set to Draft" states="cancel" type="object"/>
 					<button name="button_unlock" string="Unlock" states="locked" groups="quality.group_quality_manager" type="object"/>
-					<button name="action_view_invoice" string="Create Bill" state="done,locked" groups="quality.group_quality_manager" type="object"/>
+					<button name="button_activity" string="ACT" type="object"/>
 					<field name="state" widget="statusbar" statusbar_visible="draft,waiting,done"/>
 				</header>
 				<sheet>

@@ -110,32 +110,20 @@ class QualityOrder(models.Model):
 		self.write({'state': 'done'})
 
 	@api.multi
-	def action_view_invoice(self):
-		'''
-		This function returns an action that display existing vendor bills of given purchase order ids.
-		When only one found, show the vendor bill immediately.
-		'''
-		action = self.env.ref('account.action_vendor_bill_template')
-		result = action.read()[0]
-		create_bill = self.env.context.get('create_bill', False)
-		# override the context to get rid of the default filtering
-		result['context'] = {
-			'type': 'in_invoice',
-			'default_purchase_id': self.id,
-			'default_currency_id': self.currency_id.id,
-			'default_company_id': self.company_id.id,
-			'company_id': self.company_id.id
-		}
-		# choose the view_mode accordingly
-		if len(self.invoice_ids) > 1 and not create_bill:
-			result['domain'] = "[('id', 'in', " + str(self.invoice_ids.ids) + ")]"
-		else:
-			res = self.env.ref('account.invoice_supplier_form', False)
-			result['views'] = [(res and res.id or False, 'form')]
-			# Do not set an invoice_id if we want to create a new bill.
-			if not create_bill:
-				result['res_id'] = self.invoice_ids.id or False
-		return result
+	def button_activity(self):
+		
+		activity_record = {
+					'activity_type_id': 4,
+					'res_id': self.id,
+					'res_model_id': 347,
+					'date_deadline': '2019-01-06',
+					'user_id': self.env.user.id,
+					'note': 'This is auto note in html form.'}
+
+		self.env['mail.activity'].create(activity_record)
+
+		return True
+
 
 class QualityOrderLine(models.Model):
 

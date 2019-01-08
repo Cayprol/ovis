@@ -12,16 +12,16 @@ class InheritPicking(models.Model):
 	@api.multi
 	def _prepare_quality_order_line(self):
 		self.ensure_one()
-		order_lines = {}
+
+		order_lines = []
 		if self.move_ids_without_package:
 			for move in self.move_ids_without_package:
-				order_lines['product_id'] = move.product_id.id
-				order_lines['product_qty'] = move.product_qty
-				order_lines['product_uom'] = move.product_uom.id
-				order_lines['order_id'] = self.id
+				order_lines.append((0, 0, {'product_id': move.product_id.id,
+				 					'product_qty': move.product_qty,
+				 					'product_uom': move.product_uom.id,
+				 					'order_id': self.id}))
 
 		return order_lines
-
 
 	@api.multi
 	def action_done(self):
@@ -32,6 +32,13 @@ class InheritPicking(models.Model):
 														  'company_id': self.company_id.id,
 														  'date': fields.Datetime.now(),
 														  'picking_id': self.id,
-														  'order_line': [(0, 0, order_lines)]})
+														  'order_line': order_lines})
+		to_do = self.env['mail.activity'].create({'activity_type_id': 4,
+												  'res_id': quality_order.id,
+												  'res_model_id': 347,
+												  'date_deadline': fields.Date.today(),
+												  'user_id': self.env.user.id,
+												  'summary': _('Auto-generated for {}.'.format(self.name)),
+												  'note': _('This quality order is auto-generated for {}.\nPlease validate all information and finish inspection ASAP.'.format(self.name))})
 
-		return quality_order
+		return True
