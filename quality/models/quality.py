@@ -88,14 +88,27 @@ class QualityOrder(models.Model):
 						'user_id': self.env.user.id})
 			return True
 		else:
-			return False
+			raise UserError(_("State: 'Waiting' is the only state allowed to be validated.  This order is not in such state."))
 
 	@api.multi
 	def button_cancel(self):
 		self.ensure_one()
 		if self.picking_id:
-			raise UserError(_("Unable to cancel this quality order. You must first cancel the related picking operations."))
-		self.write({'state': 'cancel'})
+			view = self.env.ref('quality.wizard_cancel_note_form')
+			wiz = self.env['cancelnote.wizard'].create({})
+			return {'name': _('Would you like to cancel this order?'),
+				'type': 'ir.actions.act_window',
+				'view_type': 'form',
+				'view_mode': 'form',
+				'res_model': 'cancelnote.wizard',
+				'views': [(view.id, 'form')],
+				'view_id': view.id,
+				'target': 'new',
+				'res_id': wiz.id,
+				'context': self.env.context}
+		else:
+			self.write({'state': 'cancel'})
+
 
 	@api.multi
 	def button_draft(self):
@@ -103,7 +116,9 @@ class QualityOrder(models.Model):
 		if self.state != 'draft':
 			self.write({'state': 'draft',
 						'date_done': None})
-		return True
+			return True
+		else:
+			raise UserError(_("State: 'draft' is the only state allowed to be set to draft.  This order is not in such state."))
 
 	@api.multi
 	def button_unlock(self):

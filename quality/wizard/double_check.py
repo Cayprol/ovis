@@ -14,3 +14,5 @@ class DoubleCheck(models.TransientModel):
 			return True
 		else:
 			raise ValidationError(_('The order is not in waiting state to be validated.'))
+
+

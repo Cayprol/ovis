@@ -18,6 +18,7 @@
              'security/quality_security.xml',
              'security/ir.model.access.csv',
              'views/quality_views.xml',
+             'wizard/cancel_note.xml',
              'wizard/double_check.xml',
              ],
     "images": [],

@@ -61,6 +61,14 @@
 								</tree>
 							</field>
 						</page>
+						<page string="Other Information" name="other_information">
+							<group string="Note" name="note">
+								<field name="note" nolabel="1" placeholder="Add an internal note for this order."/>
+							</group>
+							<group string="Reporting" name="reporting">
+								<field name="picking_id" string="Source Document" readonly="1"/>
+							</group>
+						</page>
 					</notebook>
 				</sheet>
 				<div class="oe_chatter">
@@ -71,7 +79,21 @@
 			</form>
 		</field>
 	</record>
-		
+
+	<record id="quality_order_tree" model="ir.ui.view">
+		<field name="name">quality.order.tree</field>
+		<field name="model">quality.order</field>
+		<field name="arch" type="xml">
+			<tree decoration-muted="state=='cancel'" string="Quality Order">
+				<field name="name" string="Reference"/>
+				<field name="origin"/>
+				<field name="date"/>
+				<field name="user_id"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+	
 	<record id="quality_order_line_tree" model="ir.ui.view">
 		<field name="name">quality.order.line.tree</field>
 		<field name="model">quality.order.line</field>
