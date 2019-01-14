@@ -43,22 +43,6 @@ class QualityOrder(models.Model):
 
 	order_line = fields.One2many('quality.order.line', 'order_id', string='Order Lines', states=READONLY_STATES, copy=True)
 
-	def wizard_double_check(self):
-		view = self.env.ref('quality.wizard_double_check_form')
-		wiz = self.env['doublecheck.wizard'].create({})
-
-		return {'name': _('Double Check !'),
-				'type': 'ir.actions.act_window',
-				'view_type': 'form',
-				'view_mode': 'form',
-				'res_model': 'doublecheck.wizard',
-				'views': [(view.id, 'form')],
-				'view_id': view.id,
-				'target': 'new',
-				'res_id': wiz.id,
-				'context': self.env.context,
-			}
-
 	@api.model
 	def create(self, vals):
 		if vals.get('name', 'New') == 'New':
@@ -83,12 +67,20 @@ class QualityOrder(models.Model):
 	def button_validate(self):
 		self.ensure_one()
 		if self.state == 'waiting':
-			self.write({'state': 'done',
-						'date_done': fields.datetime.now(),
-						'user_id': self.env.user.id})
-			return True
+			view = self.env.ref('quality.wizard_validate_result_form')
+			wiz = self.env['validate.result.wizard'].create({})
+			return {'name': _('Do these items meet the quality standard?'),
+					'type': 'ir.actions.act_window',
+					'view_type': 'form',
+					'view_mode': 'form',
+					'res_model': 'validate.result.wizard',
+					'views': [(view.id, 'form')],
+					'view_id': view.id,
+					'target': 'new',
+					'res_id': wiz.id,
+					'context': self.env.context}
 		else:
-			raise UserError(_("State: 'Waiting' is the only state allowed to be validated.  This order is not in such state."))
+			raise UserError(_("Must be in state 'Waiting' to be validated."))
 
 	@api.multi
 	def button_cancel(self):
@@ -124,21 +116,6 @@ class QualityOrder(models.Model):
 	def button_unlock(self):
 		self.write({'state': 'done'})
 
-	@api.multi
-	def button_activity(self):
-		
-		activity_record = {
-					'activity_type_id': 4,
-					'res_id': self.id,
-					'res_model_id': 347,
-					'date_deadline': '2019-01-06',
-					'user_id': self.env.user.id,
-					'note': 'This is auto note in html form.'}
-
-		self.env['mail.activity'].create(activity_record)
-
-		return True
-
 
 class QualityOrderLine(models.Model):
 
@@ -156,6 +133,14 @@ class QualityOrderLine(models.Model):
 	product_uom = fields.Many2one('uom.uom', string='Product Unit of Measure', required=True)
 	product_id = fields.Many2one('product.product', string='Product', change_default=True, required=True)
 	state = fields.Selection(related='order_id.state', store=True, readonly=False)
+	status = fields.Selection([
+		('pending', 'Pending'),
+		('qualified', 'Qualified'),
+		('rejected', 'Rejected'),
+		], string='Status', copy=False, store=True, default='pending', required=True, track_visibility='onchage',
+		 help="Waiting: Items are waiting for inspection. Need action!\n"
+			  "Qualified: Items meet the standard.\n"
+			  "Rejected: Items do NOT meet the standard.")
 
 	@api.multi
 	@api.depends('product_uom', 'product_qty', 'product_id.uom_id')

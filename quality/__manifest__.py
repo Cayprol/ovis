@@ -19,7 +19,7 @@
              'security/ir.model.access.csv',
              'views/quality_views.xml',
              'wizard/cancel_note.xml',
-             'wizard/double_check.xml',
+             'wizard/validate_result.xml',
              ],
     "images": [],
     'license': 'LGPL-3',

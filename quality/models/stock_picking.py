@@ -35,7 +35,7 @@ class InheritPicking(models.Model):
 														  'order_line': order_lines})
 		to_do = self.env['mail.activity'].create({'activity_type_id': 4,
 												  'res_id': quality_order.id,
-												  'res_model_id': 347,
+												  'res_model_id': self.env['ir.model'].search([('model', '=', self.env['quality.order']._name)]).id,
 												  'date_deadline': fields.Date.today(),
 												  'user_id': self.env.user.id,
 												  'summary': _('Auto-generated for {}.'.format(self.name)),

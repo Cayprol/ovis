@@ -1,1 +1,1 @@
-﻿from . import double_check, cancel_note
+﻿from . import validate_result, cancel_note

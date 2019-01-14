@@ -21,11 +21,10 @@
 			<form string="Quality Orders">
 				<header>
 					<button name="button_confirm" string="Confirm" states="draft" class="oe_highlight" type="object"/>
-					<button name="wizard_double_check" string="Validate" states="waiting" class="oe_highlight" groups="quality.group_quality_manager" type="object"/>
+					<button name="button_validate" string="Validate" states="waiting" class="oe_highlight" groups="quality.group_quality_manager" type="object"/>
 					<button name="button_cancel" string="Cancel" states="draft,waiting,done" type="object"/>
 					<button name="button_draft" string="Set to Draft" states="cancel" type="object"/>
 					<button name="button_unlock" string="Unlock" states="locked" groups="quality.group_quality_manager" type="object"/>
-					<button name="button_activity" string="ACT" type="object"/>
 					<field name="state" widget="statusbar" statusbar_visible="draft,waiting,done"/>
 				</header>
 				<sheet>
@@ -53,11 +52,12 @@
 								<tree string="Quality Order Lines" editable="bottom">
 									<field name="state" invisible="1"/>
 									<field name="sequence" widget="handle"/>
-									<field name="product_id" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" context="{'quantity':product_qty,'uom':product_uom}" force_save="1"/>
+									<field name="product_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" context="{'quantity':product_qty,'uom':product_uom}" force_save="1"/>
 									<field name="name" attrs="{'readonly': [('state', 'not in', ('draft', 'waiting', False))]}"/>
 									<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
 									<field name="product_qty" attrs="{'readonly': [('state', 'not in', ('draft', False))]}"/>
-									<field name="product_uom" groups="uom.group_uom" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" force_save="1"/>
+									<field name="product_uom" groups="uom.group_uom" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" force_save="1"/>
+									<field name="status"/>
 								</tree>
 							</field>
 						</page>
@@ -105,6 +105,7 @@
 				<field name="product_qty"/>
 				<field name="qty_done"/>
 				<field name="product_uom" groups="uom.group_uom"/>
+				<field name="status" widget="radio"/>
 			</tree>
 		</field>
 	</record>
