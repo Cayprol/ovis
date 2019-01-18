@@ -13,8 +13,11 @@ class CancelNote(models.TransientModel):
 	def button_apply(self):
 		record = self.env['quality.order'].browse(self._context.get('active_id'))
 		record.ensure_one()
-		record.write({'note': record.note + "\nCanceled because: " + self.note,
-					  'state': 'cancel'})
-
+		if record.note != False:
+			record.write({'note': record.note + "\nCanceled because: " + self.note,
+						  'state': 'cancel'})
+		else:
+			record.write({'note': "Canceled because: " + self.note,
+						  'state': 'cancel'})
 
 

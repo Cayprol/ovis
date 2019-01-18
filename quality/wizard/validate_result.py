@@ -15,6 +15,6 @@ class ValidateResult(models.TransientModel):
 					  'date_done': fields.datetime.now(),
 					  'user_id': self.env.user.id})
 
-	
+		record.picking_id.purchase_id.action_view_invoice()
 
 

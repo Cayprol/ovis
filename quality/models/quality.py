@@ -142,6 +142,8 @@ class QualityOrderLine(models.Model):
 			  "Qualified: Items meet the standard.\n"
 			  "Rejected: Items do NOT meet the standard.")
 
+	invoice_lines = fields.One2many('account.invoice.line', 'quality_line_id', string="Bill Lines", readonly=True, copy=False)
+
 	@api.multi
 	@api.depends('product_uom', 'product_qty', 'product_id.uom_id')
 	def _compute_product_uom_qty(self):
@@ -151,3 +153,9 @@ class QualityOrderLine(models.Model):
 			else:
 				line.product_uom_qty = line.product_qty
 
+
+class AccountInvoiceLine(models.Model):
+	_inherit = 'account.invoice.line'
+
+	quality_line_id = fields.Many2one('quality.order.line', 'Quality Order Line', ondelete='set null', index=True, readonly=True)
+	# purchase_id = fields.Many2one('purchase.order', related='purchase_line_id.order_id', string='Purchase Order', store=False, readonly=True, related_sudo=False, help='Associated Purchase Order. Filled in automatically when a PO is chosen on the vendor bill.')
