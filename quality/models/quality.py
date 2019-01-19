@@ -132,7 +132,7 @@ class QualityOrderLine(models.Model):
 	company_id = fields.Many2one('res.company', related='order_id.company_id', string='Company', store=True, readonly=True)
 	product_uom = fields.Many2one('uom.uom', string='Product Unit of Measure', required=True)
 	product_id = fields.Many2one('product.product', string='Product', change_default=True, required=True)
-	state = fields.Selection(related='order_id.state', store=True, readonly=False)
+	state = fields.Selection(related='order_id.state', store=True, readonly=True)
 	status = fields.Selection([
 		('pending', 'Pending'),
 		('qualified', 'Qualified'),

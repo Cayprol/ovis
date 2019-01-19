@@ -56,7 +56,7 @@
 									<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
 									<field name="product_qty" attrs="{'readonly': [('state', 'not in', ('draft', False))]}"/>
 									<field name="product_uom" groups="uom.group_uom" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" force_save="1"/>
-									<field name="status"/>
+									<field name="status" attrs="{'column_invisible': [('parent.state', 'in', ['draft', 'cancel'])]}"/>
 								</tree>
 							</field>
 						</page>
