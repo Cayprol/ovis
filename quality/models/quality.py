@@ -41,7 +41,7 @@ class QualityOrder(models.Model):
 	user_id = fields.Many2one('res.users', string='Examiner', index=True, track_visibility='onchange', track_sequence=2, default=lambda self: self.env.user)
 	company_id = fields.Many2one('res.company', 'Company', required=True, index=True, states=READONLY_STATES, default=lambda self: self.env.user.company_id.id)
 
-	order_line = fields.One2many('quality.order.line', 'order_id', string='Order Lines', states=READONLY_STATES, copy=True)
+	order_line = fields.One2many('quality.order.line', 'order_id', string='Order Lines', readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]}, copy=True)
 
 	@api.model
 	def create(self, vals):
@@ -129,18 +129,19 @@ class QualityOrderLine(models.Model):
 	qty_done = fields.Float(string="Qty Done", digits=dp.get_precision('Product Unit of Measure'), copy=False)
 	product_uom_qty = fields.Float(string='Total Quantity', compute='_compute_product_uom_qty', store=True)
 	order_id = fields.Many2one('quality.order', string='Order Reference', index=True, required=True, ondelete='cascade')
+	user_id = fields.Many2one('res.users', string='Creator', default=lambda self: self.env.user, required=True, readonly=True)
 	company_id = fields.Many2one('res.company', related='order_id.company_id', string='Company', store=True, readonly=True)
 	product_uom = fields.Many2one('uom.uom', string='Product Unit of Measure', required=True)
 	product_id = fields.Many2one('product.product', string='Product', change_default=True, required=True)
 	state = fields.Selection(related='order_id.state', store=True, readonly=True)
-	status = fields.Selection([
+	action = fields.Selection([
 		('pending', 'Pending'),
-		('qualified', 'Qualified'),
-		('rejected', 'Rejected'),
-		], string='Status', copy=False, store=True, default='pending', required=True, track_visibility='onchage',
+		('qualify', 'Qualify'),
+		('reject', 'Reject'),
+		], string='Action', copy=False, store=True, default='pending', required=True, track_visibility='onchage',
 		 help="Waiting: Items are waiting for inspection. Need action!\n"
-			  "Qualified: Items meet the standard.\n"
-			  "Rejected: Items do NOT meet the standard.")
+			  "Qualify: Items meet the standard.\n"
+			  "Reject: Items do NOT meet the standard.")
 
 	invoice_lines = fields.One2many('account.invoice.line', 'quality_line_id', string="Bill Lines", readonly=True, copy=False)
 

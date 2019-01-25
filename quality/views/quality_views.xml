@@ -48,15 +48,16 @@
 					<notebook>
 						<page string="Order Lines" name="order_lines">
 							<field name="order_line">
-								<tree string="Quality Order Lines" editable="bottom">
+								<tree name="Quality Order Lines" editable="bottom" create="false" decoration-danger="action=='reject'">
 									<field name="state" invisible="1"/>
 									<field name="sequence" widget="handle"/>
 									<field name="product_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" context="{'quantity':product_qty,'uom':product_uom}" force_save="1"/>
 									<field name="name" attrs="{'readonly': [('state', 'not in', ('draft', 'waiting', False))]}"/>
+									<field name="user_id" options="{'no_create': True}"/>
 									<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
 									<field name="product_qty" attrs="{'readonly': [('state', 'not in', ('draft', False))]}"/>
 									<field name="product_uom" groups="uom.group_uom" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', 'not in', ('draft', False))]}" force_save="1"/>
-									<field name="status" attrs="{'column_invisible': [('parent.state', 'in', ['draft', 'cancel'])]}"/>
+									<field name="action" attrs="{'column_invisible': [('parent.state', 'in', ['draft', 'cancel'])]}"/>
 								</tree>
 							</field>
 						</page>
@@ -104,7 +105,7 @@
 				<field name="product_qty"/>
 				<field name="qty_done"/>
 				<field name="product_uom" groups="uom.group_uom"/>
-				<field name="status" widget="radio"/>
+				<field name="action"/>
 			</tree>
 		</field>
 	</record>
