@@ -20,4 +20,3 @@ class CancelNote(models.TransientModel):
 			record.write({'note': "Canceled because: " + self.note,
 						  'state': 'cancel'})
 
-
