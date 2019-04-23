@@ -2,8 +2,8 @@
 <odoo>
 
     <template id="minimal_layout" inherit_id="web.minimal_layout">
-        <xpath expr="//t[@t-if='subst is True']" position="replace">
-            <t t-if="subst is True">
+        <xpath expr="//t[@t-if='subst_needed']" position="replace">
+            <t t-if="subst_needed">
                 <script>
                     function subst() {
                         var vars = {};
