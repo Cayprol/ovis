@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 import logging
 _logger = logging.getLogger(__name__)
@@ -27,10 +29,11 @@ class ValidateResult(models.TransientModel):
 				to_do = self.env['mail.activity'].create({'activity_type_id': 4,
 												  'res_id': source_po.id,
 												  'res_model_id': self.env['ir.model'].search([('model', '=', self.env['purchase.order']._name)]).id,
-												  'date_deadline': fields.Date.today(),
+												  'date_deadline': datetime.now()+relativedelta(days=+1),
 												  'user_id': source_po.user_id.id,
 												  'summary': _('Auto-generated for {}.'.format(record.name)),
 												  'note': _('{}, related to this PO, failed our quality standard.\n'.format(record.name))})
+
 		# This Line of condition needsd to be re-write.
 		elif len(set(actions)) == 1 and 'qualify' in actions:
 			_logger.info('All actions are Qualify.  Ready to invoice.')

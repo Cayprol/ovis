@@ -1,6 +1,8 @@
 from odoo import api, fields, models, _
 # from odoo.exceptions import UserError, ValidationError
 # from odoo.addons import decimal_precision as dp
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -41,7 +43,7 @@ class InheritPicking(models.Model):
 		to_do = self.env['mail.activity'].create({'activity_type_id': 4,
 												  'res_id': quality_order.id,
 												  'res_model_id': self.env['ir.model'].search([('model', '=', self.env['quality.order']._name)]).id,
-												  'date_deadline': fields.Date.today(),
+												  'date_deadline': datetime.today()+relativedelta(days=+self.company_id.qo_lead),
 												  'user_id': self.env.user.id,
 												  'summary': _('Auto-generated for {}.'.format(self.name)),
 												  'note': _('This quality order is auto-generated for {}.\nPlease validate all information and finish inspection ASAP.'.format(self.name))})

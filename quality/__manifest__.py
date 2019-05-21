@@ -18,6 +18,7 @@
              'security/quality_security.xml',
              'security/ir.model.access.csv',
              'views/quality_views.xml',
+             'views/res_config_settings_views.xml',
              'wizard/cancel_note.xml',
              'wizard/validate_result.xml',
              ],
