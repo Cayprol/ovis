@@ -32,7 +32,7 @@ class InheritPicking(models.Model):
 		# Create new record in model 'quality.order'
 		quality_order = self.env['quality.order'].create({'origin': self.name,
 														  'company_id': self.company_id.id,
-														  'user_id': self.env.uid,
+														  'state': 'waiting',
 														  'date': fields.Datetime.now(),
 														  'picking_id': self.id})
 		# Format a list of new records for One2many field 'order_line' in model 'quality.oder' which relates to child model 'quality.order.line'.
@@ -44,7 +44,7 @@ class InheritPicking(models.Model):
 												  'res_id': quality_order.id,
 												  'res_model_id': self.env['ir.model'].search([('model', '=', self.env['quality.order']._name)]).id,
 												  'date_deadline': datetime.today()+relativedelta(days=+self.company_id.qo_lead),
-												  'user_id': self.env.user.id,
+												  'user_id': self.company_id.qo_default_user.id,
 												  'summary': _('Auto-generated for {}.'.format(self.name)),
 												  'note': _('This quality order is auto-generated for {}.\nPlease validate all information and finish inspection ASAP.'.format(self.name))})
 

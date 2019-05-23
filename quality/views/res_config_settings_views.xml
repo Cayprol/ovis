@@ -28,6 +28,26 @@
 									</div>
 								</div>
 							</div>
+
+							<div class="col-lg-6 col-12 o_setting_box" id="adjust_qo_default_user" title="Number of days a quality order is allowed. Order after the deadline is considered as Late.">
+								<div class="o_setting_left_pane">
+									<field name="adjust_qo_default_user"/>
+								</div>
+								<div class="o_setting_right_pane">
+									<label for="adjust_qo_default_user"/>
+									<span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+									<div class="text-muted">
+										Set a user to assigned task by default.
+									</div>
+									<div class="content-group"  attrs="{'invisible': [('adjust_qo_default_user','=',False)]}">
+										<div class="mt16">
+											<span class="col-lg-3"><field name="qo_default_user" attrs="{'required': [('adjust_qo_default_user', '=', True)]}"/></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
 						</div>
 					</div>
 				</xpath>

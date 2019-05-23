@@ -9,6 +9,9 @@ class ResConfigSettings(models.TransientModel):
 	adjust_qo_lead = fields.Boolean(string='Default Order Lead', config_parameter='quality.adjust_qo_lead')
 	qo_lead = fields.Integer(related='company_id.qo_lead', string='Days To Deadline', readonly=False)
 
+	adjust_qo_default_user = fields.Boolean(string='Default Assigned User', config_parameter='quality.adjust_qo_default_user')
+	qo_default_user = fields.Many2one('res.users', string='Assigned User', related='company_id.qo_default_user', readonly=False)
+
 	@api.onchange('adjust_qo_lead')
 	def _onchange_adjust_qo_lead(self):
 		if self.qo_lead < 0:

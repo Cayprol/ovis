@@ -34,11 +34,12 @@ class QualityOrder(models.Model):
 			  "Done: validated, required actions are made.\n"
 			  "Cancelled: been put on hold, not scheduled, no notification.")
 	date = fields.Datetime(
-		'Creation Date',
+		'Order Date',
 		default=fields.Datetime.now, index=True, track_visibility='onchange', readonly=True,
 		help="Creation Date, usually the time of the order")
 	date_done = fields.Datetime('Date of Validation', copy=False, readonly=True, help="Date of order finishing validation.")
 	user_id = fields.Many2one('res.users', string='Examiner', index=True, track_visibility='onchange', track_sequence=2, default=lambda self: self.env.user)
+
 	company_id = fields.Many2one('res.company', 'Company', required=True, index=True, states=READONLY_STATES, default=lambda self: self.env.user.company_id.id)
 
 	order_line = fields.One2many('quality.order.line', 'order_id', string='Order Lines', readonly=True, states={'draft': [('readonly', False)], 'waiting': [('readonly', False)]}, copy=True)
@@ -67,18 +68,24 @@ class QualityOrder(models.Model):
 	def button_validate(self):
 		self.ensure_one()
 		if self.state == 'waiting':
-			view = self.env.ref('quality.wizard_validate_result_form')
-			wiz = self.env['validate.result.wizard'].create({})
-			return {'name': _('Do these items meet the quality standard?'),
-					'type': 'ir.actions.act_window',
-					'view_type': 'form',
-					'view_mode': 'form',
-					'res_model': 'validate.result.wizard',
-					'views': [(view.id, 'form')],
-					'view_id': view.id,
-					'target': 'new',
-					'res_id': wiz.id,
-					'context': self.env.context}
+			qty_match = [line.product_qty != line.qty_done for line in self.order_line]	
+			if all(qty_match):
+				view = self.env.ref('quality.wizard_validate_result_form')
+				wiz = self.env['validate.result.wizard'].create({})
+				return {'name': _('Quantity do not match Qty Done'),
+						'type': 'ir.actions.act_window',
+						'view_type': 'form',
+						'view_mode': 'form',
+						'res_model': 'validate.result.wizard',
+						'views': [(view.id, 'form')],
+						'view_id': view.id,
+						'target': 'new',
+						'res_id': wiz.id,
+						'context': self.env.context}
+			else:
+				self.write({'state': 'done',
+							'date_done': fields.datetime.now(),
+							'user_id': self.env.user.id})
 		else:
 			raise UserError(_("Must be in state 'Waiting' to be validated."))
 
@@ -134,14 +141,6 @@ class QualityOrderLine(models.Model):
 	product_uom = fields.Many2one('uom.uom', string='Product Unit of Measure', required=True)
 	product_id = fields.Many2one('product.product', string='Product', change_default=True, required=True)
 	state = fields.Selection(related='order_id.state', store=True, readonly=True)
-	action = fields.Selection([
-		('pending', 'Pending'),
-		('qualify', 'Qualify'),
-		('reject', 'Reject'),
-		], string='Action', copy=False, store=True, default='pending', required=True, track_visibility='onchage',
-		 help="Waiting: Items are waiting for inspection. Need action!\n"
-			  "Qualify: Items meet the standard.\n"
-			  "Reject: Items do NOT meet the standard.")
 
 	invoice_lines = fields.One2many('account.invoice.line', 'quality_line_id', string="Bill Lines", readonly=True, copy=False)
 
