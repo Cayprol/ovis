@@ -17,7 +17,8 @@
                  'report_qweb_element_page_visibility',
                  'sale_quotation_number',
                  ],
-    'data': ['security/ir.model.access.csv',
+    'data': [
+             'security/ir.model.access.csv',
              'views/inherit_account_view.xml',
              'views/inherit_product_template_only_form_views.xml',
              'views/product_views.xml',
@@ -28,6 +29,7 @@
              'views/override_account_view.xml',
              'report/TEST.xml',
              'report/TEST_templates.xml',
+             'wizard/inherit_stock_backorder_confirmation_views.xml',
              ],
     "images": [],
     'license': 'LGPL-3',

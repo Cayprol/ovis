@@ -20,6 +20,8 @@
 
 				<!-- Add selection of forwarders -->
 				<xpath expr="//field[@name='origin']" position="after">
+					<!-- purchase_id is for testing only, will be removed -->
+					<field name="purchase_id"/>
 					<field name="forwarder_id"/>
 				</xpath>
 				
