@@ -29,6 +29,7 @@
              'views/override_account_view.xml',
              'report/TEST.xml',
              'report/TEST_templates.xml',
+             'wizard/cancel_confirmation.xml',
              'wizard/inherit_stock_backorder_confirmation_views.xml',
              ],
     "images": [],

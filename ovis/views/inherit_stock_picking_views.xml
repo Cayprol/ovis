@@ -7,6 +7,15 @@
 			<field name="inherit_id" ref="stock.view_picking_form"/>
 			<field name="arch" type="xml">
 
+				<xpath expr="//button[@name='action_confirm']" position="attributes">
+					<attribute name="groups">stock.group_stock_manager</attribute>
+				</xpath>
+				
+				<xpath expr="//button[@name='action_cancel']" position="replace">
+					<button name="action_cancel_confirm" attrs="{'invisible': ['|', ('state', 'not in', ('assigned', 'confirmed', 'partially_available', 'draft', 'waiting')), ('is_locked', '=', False)]}" string="Cancel" groups="stock.group_stock_manager,purchase.group_purchase_user" type="object"/>
+				</xpath>
+
+
 				<!-- Add net weight and gross weight to tree view -->
 				<xpath expr="//field[@name='move_ids_without_package']//tree//button[@name='action_show_details']" position="before">
 					<field name="net_weight"/>
@@ -20,8 +29,6 @@
 
 				<!-- Add selection of forwarders -->
 				<xpath expr="//field[@name='origin']" position="after">
-					<!-- purchase_id is for testing only, will be removed -->
-					<field name="purchase_id"/>
 					<field name="forwarder_id"/>
 				</xpath>
 				

@@ -3,6 +3,8 @@
 from odoo import api, fields, models, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError, ValidationError
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class InheritPicking(models.Model):
@@ -28,6 +30,42 @@ class InheritPicking(models.Model):
 						'parent_model': self._name},
 		}
 
+	def action_cancel_confirm(self):
+		if self.note == False:
+			raise UserError(_('Note is empty, Please make sure this cancaling action is properly documented.'))
+		else:
+			view = self.env.ref('ovis.view_cancel_confirmation')
+			wiz = self.env['cancel.confirmation'].create({})
+			return {
+				'name': _('Confirm to Cancel?'),
+				'type': 'ir.actions.act_window',
+				'view_type': 'form',
+				'view_mode': 'form',
+				'res_model': 'cancel.confirmation',
+				'views': [(view.id, 'form')],
+				'view_id': view.id,
+				'target': 'new',
+				'res_id': wiz.id,
+				'context': {'parent_id': self.id,
+							'parent_model': self._name},
+			}
 
+
+	# def action_cancel(self):
+	# 	view = self.env.ref('mail.email_compose_message_wizard_form')
+	# 	wiz = self.env['mail.compose.message'].create({'is_log': True})		
+	# 	_logger.info("Action Cancel is overrided.")
+	# 	return {
+	# 		'name': _('Reason To Cancel?'),
+	# 		'type': 'ir.actions.act_window',
+	# 		'res_model': 'mail.compose.message',
+	# 		'view_type': 'form',
+	# 		'view_mode': 'form',
+	# 		'views': [(view.id, 'form')],
+	# 		'view_id': view.id,
+	# 		'target': 'new',
+	# 		'res_id': wiz.id,
+	# 		'context': {},
+	# 		}
 
 
