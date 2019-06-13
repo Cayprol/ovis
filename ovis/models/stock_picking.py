@@ -26,46 +26,36 @@ class InheritPicking(models.Model):
 			'view_id': view.id,
 			'target': 'new',
 			'res_id': wiz.id,
+			'context': {'parent_model': self._name,
+						'parent_id': self.id},
+		}
+
+	def action_cancel_confirm(self):
+		view = self.env.ref('ovis.view_cancel_confirmation')
+		wiz = self.env['cancel.confirmation'].create({})
+		return {
+			'name': _('Confirm to Cancel?'),
+			'type': 'ir.actions.act_window',
+			'view_type': 'form',
+			'view_mode': 'form',
+			'res_model': 'cancel.confirmation',
+			'views': [(view.id, 'form')],
+			'view_id': view.id,
+			'target': 'new',
+			'res_id': wiz.id,
 			'context': {'parent_id': self.id,
 						'parent_model': self._name},
 		}
 
-	def action_cancel_confirm(self):
-		if self.note == False:
-			raise UserError(_('Note is empty, Please make sure this cancaling action is properly documented.'))
-		else:
-			view = self.env.ref('ovis.view_cancel_confirmation')
-			wiz = self.env['cancel.confirmation'].create({})
-			return {
-				'name': _('Confirm to Cancel?'),
-				'type': 'ir.actions.act_window',
-				'view_type': 'form',
-				'view_mode': 'form',
-				'res_model': 'cancel.confirmation',
-				'views': [(view.id, 'form')],
-				'view_id': view.id,
-				'target': 'new',
-				'res_id': wiz.id,
-				'context': {'parent_id': self.id,
-							'parent_model': self._name},
-			}
+	# This method is designed for internal transfer from Quality Control to Stock, when partial movement is desired to go back to Input.
+	def _reserve_to_input(self):
+		_logger.info('_reserve_to_input called')
+		warehouse_ids = self.env['stock.warehouse'].search([('company_id', '=', self.location_id.company_id.id)])
+		_logger.info(warehouse_ids)
+		for warehouse_id in warehouse_ids:
+			if warehouse_id.lot_stock_id == self.location_dest_id and warehouse_id.wh_qc_stock_loc_id == self.location_id:
+				input_location = warehouse_id.wh_input_stock_loc_id
+				_logger.info(input_location)
 
-
-	# def action_cancel(self):
-	# 	view = self.env.ref('mail.email_compose_message_wizard_form')
-	# 	wiz = self.env['mail.compose.message'].create({'is_log': True})		
-	# 	_logger.info("Action Cancel is overrided.")
-	# 	return {
-	# 		'name': _('Reason To Cancel?'),
-	# 		'type': 'ir.actions.act_window',
-	# 		'res_model': 'mail.compose.message',
-	# 		'view_type': 'form',
-	# 		'view_mode': 'form',
-	# 		'views': [(view.id, 'form')],
-	# 		'view_id': view.id,
-	# 		'target': 'new',
-	# 		'res_id': wiz.id,
-	# 		'context': {},
-	# 		}
-
+		self.write({'location_dest_id': input_location.id})
 

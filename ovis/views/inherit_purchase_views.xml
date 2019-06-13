@@ -11,6 +11,10 @@
 					<attribute name="widget">date</attribute>
 				</xpath>
 
+				<xpath expr="//field[@name='qty_received']" position="after">
+					<field name="qty_qualified" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}"/>
+				</xpath>
+
 			</field>
 		</record>
 

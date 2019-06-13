@@ -6,7 +6,9 @@
 			<field name="name">inherit.stock_backorder_confirmation</field>
 			<field name="inherit_id" ref="stock.view_backorder_confirmation"/>
 			<field name="arch" type="xml">
-				<xpath expr="//footer//button[@name='process_cancel_backorder']" position="replace"/>
+				<xpath expr="//footer//button[@name='process_cancel_backorder']" position="after">
+					<button name="action_reject" string="Return" type="object"/>
+				</xpath>
 			</field>
 		</record>
 	</data>

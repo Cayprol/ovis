@@ -7,13 +7,14 @@
 			<field name="arch" type="xml">
 				<form string="Cancel Confirmation">
 					<group>
-						<p>
-							This record is going to be canceled. Please, doublecheck.
-						</p><p class="text-muted">
+						<field name="notes" nolabel="1" placeholder="Please, enter the reason of canceling."/>
+					</group>
+					<gruop>
+						<p colspan="8">
 							Related records will not be affected.
 							Make sure all stream of actions are manually inspected before canceling.
 						</p>
-					</group>
+					</gruop>
 					<footer>
 						<button name="action_confirm" string="Confirm" type="object" class="oe_highlight"/>
 						<button string="_Cancel" class="btn-secondary" special="cancel" />
