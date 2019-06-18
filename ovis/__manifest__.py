@@ -26,7 +26,6 @@
              'views/inherit_purchase_views.xml',
              'views/inherit_res_partner_views.xml',
              'views/inherit_sale_views.xml',
-             'views/inherit_stock_move_views.xml',
              'views/inherit_stock_picking_views.xml',
              'views/override_account_view.xml',
              'report/TEST.xml',
