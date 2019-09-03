@@ -21,8 +21,8 @@
     'data': [
              'security/ir.model.access.csv',
              'views/inherit_account_view.xml',
-             'views/inherit_product_template_only_form_views.xml',
-             'views/product_views.xml',
+             # 'views/inherit_product_template_only_form_views.xml',
+             # 'views/product_views.xml',
              'views/inherit_purchase_views.xml',
              'views/inherit_res_partner_views.xml',
              'views/inherit_sale_views.xml',

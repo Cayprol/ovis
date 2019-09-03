@@ -12,6 +12,7 @@
 				</xpath>
 
 				<!-- Add Field "buyer_ids" -->
+<!-- 				
 				<xpath expr="//page[@name='sales']//group[@name='sale']" position="before">
 					<group string="Customers" name="customers" attrs="{'invisible': [('product_variant_count','&gt;',1)]}" modifiers="{'invisible':[['product_variant_count','&gt;',1]]}">
 						<field name="buyer_ids" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}" nolabel="1" modifiers="{}"/>
@@ -20,6 +21,7 @@
 						<field name="variant_buyer_ids" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}" nolabel="1" modifiers="{}"/>
 					</group>
 				</xpath>
+-->
 			</field>
 		</record>
 	</data>

@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, _
-from odoo.addons import decimal_precision as dp
-from odoo.tools.float_utils import float_compare
 
-class PurchaseOrderLine(models.Model):
+class PurchaseOrder(models.Model):
 
-	_inherit = 'purchase.order.line'
+	_inherit = 'purchase.order'
 
-	qty_qualified = fields.Float(string="Qualified Qty", digits=dp.get_precision('Product Unit of Measure'), copy=False)
+	@api.multi
+	def button_confirm(self):
+		super(PurchaseOrder, self).button_confirm()
+		self.write({'user_id': self.env.uid})
+
+		return True
