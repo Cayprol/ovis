@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="quote_order_form">
+			<field name="model">quote.to.order</field>
+			<field name="name">quote.order.form</field>
+			<field name="arch" type="xml">
+				<form>
+					<group>
+						<field name="note" nolabel="1" placeholder="Log notes at here."/>
+					</group>
+
+					<footer>
+						<button name="action_confirm" string="Confirm" type="object" class="oe_highlight"/>
+						<button string="_Cancel" class="btn-secondary" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

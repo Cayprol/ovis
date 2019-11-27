@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_order_form">
+			<field name="model">sale.order</field>
+			<field name="name">sale.order.form</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+
+				<!-- Hide Send by Email / Send PRO-FORMA Invoice / Confirm button -->
+				<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and @class='btn-primary']" position="replace"/>
+				<xpath expr="//header/button[@name='action_quotation_send' and @states='sent,sale']" position="replace"/>
+				<xpath expr="//header/button[@name='action_quotation_send' and @class='btn-primary']" position="replace"/>
+				<xpath expr="//header/button[@name='action_quotation_send']" position="replace"/>
+				<xpath expr="//header/button[@name='action_confirm' and @class='btn-primary']" position="replace"/>
+				<xpath expr="//header/button[@name='action_confirm']" position="replace"/>
+
+				<!-- Add custom button action_send for moving from 'draft' to 'sent' without calling wizards. -->
+				<xpath expr="//header/button[@name='action_cancel']" position="before">
+					<button name="action_send" type="object" string="Send" states="draft" class="btn-primary" help="Proceed to next step to send quotation or pro-forma."/>
+				</xpath>
+
+				<!-- Add custom smart button for moving from 'sent' to 'sale'/'lock'  -->
+				<xpath expr="//div[@name='button_box']">
+					<button name="action_confirm_sale_order" type="object" class="oe_statbutton" icon="fa-linux" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

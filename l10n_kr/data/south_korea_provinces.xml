@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data noupdate="0">
+		<record id="state_kr_11" model="res.country.state">
+			<field name="name">Seoul</field>
+			<field name="code">11</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_26" model="res.country.state">
+			<field name="name">Busan</field>
+			<field name="code">26</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_27" model="res.country.state">
+			<field name="name">Daegu</field>
+			<field name="code">27</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_30" model="res.country.state">
+			<field name="name">Daejeon</field>
+			<field name="code">30</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_29" model="res.country.state">
+			<field name="name">Gwangju</field>
+			<field name="code">29</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_28" model="res.country.state">
+			<field name="name">Incheon</field>
+			<field name="code">28</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_31" model="res.country.state">
+			<field name="name">Ulsan</field>
+			<field name="code">31</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_43" model="res.country.state">
+			<field name="name">North Chungcheong</field>
+			<field name="code">43</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_44" model="res.country.state">
+			<field name="name">South Chungcheong</field>
+			<field name="code">44</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_42" model="res.country.state">
+			<field name="name">Gangwon</field>
+			<field name="code">42</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_41" model="res.country.state">
+			<field name="name">Gyeonggi</field>
+			<field name="code">41</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_47" model="res.country.state">
+			<field name="name">North Gyeongsang</field>
+			<field name="code">47</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_48" model="res.country.state">
+			<field name="name">South Gyeongsang</field>
+			<field name="code">48</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_45" model="res.country.state">
+			<field name="name">North Jeolla</field>
+			<field name="code">45</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_46" model="res.country.state">
+			<field name="name">South Jeolla</field>
+			<field name="code">46</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_49" model="res.country.state">
+			<field name="name">Jeju</field>
+			<field name="code">49</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+		<record id="state_kr_50" model="res.country.state">
+			<field name="name">Sejong</field>
+			<field name="code">50</field>
+			<field name="country_id" ref="base.kr"/>
+		</record>
+	</data>
+</odoo>

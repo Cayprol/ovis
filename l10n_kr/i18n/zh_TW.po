@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-20 00:00+0000\n"
+"PO-Revision-Date: 2019-11-20 00:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: zh_TW\n"
+"Plural-Forms: \n"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_11
+msgid "Seoul"
+msgstr "首爾特別市"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_26
+msgid "Busan"
+msgstr "釜山廣域市"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_27
+msgid "Daegu"
+msgstr "大邱廣域市"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_28
+msgid "Incheon"
+msgstr "仁川廣域市"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_29
+msgid "Gwangju"
+msgstr "光州廣域市"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_30
+msgid "Daejeon"
+msgstr "大田廣域市"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_31
+msgid "Ulsan"
+msgstr "蔚山廣域市"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_41
+msgid "Gyeonggi"
+msgstr "京畿道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_42
+msgid "Gangwon"
+msgstr "江原道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_43
+msgid "North Chungcheong"
+msgstr "忠清北道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_44
+msgid "South Chungcheong"
+msgstr "忠清南道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_45
+msgid "North Jeolla"
+msgstr "全羅北道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_46
+msgid "South Jeolla"
+msgstr "全羅南道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_47
+msgid "North Gyeongsang"
+msgstr "慶尚北道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_48
+msgid "South Gyeongsang"
+msgstr "慶尚南道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_49
+msgid "Jeju"
+msgstr "濟州特別自治道"
+
+#. module: l10n_kr
+#: model:res.country.state,name:l10n_kr.state_kr_50
+msgid "Sejong"
+msgstr "世宗特別自治市"

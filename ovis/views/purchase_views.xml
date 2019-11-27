@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="purchase_order_form">
+			<field name="model">purchase.order</field>
+			<field name="name">purchase.order.form</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+
+				<!-- Hide Send by Email / Print RFQ / Confirm Order button in header-->
+				<xpath expr="//header/button[@name='action_rfq_send' and @states='draft']" position="replace"/>
+				<xpath expr="//header/button[@name='action_rfq_send' and @states='sent']" position="replace"/>
+				<xpath expr="//header/button[@name='action_rfq_send' and @states='purchase']" position="replace"/>
+				<xpath expr="//header/button[@name='print_quotation' and @states='draft']" position="replace"/>
+				<xpath expr="//header/button[@name='print_quotation' and @states='sent']" position="replace"/>
+				<xpath expr="//header/button[@name='button_confirm' and @states='draft']" position="replace"/>
+				<xpath expr="//header/button[@name='button_confirm' and @states='sent']" position="replace"/>
+
+				<!-- Add custom button action_send for moving from 'draft' to 'sent' without calling wizards. -->
+				<xpath expr="//header/button[@name='button_cancel']" position="before">
+					<button name="action_send" type="object" string="Send" states="draft" class="btn-primary" help="Proceed to next step to send RFQ."/>
+				</xpath>
+
+				<!-- Add custom smart button for moving from 'sent' to 'to approve'/'purchase'/'done'  -->
+				<xpath expr="//div[@name='button_box']">
+					<button name="action_confirm_purchase_order" type="object" class="oe_statbutton" icon="fa-linux" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+				</xpath>
+
+
+			</field>
+		</record>
+	</data>
+</odoo>

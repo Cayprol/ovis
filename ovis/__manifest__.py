@@ -1,6 +1,16 @@
-﻿{
-	'name': 'OVIS',
-	'description': 'Custom module for OVIS',
-	'depends': ['base', 'sale', 'product'],
-	'data': ['views/OVIS_product_template.xml'], 
+{
+    'name': 'OVIS',
+    'version': '13.0.0',
+    'category': 'Other',
+    'description': 'Custom module for OVIS',
+    'author': 'Cayprol',
+    'depends': ['base', 'sale'],
+    'data': ['report/sale_report_templates.xml',
+             'views/purchase_views.xml',
+             'views/sale_views.xml',
+             'wizard/quote_to_order.xml'],
+    'license': 'LGPL-3', 
+    'installable': True,
+    'application'   : True,
+    'auto_install'  : False,
 }

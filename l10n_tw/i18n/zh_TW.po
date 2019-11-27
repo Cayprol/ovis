@@ -12,112 +12,112 @@ msgstr ""
 "Language: zh_TW\n"
 "Plural-Forms: \n"
 
-#. module: base
-#: model:res.country.state,name:state_tw_cha
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_cha
 msgid "Changhua County"
 msgstr "彰化縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_cyi
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_cyi
 msgid "Chiayi City"
 msgstr "嘉義市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_cyq
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_cyq
 msgid "Chiayi County"
 msgstr "嘉義縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_hsq
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_hsq
 msgid "Hsinchu County"
 msgstr "新竹縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_hsz
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_hsz
 msgid "Hsinchu City"
 msgstr "新竹市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_hua
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_hua
 msgid "Hualien County"
 msgstr "花蓮縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_ila
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_ila
 msgid "Yilan County"
 msgstr "宜蘭縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_kee
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_kee
 msgid "Keelung City"
 msgstr "基隆市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_khh
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_khh
 msgid "Kaohsiung City"
 msgstr "高雄市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_kin
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_kin
 msgid "Kinmen County"
 msgstr "金門縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_lie
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_lie
 msgid "Lienchiang County"
 msgstr "連江縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_mia
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_mia
 msgid "Miaoli County"
 msgstr "苗栗縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_nan
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_nan
 msgid "Nantou County"
 msgstr "南投縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_nwt
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_nwt
 msgid "New Taipei City"
 msgstr "新北市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_pen
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_pen
 msgid "Penghu County"
 msgstr "澎湖縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_pif
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_pif
 msgid "Pingtung County"
 msgstr "屏東縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_tao
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_tao
 msgid "Taoyuan City"
 msgstr "桃園市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_tnn
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_tnn
 msgid "Tainan City"
 msgstr "台南市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_tpe
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_tpe
 msgid "Taipei City"
 msgstr "台北市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_ttt
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_ttt
 msgid "Taitung County"
 msgstr "台東縣"
 
-#. module: base
-#: model:res.country.state,name:state_tw_txg
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_txg
 msgid "Taichung City"
 msgstr "台中市"
 
-#. module: base
-#: model:res.country.state,name:state_tw_yun
+#. module: l10n_tw
+#: model:res.country.state,name:l10n_tw.state_tw_yun
 msgid "Yunlin County"
 msgstr "雲林縣"
