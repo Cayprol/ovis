@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- Cannot modify 'report' in print menu, must over write entire report action. -->
+		<report 
+			string="Purchase Order" 
+			id="purchase.action_report_purchase_order" 
+			model="purchase.order" 
+			report_type="qweb-pdf"
+			name="purchase.report_purchaseorder" 
+			file="purchase.report_purchaseorder"
+			print_report_name="
+				(object.state in ('draft') and 'Draft Request for Quotation - %s' % (object.name) or
+				 object.state in ('sent') and 'Draft Purchase Order - %s' % (object.name) or
+				 object.state in ('cancel') and 'Cancelled PO - %s' % (object.name) or
+				 'Purchase Order - %s' % (object.name))"
+		/>
+		<report 
+			string="Request for Quotation" 
+			id="purchase.report_purchase_quotation" 
+			model="purchase.order" 
+			report_type="qweb-pdf"
+			name="purchase.report_purchasequotation" 
+			file="purchase.report_purchasequotation"
+			print_report_name="
+				(object.state in ('draft') and 'Draft Request for Quotation - %s' % (object.name) or
+				 object.state in ('cancel') and 'Cancelled RFQ - %s' % (object.name) or
+				 'Request for Quotation - %s' % (object.name))"
+		/>
+	</data>
+</odoo>

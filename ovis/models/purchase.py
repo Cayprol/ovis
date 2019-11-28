@@ -6,6 +6,7 @@ class PurchaseOrder(models.Model):
 
 	_inherit = 'purchase.order'
 
+
 	def action_send(self):
 		self.ensure_one()
 		self.write({'state': 'sent'})
@@ -27,5 +28,3 @@ class PurchaseOrder(models.Model):
 			'context': {'parent_model': self._name,
 						'parent_id': self.id,},
 		}
-
-

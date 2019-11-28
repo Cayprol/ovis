@@ -24,7 +24,22 @@
 				<xpath expr="//div[@name='button_box']">
 					<button name="action_confirm_sale_order" type="object" class="oe_statbutton" icon="fa-linux" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
 				</xpath>
+
+				<!-- 'readonly' is not universally defined in .py or .xml, implementation of each field are different. 
+				This section modify 'readonly' from front end coherently.  -->
+				<xpath expr="//field[@name='partner_id']" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
+				</xpath>
+				<xpath expr="//field[@name='pricelist_id']" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
+				</xpath>
+				<xpath expr="//field[@name='order_line']" position="attributes">
+					<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
+				</xpath>
+
+
 			</field>
 		</record>
+
 	</data>
 </odoo>
