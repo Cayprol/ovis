@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<data>
+		<record id="view_sales_order_filter" model="ir.ui.view" >
+			<field name="name">sale.order.list.select</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_sales_order_filter"/>
+			<field name="arch" type="xml">
+				<xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+					<filter string="Back Orders" domain="[('is_back_order', '=', True)]" name="back_order_filter"/>
+				</xpath>
+			</field>
+		</record>
+
 		<record model="ir.ui.view" id="view_order_form">
 			<field name="model">sale.order</field>
 			<field name="name">sale.order.form</field>
@@ -8,11 +19,11 @@
 			<field name="arch" type="xml">
 
 				<!-- Hide Send by Email / Send PRO-FORMA Invoice / Confirm button -->
-				<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and @class='btn-primary']" position="replace"/>
+				<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and hasclass('btn-primary')]" position="replace"/>
 				<xpath expr="//header/button[@name='action_quotation_send' and @states='sent,sale']" position="replace"/>
-				<xpath expr="//header/button[@name='action_quotation_send' and @class='btn-primary']" position="replace"/>
+				<xpath expr="//header/button[@name='action_quotation_send' and hasclass('btn-primary')]" position="replace"/>
 				<xpath expr="//header/button[@name='action_quotation_send']" position="replace"/>
-				<xpath expr="//header/button[@name='action_confirm' and @class='btn-primary']" position="replace"/>
+				<xpath expr="//header/button[@name='action_confirm' and hasclass('btn-primary')]" position="replace"/>
 				<xpath expr="//header/button[@name='action_confirm']" position="replace"/>
 
 				<!-- Add custom button action_send for moving from 'draft' to 'sent' without calling wizards. -->

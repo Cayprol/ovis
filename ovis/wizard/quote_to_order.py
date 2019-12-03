@@ -4,6 +4,7 @@ from odoo import models, fields, api, exceptions, _
 class QuoteToOrder(models.TransientModel):
 
 	_name = 'quote.to.order'
+	_description = 'Wizard to convert Quote/RFQ to SO/PO'
 
 	note = fields.Text('Note', help="Log note. quotation -> order.")
 
