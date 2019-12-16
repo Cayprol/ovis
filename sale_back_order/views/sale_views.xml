@@ -4,7 +4,7 @@
 		<field name="name">sale.order.tree</field>
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_tree"/>
-		<!-- <field name="mode">primary</field> -->
+		<field name="mode">primary</field>
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='amount_untaxed']" position="replace">
 				<field name="backed_amount_untaxed" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
@@ -16,15 +16,64 @@
 				<field name="backed_amount_total" sum="Total Tax Included" widget="monetary" optional="show"/>
 			</xpath>
 		</field>
-	</record> 
+	</record>
+
+	<!-- Sales Back Orders Kanban View  -->
+	<record id="view_sale_backorder_kanban" model="ir.ui.view">
+		<field name="name">sale.order.kanban</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_sale_order_kanban"/>
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<xpath expr="//kanban[hasclass('o_kanban_mobile')]/field[@name='amount_total']" position="replace">
+				<field name="backed_amount_total"/>
+			</xpath>
+			<xpath expr="//t[@t-name='kanban-box']/div/div[hasclass('o_kanban_record_top','mb16')]/strong/field[@name='amount_total']" position="replace">
+				<field name="backed_amount_total" widget="monetary"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Sales Back Orders Calendar View  -->
+	<record id="view_sale_backorder_calendar" model="ir.ui.view">
+		<field name="name">sale.order.calendar</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_sale_order_calendar"/>
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<xpath expr="//calendar" position="attributes">
+				<attribute name="date_start">effective_date</attribute>
+			</xpath>
+			<xpath expr="//field[@name='amount_total']" position="replace">
+				<field name="backed_amount_total" widget="monetary"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="sale_order_view_search_inherit_backorder" model="ir.ui.view">
+		<field name="name">sale.order.search.inherit.backorder</field>
+		<field name="model">sale.order</field>
+		<field name="mode">primary</field>
+		<field name="inherit_id" ref="sale.view_sales_order_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//filter[@name='my_sale_orders_filter']" position="replace">
+				<filter string="Back Orders" name="backorder" domain="[('backed_amount_total', '&gt;', 0)]"/>
+				<separator/>
+				<filter string="To Invoice" name="to_invoice" domain="[('invoice_status','=','to invoice')]" />
+				<filter string="To Upsell" name="upselling" domain="[('invoice_status','=','upselling')]" />
+				<separator/>
+				<filter string="Order Date" name="order_date" date="date_order"/>
+			</xpath>
+		</field>
+	</record>
 
 	<record id="action_back_orders" model="ir.actions.act_window">
 		<field name="name">Back Orders</field>
 		<field name="type">ir.actions.act_window</field>
 		<field name="res_model">sale.order</field>
 		<field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
-		<field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
-		<field name="context">{}</field>
+		<field name="search_view_id" ref="sale_order_view_search_inherit_backorder"/>
+		<field name="context">{'search_default_backorder': 1}</field>
 		<field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
 		<field name="help" type="html">
 			<p class="o_view_nocontent_smiling_face">
@@ -48,27 +97,27 @@
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
 
-<!-- 	<record id="sale_order_action_view_backorder_kanban" model="ir.actions.act_window.view">
+	<record id="sale_order_action_view_backorder_kanban" model="ir.actions.act_window.view">
 		<field name="sequence" eval="2"/>
 		<field name="view_mode">kanban</field>
 		<field name="view_id" ref="view_sale_backorder_kanban"/>
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
-
+<!--
 	<record id="sale_order_action_view_backorder_form" model="ir.actions.act_window.view">
 		<field name="sequence" eval="3"/>
 		<field name="view_mode">form</field>
 		<field name="view_id" ref="view_backorder_form"/>
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
-
+ -->
 	<record id="sale_order_action_view_backorder_calendar" model="ir.actions.act_window.view">
 		<field name="sequence" eval="4"/>
 		<field name="view_mode">calendar</field>
 		<field name="view_id" ref="view_sale_backorder_calendar"/>
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
-
+<!--
 	<record id="sale_order_action_view_backorder_pivot" model="ir.actions.act_window.view">
 		<field name="sequence" eval="5"/>
 		<field name="view_mode">pivot</field>
