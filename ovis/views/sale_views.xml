@@ -1,56 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
-		<record id="view_sales_order_filter" model="ir.ui.view" >
-			<field name="name">sale.order.list.select</field>
-			<field name="model">sale.order</field>
-			<field name="inherit_id" ref="sale.view_sales_order_filter"/>
-			<field name="arch" type="xml">
-				<xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
-					<filter string="Back Orders" domain="[('is_back_order', '=', True)]" name="back_order_filter"/>
-				</xpath>
-			</field>
-		</record>
 
-		<record model="ir.ui.view" id="view_order_form">
-			<field name="model">sale.order</field>
-			<field name="name">sale.order.form</field>
-			<field name="inherit_id" ref="sale.view_order_form"/>
-			<field name="arch" type="xml">
+	<record model="ir.ui.view" id="view_order_form">
+		<field name="model">sale.order</field>
+		<field name="name">sale.order.form</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
 
-				<!-- Hide Send by Email / Send PRO-FORMA Invoice / Confirm button -->
-				<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and hasclass('btn-primary')]" position="replace"/>
-				<xpath expr="//header/button[@name='action_quotation_send' and @states='sent,sale']" position="replace"/>
-				<xpath expr="//header/button[@name='action_quotation_send' and hasclass('btn-primary')]" position="replace"/>
-				<xpath expr="//header/button[@name='action_quotation_send']" position="replace"/>
-				<xpath expr="//header/button[@name='action_confirm' and hasclass('btn-primary')]" position="replace"/>
-				<xpath expr="//header/button[@name='action_confirm']" position="replace"/>
+			<!-- Hide Send by Email / Send PRO-FORMA Invoice / Confirm button -->
+			<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and hasclass('btn-primary')]" position="replace"/>
+			<xpath expr="//header/button[@name='action_quotation_send' and @states='sent,sale']" position="replace"/>
+			<xpath expr="//header/button[@name='action_quotation_send' and hasclass('btn-primary')]" position="replace"/>
+			<xpath expr="//header/button[@name='action_quotation_send']" position="replace"/>
+			<xpath expr="//header/button[@name='action_confirm' and hasclass('btn-primary')]" position="replace"/>
+			<xpath expr="//header/button[@name='action_confirm']" position="replace"/>
 
-				<!-- Add custom button action_send for moving from 'draft' to 'sent' without calling wizards. -->
-				<xpath expr="//header/button[@name='action_cancel']" position="before">
-					<button name="action_send" type="object" string="Send" states="draft" class="btn-primary" help="Proceed to next step to send quotation or pro-forma."/>
-				</xpath>
+			<!-- Add custom button action_send for moving from 'draft' to 'sent' without calling wizards. -->
+			<xpath expr="//header/button[@name='action_cancel']" position="before">
+				<button name="action_send" type="object" string="Send" states="draft" class="btn-primary" help="Proceed to next step to send quotation or pro-forma."/>
+			</xpath>
 
-				<!-- Add custom smart button for moving from 'sent' to 'sale'/'lock'  -->
-				<xpath expr="//div[@name='button_box']">
-					<button name="action_confirm_sale_order" type="object" class="oe_statbutton" icon="fa-linux" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
-				</xpath>
+			<!-- Add custom smart button for moving from 'sent' to 'sale'/'lock'  -->
+			<xpath expr="//div[@name='button_box']">
+				<button name="action_confirm_sale_order" type="object" class="oe_statbutton" icon="fa-linux" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+			</xpath>
 
-				<!-- 'readonly' is not universally defined in .py or .xml, implementation of each field are different. 
-				This section modify 'readonly' from front end coherently.  -->
-				<xpath expr="//field[@name='partner_id']" position="attributes">
-					<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
-				</xpath>
-				<xpath expr="//field[@name='pricelist_id']" position="attributes">
-					<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
-				</xpath>
-				<xpath expr="//field[@name='order_line']" position="attributes">
-					<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
-				</xpath>
+			<!-- 'readonly' is not universally defined in .py or .xml, implementation of each field are different. 
+			This section modify 'readonly' from front end coherently.  -->
+			<xpath expr="//field[@name='partner_id']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='pricelist_id']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_line']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
+			</xpath>
 
 
-			</field>
-		</record>
+		</field>
+	</record>
 
-	</data>
 </odoo>
