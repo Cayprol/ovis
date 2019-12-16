@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_backorder_tree" model="ir.ui.view">
+		<field name="name">sale.order.tree</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_tree"/>
+		<!-- <field name="mode">primary</field> -->
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='amount_untaxed']" position="replace">
+				<field name="backed_amount_untaxed" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
+			</xpath>
+			<xpath expr="//field[@name='amount_tax']" position="replace">
+				<field name="backed_amount_tax" sum="Tax Total" widget="monetary" optional="hide"/>
+			</xpath>
+			<xpath expr="//field[@name='amount_total']" position="replace">
+				<field name="backed_amount_total" sum="Total Tax Included" widget="monetary" optional="show"/>
+			</xpath>
+		</field>
+	</record> 
+
+	<record id="action_back_orders" model="ir.actions.act_window">
+		<field name="name">Back Orders</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.order</field>
+		<field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+		<field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+		<field name="context">{}</field>
+		<field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+				Create a new quotation, the first step of a new sale!
+			</p><p>
+				Once the quotation is confirmed, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+			</p>
+		</field>
+	</record>
+
+	<menuitem id="sale_back_order"
+			name="Back Orders"
+			action="action_back_orders"
+			parent="sale.sale_order_menu"
+			sequence="5" groups="sales_team.group_sale_salesman"/>
+
+	<record id="sale_order_action_view_backorder_tree" model="ir.actions.act_window.view">
+		<field name="sequence" eval="1"/>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_backorder_tree"/>
+		<field name="act_window_id" ref="action_back_orders"/>
+	</record>
+
+<!-- 	<record id="sale_order_action_view_backorder_kanban" model="ir.actions.act_window.view">
+		<field name="sequence" eval="2"/>
+		<field name="view_mode">kanban</field>
+		<field name="view_id" ref="view_sale_backorder_kanban"/>
+		<field name="act_window_id" ref="action_back_orders"/>
+	</record>
+
+	<record id="sale_order_action_view_backorder_form" model="ir.actions.act_window.view">
+		<field name="sequence" eval="3"/>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_backorder_form"/>
+		<field name="act_window_id" ref="action_back_orders"/>
+	</record>
+
+	<record id="sale_order_action_view_backorder_calendar" model="ir.actions.act_window.view">
+		<field name="sequence" eval="4"/>
+		<field name="view_mode">calendar</field>
+		<field name="view_id" ref="view_sale_backorder_calendar"/>
+		<field name="act_window_id" ref="action_back_orders"/>
+	</record>
+
+	<record id="sale_order_action_view_backorder_pivot" model="ir.actions.act_window.view">
+		<field name="sequence" eval="5"/>
+		<field name="view_mode">pivot</field>
+		<field name="view_id" ref="view_sale_backorder_pivot"/>
+		<field name="act_window_id" ref="action_back_orders"/>
+	</record>
+
+	<record id="sale_order_action_view_backorder_graph" model="ir.actions.act_window.view">
+		<field name="sequence" eval="6"/>
+		<field name="view_mode">graph</field>
+		<field name="view_id" ref="view_sale_backorder_graph"/>
+		<field name="act_window_id" ref="action_back_orders"/>
+	</record>
+ -->
+
+</odoo>
