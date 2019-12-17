@@ -27,3 +27,25 @@ class SaleOrder(models.Model):
 			'context': {'parent_model': self._name,
 						'parent_id': self.id,},
 		}
+
+	@api.depends('order_line.tally')
+	def _compute_tally(self):
+		for order in self:
+			notified = [line.tally for line in order.order_line]
+			order.update({'tally': all(notified)})
+
+	def action_draft(self):
+		super(SaleOrder, self).action_draft()
+		for line in self.order_line:
+			line.update({'tally': False})
+		return True
+
+
+	tally = fields.Boolean("Tally", compute="_compute_tally", store=True, readonly=True, help="This field indicates all order lines associated to this order are notified for tally or not.")
+
+
+class SaleOrderLine(models.Model):
+
+	_inherit = 'sale.order.line'
+
+	tally = fields.Boolean("Tally", help="This field indicates the order line has been notified for tally or not.")
