@@ -34,6 +34,35 @@
 		</field>
 	</record>
 
+	<!-- Sales Back Orders Form View  -->
+	<record id="view_backorder_form" model="ir.ui.view">
+		<field name="name">sale.order.kanban</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='price_subtotal' and @invisible='1']" position="after">
+				<field name="backed_price_subtotal" invisible="1"/>
+			</xpath>
+			<xpath expr="//tree/field[@name='price_subtotal']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//tree/field[@name='price_subtotal']" position="after">
+				<field name="backed_price_subtotal" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
+			</xpath>
+			<xpath expr="//group[@name='sale_total']" position="replace">
+				<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+					<field name="backed_amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+					<field name="backed_amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+					<div class="oe_subtotal_footer_separator oe_inline o_td_label">
+						<label for="backed_amount_total" />
+					</div>
+					<field name="backed_amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+				</group>
+			</xpath>
+		</field>
+	</record>
+
 	<!-- Sales Back Orders Calendar View  -->
 	<record id="view_sale_backorder_calendar" model="ir.ui.view">
 		<field name="name">sale.order.calendar</field>
@@ -41,11 +70,34 @@
 		<field name="inherit_id" ref="sale.view_sale_order_calendar"/>
 		<field name="mode">primary</field>
 		<field name="arch" type="xml">
-			<xpath expr="//calendar" position="attributes">
-				<attribute name="date_start">effective_date</attribute>
-			</xpath>
 			<xpath expr="//field[@name='amount_total']" position="replace">
 				<field name="backed_amount_total" widget="monetary"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Sales Back Orders Pivot View  -->
+	<record id="view_sale_backorder_pivot" model="ir.ui.view">
+		<field name="name">sale.order.pivot</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_sale_order_pivot"/>
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='amount_total']" position="replace">
+				<field name="backed_amount_total" type="measure"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- Sales Back Orders Graph View  -->
+	<record  id="view_sale_backorder_graph" model="ir.ui.view">
+		<field name="name">sale.order.graph</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_sale_order_graph"/>
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='amount_total']" position="replace">
+				<field name="backed_amount_total" type="measure"/>
 			</xpath>
 		</field>
 	</record>
@@ -103,21 +155,21 @@
 		<field name="view_id" ref="view_sale_backorder_kanban"/>
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
-<!--
+
 	<record id="sale_order_action_view_backorder_form" model="ir.actions.act_window.view">
 		<field name="sequence" eval="3"/>
 		<field name="view_mode">form</field>
 		<field name="view_id" ref="view_backorder_form"/>
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
- -->
+ 
 	<record id="sale_order_action_view_backorder_calendar" model="ir.actions.act_window.view">
 		<field name="sequence" eval="4"/>
 		<field name="view_mode">calendar</field>
 		<field name="view_id" ref="view_sale_backorder_calendar"/>
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
-<!--
+
 	<record id="sale_order_action_view_backorder_pivot" model="ir.actions.act_window.view">
 		<field name="sequence" eval="5"/>
 		<field name="view_mode">pivot</field>
@@ -131,6 +183,5 @@
 		<field name="view_id" ref="view_sale_backorder_graph"/>
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
- -->
 
 </odoo>
