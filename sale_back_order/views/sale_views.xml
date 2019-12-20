@@ -184,4 +184,130 @@
 		<field name="act_window_id" ref="action_back_orders"/>
 	</record>
 
+
+	<!-- Sale Order Line starts below -->
+	<!-- Tree view inherit -->
+	<record id="view_backorder_line_tree" model="ir.ui.view">
+		<field name="name">sale.backorder.line.tree</field>
+		<field name="model">sale.order.line</field>
+		<field name="mode">primary</field>
+		<field name="inherit_id" ref="sale.view_order_line_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//tree" position="attributes">
+				<attribute name="expand">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_partner_id']" position="after">
+				<field name="client_order_ref" optional="show"/>
+			</xpath>
+			<xpath expr="//field[@name='salesman_id']" position="attributes">
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='qty_delivered']" position="attributes">
+				<attribute name="string">Delivered Qty</attribute>
+			</xpath>
+			<xpath expr="//field[@name='qty_invoiced']" position="attributes">
+				<attribute name="string">Invoiced Qty</attribute>
+			</xpath>
+			<xpath expr="//field[@name='qty_to_invoice']" position="attributes">
+				<attribute name="string">To Invoiced Qty</attribute>
+			</xpath>
+			<xpath expr="//field[@name='product_uom']" position="attributes">
+				<attribute name="string">UoM</attribute>
+				<attribute name="optional">hide</attribute>
+			</xpath>
+			<xpath expr="//field[@name='price_subtotal']" position="replace">
+				<field name="price_unit" optional="show"/>
+				<field name="backed_price_subtotal" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
+				<field name="backed_price_tax" sum="Tax Total" widget="monetary" optional="hide"/>
+				<field name="backed_price_total" sum="Total Tax Included" widget="monetary" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- No Kanban to inherit, create new Kanban view-->
+	<record id="view_backorder_line_kanban" model="ir.ui.view" >
+		<field name="name">sale.backorder.line.kanban</field>
+		<field name="model">sale.order.line</field>
+		<field name="arch" type="xml">
+			<kanban class="o_kanban_mobile">
+				<field name="partner_shipping_id"/>
+				<field name="order_partner_id"/>
+				<field name="client_order_ref"/>
+				<field name="order_id"/>
+				<field name="name"/>
+				<field name="price_unit"/>		
+ 				<templates>
+					<t t-name="kanban-box">
+						<div t-attf-class="oe_kanban_card oe_kanban_global_click">
+							<div class="o_kanban_record_top mb16">
+								<div class="o_kanban_record_headings mt4">
+									<strong class="o_kanban_record_title"><span><t t-esc="record.partner_shipping_id.value"/></span></strong>
+								</div>
+								<strong><field name="backed_price_total" widget="monetary"/></strong>
+							</div>
+							<div class="o_kanban_record_bottom">
+								<div class="oe_kanban_bottom_left text-muted">
+									<!-- <span><t t-esc="record.order_id.value"/> <t t-esc="record.client_order_ref.value"/></span> -->
+									<field name="order_id"/>
+									<field name="client_order_ref"/>
+								</div>
+ 								<div class="oe_kanban_bottom_right">
+									<field name="name"/>
+								</div>
+
+							</div>
+						</div>
+					</t>
+				</templates>
+			</kanban>
+		</field>
+	</record>
+
+	<record id="sale_order_line_view_search_inherit_backorder" model="ir.ui.view">
+		<field name="name">sale.order.line.view.search.inherit.backorder</field>
+		<field name="model">sale.order.line</field>
+		<field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+		<field name="mode">primary</field>
+		<field name="arch" type="xml">
+			<xpath expr="//search"	>
+				<filter string="Back Order Lines" name="backorder_line" domain="[('backed_price_total','&gt;',0)]" help="Order Lines have not yet fully delivered. Group by Shipping Address."/>
+			</xpath>
+
+			<xpath expr="//group">
+				<filter string="Customer" name="customer" domain="[]" context="{'group_by':'order_partner_id'}"/>
+				<filter string="Ship To" name="ship_to" domain="[]" context="{'group_by':'partner_shipping_id'}"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="action_backorder_line" model="ir.actions.act_window">
+		<field name="name">Back Order Lines</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.order.line</field>
+		<field name="view_mode">tree,kanban</field>
+		<field name="search_view_id" ref="sale_order_line_view_search_inherit_backorder"/>
+		<field name="context">{'search_default_backorder_line': 1, 'search_default_ship_to': 1}</field>
+		<field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
+	</record>
+
+	<menuitem id="backrder_line"
+		name="Back Order Lines"
+		action="action_backorder_line"
+		parent="sale.sale_order_menu"
+		sequence="6" groups="sales_team.group_sale_salesman"/>
+
+	<record id="backorder_line_action_view_tree" model="ir.actions.act_window.view">
+		<field name="sequence" eval="1"/>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_backorder_line_tree"/>
+		<field name="act_window_id" ref="action_backorder_line"/>
+	</record>
+
+	<record id="backorder_line_action_view_kanban" model="ir.actions.act_window.view">
+		<field name="sequence" eval="2"/>
+		<field name="view_mode">kanban</field>
+		<field name="view_id" ref="view_backorder_line_kanban"/>
+		<field name="act_window_id" ref="action_backorder_line"/>
+	</record>
+
 </odoo>

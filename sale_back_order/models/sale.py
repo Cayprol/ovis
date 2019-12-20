@@ -46,6 +46,8 @@ class SaleOrderLine(models.Model):
 	backed_price_total = fields.Monetary(compute='_compute_amount', string='Backed Total', readonly=True, store=True)
 	backed_price_subtotal = fields.Monetary(compute='_compute_amount', string='Backed Subtotal', readonly=True, store=True)
 
+	client_order_ref = fields.Char(related="order_id.client_order_ref")
 
+	partner_shipping_id = fields.Many2one(related="order_id.partner_shipping_id", store=True, readonly=True)
 
 
