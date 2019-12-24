@@ -9,7 +9,9 @@
     "application": False,
     "installable": True,
     'depends': ['account', 'sale_management'],
-    'data': ['views/sale_views.xml',],
+    'data': ['report/report_order_line.xml',
+            'report/sale_order_line_report.xml',
+            'views/sale_views.xml',],
     'demo': [],
     'test': [],
 }
