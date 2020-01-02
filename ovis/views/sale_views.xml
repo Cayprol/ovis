@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-	<record model="ir.ui.view" id="view_order_form">
+	<record id="view_order_form" model="ir.ui.view" >
 		<field name="model">sale.order</field>
 		<field name="name">sale.order.form</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
@@ -54,5 +54,20 @@
 
 		</field>
 	</record>
+	<record  id="view_backorder_line_tree" model="ir.ui.view">
+		<field name="model">sale.order.line</field>
+		<field name="name">sale.backorder.line.tree</field>
+		<!-- <field name="mode">primary</field> -->
+		<field name="inherit_id" ref="sale_back_order.view_backorder_line_tree"/>
+		<field name="arch" type="xml">
 
+			<xpath expr="//field[@name='price_unit']" position="before">
+				<!-- from module dev_sale_delivery_by_dates -->
+				<field name="sale_delivery_date" optional="show"/>
+
+				<field name="tally" optional="hide"/>
+			</xpath>
+
+		</field>
+	</record>
 </odoo>

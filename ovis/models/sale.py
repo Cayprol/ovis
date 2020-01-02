@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+import logging
+_logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
 
@@ -37,8 +39,55 @@ class SaleOrder(models.Model):
 	def action_draft(self):
 		super(SaleOrder, self).action_draft()
 		for line in self.order_line:
-			line.update({'tally': False})
+			line.update({'tally': False,
+						'sale_delivery_date': fields.date.today()})
 		return True
+
+	@api.onchange('partner_id')
+	def onchange_domain_partner_invoice_id(self):
+		if self.partner_id:
+			res = {'domain': {'partner_invoice_id': [('parent_id.id', '=', self.partner_id.id)]}}
+			return res
+		else:
+			return False
+
+	def write(self, values):
+		if values.get('order_line') and self.state == 'sale':
+
+			_logger.info(values['order_line'])
+
+			for order in self:
+				to_log={}
+				for value in values['order_line']:
+					if value[1] is int:
+						line = order.order_line.browse(value[1])
+						if type(value[2]) == dict:
+							if value[2].get('sale_delivery_date'):
+								if line.sale_delivery_date != value[2]['sale_delivery_date']:
+									_logger.info("Date Changed.")
+									to_log[line] = (line.sale_delivery_date, value[2]['sale_delivery_date'])
+				if to_log:
+					documents = self.env['stock.picking']._log_activity_get_documents(to_log, 'move_ids', 'UP')
+					order._log_change_delivery_date(documents)
+
+		return super(SaleOrder, self).write(values)
+
+	def _log_change_delivery_date(self, documents, cancel=False):
+		def _render_note_exception_delivery_so(rendering_context):
+			order_exceptions, visited_moves = rendering_context
+			visited_moves = list(visited_moves)
+			visited_moves = self.env[visited_moves[0]._name].concat(*visited_moves)
+			order_line_ids = self.env['sale.order.line'].browse([order_line.id for order in order_exceptions.values() for order_line in order[0]])
+			sale_order_ids = order_line_ids.mapped('order_id')
+			impacted_pickings = visited_moves.filtered(lambda m: m.state not in ('done', 'cancel')).mapped('picking_id')
+			values = {
+				'sale_order_ids': sale_order_ids,
+				'order_exceptions': order_exceptions.values(),
+				'impacted_pickings': impacted_pickings,
+				'cancel': cancel
+			}
+			return self.env.ref('ovis.exception_on_so').render(values=values)
+		self.env['stock.picking']._log_activity(_render_note_exception_delivery_so, documents)
 
 
 	tally = fields.Boolean("Tally", compute="_compute_tally", store=True, readonly=True, help="This field indicates all order lines associated to this order are notified for tally or not.")
@@ -49,3 +98,13 @@ class SaleOrderLine(models.Model):
 	_inherit = 'sale.order.line'
 
 	tally = fields.Boolean("Tally", help="This field indicates the order line has been notified for tally or not.")
+
+	@api.onchange('sale_delivery_date')
+	def _onchange_sale_delivery_date(self):
+		if self.state in ['sale']: 
+			return {
+				'warning': {
+					'title': _('Delivery Order has been scheduled.'),
+					'message': _("Please, double check the scheduled date of all corresponding delivery orders.")
+				}
+			}
