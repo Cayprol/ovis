@@ -1,1 +1,1 @@
-﻿from . import account_move, product, product_template, purchase,sale
+﻿from . import account_move, product, product_template, purchase, res_bank, sale
