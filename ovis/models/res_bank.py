@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from odoo import api, fields, models, _
 
 class ResPartnerBank(models.Model):
@@ -8,7 +7,14 @@ class ResPartnerBank(models.Model):
 
 	_rec_name = 'nick_name'
 
-	nick_name = fields.Char(string="Nick Name", required=True, help="Nick Name for bank accounts to be recognized easily.")
+	@api.model
+	def create(self, values):
+		record = super(ResPartnerBank, self).create(values)
+		if not values['nick_name']:
+			record['nick_name'] = record['acc_number']
+		return record
+
+	nick_name = fields.Char(string="Nick Name", help="Nick Name for bank accounts to be recognized easily.")
 
 
 class AccountJournal(models.Model):
