@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- <template id="report_invoice_document" inherit_id="account.report_invoice_document" primary="True"> -->
+		<template id="report_invoice_document" inherit_id="account.report_invoice_document">
+			<xpath expr="//div[hasclass('page')]/h2/span[2]" position="replace">
+				<span t-if="o.type == 'out_invoice' and o.state == 'draft' and o.name == '/'">Draft Invoice</span>
+				<span t-if="o.type == 'out_invoice' and o.state == 'draft' and o.name != '/'">Invoice</span>
+			</xpath>
+
+			<xpath expr="//t[@t-set='address']" position="replace">
+				<t t-set="address">
+					<span t-field="o.partner_id.name"/>
+					<address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' />
+					<div t-if="o.partner_id.vat" class="mt16">
+						<t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>
+						<t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/></div>
+				</t>
+			</xpath>
+
+		</template>
+	</data>
+</odoo>
