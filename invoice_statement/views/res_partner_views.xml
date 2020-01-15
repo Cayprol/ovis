@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_partner_form" model="ir.ui.view">
+			<field name="name">view.partner.form.invoice.statement</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//div[@name='button_box']">
+					<!-- <button name="%(action_statement)d" type="action" class="oe_statbutton" icon="fa-file-text-o" attrs="{'invisible': [('parent_id', '!=', False)]}"> -->
+					<button name="action_statement_print" type="object" class="oe_statbutton" icon="fa-file-text-o" attrs="{'invisible': [('parent_id', '!=', False)]}">
+						<div class="o_form_field o_stat_info">
+							<span class="o_stat_value">
+								<field name="total_invoiced_residual" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+							</span>
+							<span class="o_stat_text">Due</span>
+						</div>
+					</button>
+				</xpath>
+
+			</field>
+		</record>
+	</data>
+</odoo>

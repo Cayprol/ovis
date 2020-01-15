@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="report_invoice_statement_document">
+			<t t-call="web.external_layout">
+				<t t-set="o" t-value="o.with_context(lang='en_US')" />
+				<h2>
+					<span t-if="o.type == 'out_invoice' and o.state == 'posted'">Invoice</span>
+				</h2>
+				<t t-set="address">
+					<address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+					<div t-if="o.partner_id.vat" class="mt16">
+						<t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>
+						<t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/></div>
+				</t>
+				<div class="page">
+					<div class="oe_structure"/>
+					<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+					<table class="table table-sm o_main_table">
+						<thead>
+							<tr>
+								<th name="th_name" class="text-left">Number</th>
+								<th name="th_ref" class="text-left">Order Reference</th>
+								<th name="th_invoice_origin" class="text-left">Source Document</th>
+								<th name="th_invoice_date" class="text-left">Invoice Date</th>
+								<th name="th_invoice_date_due" class="text-left">Due Date</th>
+								<th name="th_amount_total_signed" class="text-left">Total</th>
+								<th name="th_amount_residual_signed" class="text-left">Amount Due</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-set="bill_to"/>
+							<t t-foreach="docs" t-as="doc">
+								<t t-if="bill_to!=doc.partner_id.display_name">
+									<t t-set="bill_to" t-value="doc.partner_id.display_name"/>
+									<tr>
+										<td t-att-colspan="6" class="align-bottom" style="height: 2rem;"><strong><span t-esc="bill_to"/></strong></td>
+									</tr>
+								</t>
+								<tr>
+									<td name="td_name"><span t-field="doc.name"/></td>
+									<td name="td_ref"><span t-field="doc.ref"/></td>
+									<td name="td_invoice_origin"><span t-field="doc.invoice_origin"/></td>
+									<td name="td_invoice_date"><span t-field="doc.invoice_date"/></td>
+									<td name="td_invoice_date_due"><span t-esc="doc.invoice_date_due"/></td>
+									<td name="td_amount_total_signed"><span t-field="doc.amount_total_signed"/></td>
+									<td name="td_amount_residual_signed"><span t-field="doc.amount_residual_signed"/></td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+				</div>
+			</t>
+		</template>
+
+		<template id="report_invoice_statement">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-set="lang" t-value="o.invoice_user_id.sudo().lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+					<t t-call="report_invoice_statement_document" t-lang="lang"/>
+				</t>
+			</t>
+		</template>
+
+
+		<template id="report_account_statement_document">
+			<t t-call="web.external_layout">
+				<t t-set="doc" t-value="doc.with_context({'lang': doc.lang})"/>
+				<t t-if="doc.invoice_ids and 'posted' in doc.invoice_ids['state']">
+					<div class="page" style="page-break-after: always;">
+						<h2 class="text-center">
+							<span>STATEMENT OF ACCOUNT</span>
+						</h2>
+						<t t-set="address">
+							<address t-field="doc.self" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+							<div t-if="doc.vat" class="mt16">
+								<t t-if="doc.company_id.country_id.vat_label" t-esc="doc.company_id.country_id.vat_label" id="inv_tax_id_label"/>
+								<t t-else="">Tax ID</t>: <span t-field="doc.vat"/>
+							</div>
+						</t>
+						<t t-raw="address"/>
+						<span t-field="doc.name"/><br/>
+						<table class="table table-sm o_main_table">
+							<thead>
+								<tr>
+									<th name="th_name" class="text-left">Number</th>
+									<th name="th_ref" class="text-left">Order Reference</th>
+									<th name="th_invoice_origin" class="text-left">Source Document</th>
+									<th name="th_invoice_date" class="text-left">Invoice Date</th>
+									<th name="th_invoice_date_due" class="text-left">Due Date</th>
+									<th name="th_amount_total_signed" class="text-left">Total</th>
+									<th name="th_amount_residual_signed" class="text-left">Amount Due</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-foreach="doc.invoice_ids" t-as="invoice_id" t-if="invoice_id.state == 'posted' and invoice_id.type == 'out_invoice' and invoice_id.invoice_payment_state != 'paid'">
+									<tr>
+										<td name="td_name"><span t-field="invoice_id.name"/></td>
+										<td name="td_ref"><span t-field="invoice_id.ref"/></td>
+										<td name="td_invoice_origin"><span t-field="invoice_id.invoice_origin"/></td>
+										<td name="td_invoice_date"><span t-field="invoice_id.invoice_date"/></td>
+										<td name="td_invoice_date_due"><span t-esc="invoice_id.invoice_date_due"/></td>
+										<td name="td_amount_total_signed"><span t-field="invoice_id.amount_total_signed"/></td>
+										<td name="td_amount_residual_signed"><span t-field="invoice_id.amount_residual_signed"/></td>
+									</tr>
+								</t>
+							</tbody>
+						</table>	
+					</div>
+				</t>
+				<t t-foreach="doc.child_ids" t-as="child_id" t-if="child_id.invoice_ids and 'posted' in child_id.invoice_ids['state']">
+					<div class="page" style="page-break-after: always;">
+						<h2 class="text-center">
+							<span>STATEMENT OF ACCOUNT</span>
+						</h2>
+						<t t-set="address">
+							<address t-field="child_id.self" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+							<div t-if="child_id.vat" class="mt16">
+								<t t-if="child_id.company_id.country_id.vat_label" t-esc="child_id.company_id.country_id.vat_label" id="inv_tax_id_label"/>
+								<t t-else="">Tax ID</t>: <span t-field="child_id.vat"/>
+							</div>
+						</t>
+						<t t-raw="address"/>						
+						<span t-field="child_id.name"/><br/>
+						<table class="table table-sm o_main_table">
+							<thead>
+								<tr>
+									<th name="th_name" class="text-left">Number</th>
+									<th name="th_ref" class="text-left">Order Reference</th>
+									<th name="th_invoice_origin" class="text-left">Source Document</th>
+									<th name="th_invoice_date" class="text-left">Invoice Date</th>
+									<th name="th_invoice_date_due" class="text-left">Due Date</th>
+									<th name="th_amount_total_signed" class="text-left">Total</th>
+									<th name="th_amount_residual_signed" class="text-left">Amount Due</th>
+
+									<th name="th_payment_state" class="text-left">Payment State</th>
+									<th name="th_state" class="text-left">State</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-foreach="child_id.invoice_ids" t-as="invoice_id" t-if="invoice_id.state == 'posted' and invoice_id.type == 'out_invoice' and invoice_id.invoice_payment_state != 'paid'">
+									<tr>
+										<td name="td_name"><span t-field="invoice_id.name"/></td>
+										<td name="td_ref"><span t-field="invoice_id.ref"/></td>
+										<td name="td_invoice_origin"><span t-field="invoice_id.invoice_origin"/></td>
+										<td name="td_invoice_date"><span t-field="invoice_id.invoice_date"/></td>
+										<td name="td_invoice_date_due"><span t-esc="invoice_id.invoice_date_due"/></td>
+										<td name="td_amount_total_signed"><span t-field="invoice_id.amount_total_signed"/></td>
+										<td name="td_amount_residual_signed"><span t-field="invoice_id.amount_residual_signed"/></td>
+
+										<td name="td_payment_state"><span t-field="invoice_id.invoice_payment_state"/></td>
+										<td name="td_state"><span t-field="invoice_id.state"/></td>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+					</div>
+				</t>
+			</t>
+		</template>
+
+		<template id="report_account_statement">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="invoice_statement.report_account_statement_document" t-lang="doc.lang"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>
