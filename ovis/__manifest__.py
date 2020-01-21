@@ -32,7 +32,7 @@
              'views/sale_views.xml',
              'views/stock_views.xml',
              'wizard/quote_to_order.xml',
-             'wizard/setup_wizards_view.xml',]
+             'wizard/setup_wizards_view.xml',],
     'license': 'LGPL-3', 
     'installable': True,
     'application'   : True,
