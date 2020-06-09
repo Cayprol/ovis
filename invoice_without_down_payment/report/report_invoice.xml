@@ -10,12 +10,12 @@
 			</xpath>
 
 			<!-- condition when invoice line is not down payment -->
-			<xpath expr="//tbody[hasclass('invoice_tbody')]/t[@t-foreach='o.invoice_line_ids']" position="attributes">
+			<xpath expr="//tbody[hasclass('invoice_tbody')]/t[@t-foreach='lines']" position="attributes">
 				<attribute name="t-if">'Down Payment' not in line.name </attribute>
 			</xpath>
 
 			<!-- accumulate subtotal -->
-			<xpath expr="//tbody[hasclass('invoice_tbody')]/t[@t-foreach='o.invoice_line_ids']">
+			<xpath expr="//tbody[hasclass('invoice_tbody')]/t[@t-foreach='lines']">
 				<t t-set="clear_subtotal" t-value="clear_subtotal+line.price_subtotal"/>
 			</xpath>
 
