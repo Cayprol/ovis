@@ -28,7 +28,7 @@
 			<field name="country_id" ref="base.th"/>
 		</record>
 		<record id="state_th_14" model="res.country.state">
-			<field name="name">Phra Nakhon Si Ayutthaya</field>
+			<field name="name">Ayutthaya</field>
 			<field name="code">TH-14</field>
 			<field name="country_id" ref="base.th"/>
 		</record>

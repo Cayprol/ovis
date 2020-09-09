@@ -8,24 +8,31 @@ class QuoteToOrder(models.TransientModel):
 
 	note = fields.Text('Note', help="Log note. quotation -> order.")
 
-	def _confirm(self, record):
-		if hasattr(record, 'action_confirm'):
-			record.action_confirm()
-		elif hasattr(record, 'button_confirm'):
-			record.button_confirm()
-		else:
-			raise exceptions.ValidationError('No valid action to execute.')		
-
+	# Search the sale.order or purchase.order with model name and id number.
+	# Duplicate the order with copy() and pass dict to override the duplicated order.
+	# Duplicated values are the 'state', 'origin'.
+	# The code implements different ir.sequence are written at sale.py create()
+	# On creation if 'state' is 'sale', another ir.sequence is taken.
 	def action_confirm(self):
 		parent_model = self._context['parent_model']
 		parent_id = self._context['parent_id']
-		rec = self.env[parent_model].browse(parent_id)
-		if self.note and not self.note.isspace():
-			msg = _("Confirm") + ": {}".format(self.note)
-			self._confirm(rec)
-			return rec.message_post(body=msg)
+		quote = self.env[parent_model].browse(parent_id)
+		order = quote.copy({
+				'state': 'sale',
+				'origin': quote.name,
+				})
 
-		else:
-			self._confirm(rec)
-			return False
+		if self.note and not self.note.isspace():
+			msg = _("Confirm order log note: \r\t{}".format(self.note))
+			order.message_post(body=msg)
+
+		# Go to the form view of the duplicated order.
+		return {
+				'type': 'ir.actions.act_window',
+				'view_type': 'form',
+				'view_mode': 'form',
+				'res_model': parent_model,
+				'target': 'current',
+				'res_id': order.id,
+			} 
 

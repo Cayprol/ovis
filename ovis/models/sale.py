@@ -8,6 +8,14 @@ class SaleOrder(models.Model):
 
 	_inherit = 'sale.order'
 
+	@api.model
+	def create(self, vals):
+		if vals.get('state') == 'sale':
+			vals['name'] = self.env['ir.sequence'].next_by_code('sale.order')
+		else:
+			vals['name'] = self.env['ir.sequence'].next_by_code('sale.quotation') or '/'
+		return super(SaleOrder, self).create(vals)
+
 	def action_send(self):
 		self.ensure_one()
 		self.write({'state': 'sent'})
@@ -36,12 +44,14 @@ class SaleOrder(models.Model):
 			notified = [line.tally for line in order.order_line]
 			order.update({'tally': all(notified)})
 
+	# Change 'state' to 'draft', preserve existing behavior.
+	# Adding the ability to reset all tallied order_line to False,
+	# Refresh delivery date to today() to avoid scheduling delivery in the past.
 	def action_draft(self):
-		super(SaleOrder, self).action_draft()
 		for line in self.order_line:
 			line.update({'tally': False,
 						'sale_delivery_date': fields.date.today()})
-		return True
+		return super(SaleOrder, self).action_draft()
 
 	@api.onchange('partner_id')
 	def onchange_domain_partner_invoice_id(self):

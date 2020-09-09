@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<!-- Account Groups -->
+		<record id="data_account_type_other_current_assets" model="account.account.type">
+			<field name="name">Other Current Assets</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance">True</field>
+		</record>
+		<record id="data_account_type_other_assets" model="account.account.type">
+			<field name="name">Other Assets</field>
+			<field name="type">other</field>
+			<field name="internal_group">asset</field>
+			<field name="include_initial_balance">True</field>
+		</record>
+		<record id="data_account_type_other_current_liabilities" model="account.account.type">
+			<field name="name">Other Current Liabilities</field>
+			<field name="type">other</field>
+			<field name="internal_group">liability</field>
+			<field name="include_initial_balance">True</field>
+		</record>
+		<record id="data_account_type_operating_income" model="account.account.type">
+			<field name="name">Operating Income</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+		</record>
+		<record id="data_account_type_non_operating_income" model="account.account.type">
+			<field name="name">Non-operating Income</field>
+			<field name="type">other</field>
+			<field name="internal_group">income</field>
+		</record>
+		<record id="data_account_type_operating_expenses" model="account.account.type">
+			<field name="name">Operating Expenses</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+		</record>
+		<record id="data_account_type_non_operating_expenses" model="account.account.type">
+			<field name="name">Non-operating Expenses</field>
+			<field name="type">other</field>
+			<field name="internal_group">expense</field>
+		</record>
+	</data>
+</odoo>
