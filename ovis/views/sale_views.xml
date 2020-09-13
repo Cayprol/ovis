@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_order_form" model="ir.ui.view" >
+		<field name="model">sale.order</field>
+		<field name="name">sale.order.form</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<!-- Hide Send by Email / Send PRO-FORMA Invoice / Confirm button -->
+			<!-- Send by Email (Primary)-->
+			<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and hasclass('btn-primary')]" position="replace"/>
+			<!-- Send by Email -->
+			<xpath expr="//header/button[@name='action_quotation_send' and @states='sent,sale']" position="replace"/>
+			<!-- Send PRO-FORMA Invoice (Primary)-->
+			<xpath expr="//header/button[@name='action_quotation_send' and hasclass('btn-primary')]" position="replace"/>
+			<!-- Send PRO-FORMA Invoice -->
+			<xpath expr="//header/button[@name='action_quotation_send' and not(hasclass('btn-primary'))]" position="replace"/>
+			<!-- Print (Primary)-->
+			<xpath expr="//header/button[@name='print_quotation' and @states='draft']" position="replace"/>
+			<!-- Print -->
+			<xpath expr="//header/button[@name='print_quotation' and @states='sent,sale']" position="replace"/>
+			<!-- Preview -->
+			<xpath expr="//header/button[@name='preview_sale_order']" position="replace"/>
+			<!-- Confirm (Primary) -->
+			<xpath expr="//header/button[@name='action_confirm' and hasclass('btn-primary')]" position="replace">
+				<button name="action_create_so" id="action_create_so" string="Create SO" states="sent" class="btn-primary" type="object"/>
+			</xpath>
+			<!-- Confirm -->
+			<xpath expr="//header/button[@name='action_confirm' and not(hasclass('btn-primary'))]" position="replace"/>
+
+			<!-- Add new send button -->
+			<xpath expr="//header/button[@name='action_cancel']" position="before">
+				<button name="action_send" string="Send" states="draft" class="btn-primary" type="object"/>
+			</xpath>
+
+			<!-- Override all active fields to readonly when state == 'sent' on top of the existed readonly condition -->
+			<xpath expr="//field[@name='partner_id']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'in', ('sent'))]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_line']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'in', ('done','cancel', 'sent', 'sale'))]}</attribute>
+			</xpath>
+
+		</field>
+	</record>
+</odoo>

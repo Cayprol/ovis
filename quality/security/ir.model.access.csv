@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_quality_order,quality.order user,model_quality_order,quality.group_quality_user,1,1,1,0
-access_quality_order_manager,quality.order manager,model_quality_order,quality.group_quality_manager,1,1,1,1
-access_quality_order_line,quality.order.line user,model_quality_order_line,quality.group_quality_user,1,1,1,1
-access_quality_order_line_manager,quality.order.line manager,model_quality_order_line,quality.group_quality_manager,1,1,1,1

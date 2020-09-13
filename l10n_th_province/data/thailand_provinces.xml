@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data noupdate="0">
+		<record id="state_th_s" model="res.country.state">
+			<field name="name">Phatthaya</field>
+			<field name="code">TH-S</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_10" model="res.country.state">
+			<field name="name">Bangkok</field>
+			<field name="code">TH-10</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_11" model="res.country.state">
+			<field name="name">Samut Prakan</field>
+			<field name="code">TH-11</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_12" model="res.country.state">
+			<field name="name">Nonthaburi</field>
+			<field name="code">TH-12</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_13" model="res.country.state">
+			<field name="name">Pathum Thani</field>
+			<field name="code">TH-13</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_14" model="res.country.state">
+			<field name="name">Ayutthaya</field>
+			<field name="code">TH-14</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_15" model="res.country.state">
+			<field name="name">Ang Thong</field>
+			<field name="code">TH-15</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_16" model="res.country.state">
+			<field name="name">Lop Buri</field>
+			<field name="code">TH-16</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_17" model="res.country.state">
+			<field name="name">Sing Buri</field>
+			<field name="code">TH-17</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_18" model="res.country.state">
+			<field name="name">Chai Nat</field>
+			<field name="code">TH-18</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_19" model="res.country.state">
+			<field name="name">Saraburi</field>
+			<field name="code">TH-19</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_20" model="res.country.state">
+			<field name="name">Chon Buri</field>
+			<field name="code">TH-20</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_21" model="res.country.state">
+			<field name="name">Rayong</field>
+			<field name="code">TH-21</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_22" model="res.country.state">
+			<field name="name">Chanthaburi</field>
+			<field name="code">TH-22</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_23" model="res.country.state">
+			<field name="name">Trat</field>
+			<field name="code">TH-23</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_24" model="res.country.state">
+			<field name="name">Chachoengsao</field>
+			<field name="code">TH-24</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_25" model="res.country.state">
+			<field name="name">Prachin Buri</field>
+			<field name="code">TH-25</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_26" model="res.country.state">
+			<field name="name">Nakhon Nayok</field>
+			<field name="code">TH-26</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_27" model="res.country.state">
+			<field name="name">Sa Kaeo</field>
+			<field name="code">TH-27</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_30" model="res.country.state">
+			<field name="name">Nakhon Ratchasima</field>
+			<field name="code">TH-30</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_31" model="res.country.state">
+			<field name="name">Buri Ram</field>
+			<field name="code">TH-31</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_32" model="res.country.state">
+			<field name="name">Surin</field>
+			<field name="code">TH-32</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_33" model="res.country.state">
+			<field name="name">Si Sa Ket</field>
+			<field name="code">TH-33</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_34" model="res.country.state">
+			<field name="name">Ubon Ratchathani</field>
+			<field name="code">TH-34</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_35" model="res.country.state">
+			<field name="name">Yasothon</field>
+			<field name="code">TH-35</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_36" model="res.country.state">
+			<field name="name">Chaiyaphum</field>
+			<field name="code">TH-36</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_37" model="res.country.state">
+			<field name="name">Amnat Charoen</field>
+			<field name="code">TH-37</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_38" model="res.country.state">
+			<field name="name">Bueng Kan</field>
+			<field name="code">TH-38</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_39" model="res.country.state">
+			<field name="name">Nong Bua Lam Phu</field>
+			<field name="code">TH-39</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_40" model="res.country.state">
+			<field name="name">Khon Kaen</field>
+			<field name="code">TH-40</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_41" model="res.country.state">
+			<field name="name">Udon Thani</field>
+			<field name="code">TH-41</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_42" model="res.country.state">
+			<field name="name">Loei</field>
+			<field name="code">TH-42</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_43" model="res.country.state">
+			<field name="name">Nong Khai</field>
+			<field name="code">TH-43</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_44" model="res.country.state">
+			<field name="name">Maha Sarakham</field>
+			<field name="code">TH-44</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_45" model="res.country.state">
+			<field name="name">Roi Et</field>
+			<field name="code">TH-45</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_46" model="res.country.state">
+			<field name="name">Kalasin</field>
+			<field name="code">TH-46</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_47" model="res.country.state">
+			<field name="name">Sakon Nakhon</field>
+			<field name="code">TH-47</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_48" model="res.country.state">
+			<field name="name">Nakhon Phanom</field>
+			<field name="code">TH-48</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_49" model="res.country.state">
+			<field name="name">Mukdahan</field>
+			<field name="code">TH-49</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_50" model="res.country.state">
+			<field name="name">Chiang Mai</field>
+			<field name="code">TH-50</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_51" model="res.country.state">
+			<field name="name">Lamphun</field>
+			<field name="code">TH-51</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_52" model="res.country.state">
+			<field name="name">Lampang</field>
+			<field name="code">TH-52</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_53" model="res.country.state">
+			<field name="name">Uttaradit</field>
+			<field name="code">TH-53</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_54" model="res.country.state">
+			<field name="name">Phrae</field>
+			<field name="code">TH-54</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_55" model="res.country.state">
+			<field name="name">Nan</field>
+			<field name="code">TH-55</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_56" model="res.country.state">
+			<field name="name">Phayao</field>
+			<field name="code">TH-56</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_57" model="res.country.state">
+			<field name="name">Chiang Rai</field>
+			<field name="code">TH-57</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_58" model="res.country.state">
+			<field name="name">Mae Hong Son</field>
+			<field name="code">TH-58</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_60" model="res.country.state">
+			<field name="name">Nakhon Sawan</field>
+			<field name="code">TH-60</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_61" model="res.country.state">
+			<field name="name">Uthai Thani</field>
+			<field name="code">TH-61</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_62" model="res.country.state">
+			<field name="name">Kamphaeng Phet</field>
+			<field name="code">TH-62</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_63" model="res.country.state">
+			<field name="name">Tak</field>
+			<field name="code">TH-63</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_64" model="res.country.state">
+			<field name="name">Sukhothai</field>
+			<field name="code">TH-64</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_65" model="res.country.state">
+			<field name="name">Phitsanulok</field>
+			<field name="code">TH-65</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_66" model="res.country.state">
+			<field name="name">Phichit</field>
+			<field name="code">TH-66</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_67" model="res.country.state">
+			<field name="name">Phetchabun</field>
+			<field name="code">TH-67</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_70" model="res.country.state">
+			<field name="name">Ratchaburi</field>
+			<field name="code">TH-70</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_71" model="res.country.state">
+			<field name="name">Kanchanaburi</field>
+			<field name="code">TH-71</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_72" model="res.country.state">
+			<field name="name">Suphan Buri</field>
+			<field name="code">TH-72</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_73" model="res.country.state">
+			<field name="name">Nakhon Pathom</field>
+			<field name="code">TH-73</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_74" model="res.country.state">
+			<field name="name">Samut Sakhon</field>
+			<field name="code">TH-74</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_75" model="res.country.state">
+			<field name="name">Samut Songkhram</field>
+			<field name="code">TH-75</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_76" model="res.country.state">
+			<field name="name">Phetchaburi</field>
+			<field name="code">TH-76</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_77" model="res.country.state">
+			<field name="name">Prachuap Khiri Khan</field>
+			<field name="code">TH-77</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_80" model="res.country.state">
+			<field name="name">Nakhon Si Thammarat</field>
+			<field name="code">TH-80</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_81" model="res.country.state">
+			<field name="name">Krabi</field>
+			<field name="code">TH-81</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_82" model="res.country.state">
+			<field name="name">Phangnga</field>
+			<field name="code">TH-82</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_83" model="res.country.state">
+			<field name="name">Phuket</field>
+			<field name="code">TH-83</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_84" model="res.country.state">
+			<field name="name">Surat Thani</field>
+			<field name="code">TH-84</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_85" model="res.country.state">
+			<field name="name">Ranong</field>
+			<field name="code">TH-85</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_86" model="res.country.state">
+			<field name="name">Chumphon</field>
+			<field name="code">TH-86</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_90" model="res.country.state">
+			<field name="name">Songkhla</field>
+			<field name="code">TH-90</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_91" model="res.country.state">
+			<field name="name">Satun</field>
+			<field name="code">TH-91</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_92" model="res.country.state">
+			<field name="name">Trang</field>
+			<field name="code">TH-92</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_93" model="res.country.state">
+			<field name="name">Phatthalung</field>
+			<field name="code">TH-93</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_94" model="res.country.state">
+			<field name="name">Pattani</field>
+			<field name="code">TH-94</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_95" model="res.country.state">
+			<field name="name">Yala</field>
+			<field name="code">TH-95</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+		<record id="state_th_96" model="res.country.state">
+			<field name="name">Narathiwat</field>
+			<field name="code">TH-96</field>
+			<field name="country_id" ref="base.th"/>
+		</record>
+	</data>
+</odoo>
