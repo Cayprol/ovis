@@ -8,13 +8,13 @@
 			<field name="arch" type="xml">
 
 				<!-- Hide Send by Email / Print RFQ / Confirm Order button in header-->
-<!-- 				<xpath expr="//header/button[@name='action_rfq_send' and @states='draft']" position="replace"/>
+				<xpath expr="//header/button[@name='action_rfq_send' and @states='draft']" position="replace"/>
 				<xpath expr="//header/button[@name='action_rfq_send' and @states='sent']" position="replace"/>
 				<xpath expr="//header/button[@name='action_rfq_send' and @states='purchase']" position="replace"/>
 				<xpath expr="//header/button[@name='print_quotation' and @states='draft']" position="replace"/>
 				<xpath expr="//header/button[@name='print_quotation' and @states='sent']" position="replace"/>
 				<xpath expr="//header/button[@name='button_confirm' and @states='draft']" position="replace"/>
-				<xpath expr="//header/button[@name='button_confirm' and @states='sent']" position="replace"/> -->
+				<xpath expr="//header/button[@name='button_confirm' and @states='sent']" position="replace"/>
 
 				<!-- Add custom button action_send for moving from 'draft' to 'sent' without calling wizards. -->
 				<xpath expr="//header/button[@name='button_cancel']" position="before">

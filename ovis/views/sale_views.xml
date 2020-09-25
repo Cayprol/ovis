@@ -7,35 +7,61 @@
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
 
-			<!-- Hide Send by Email / Send PRO-FORMA Invoice / Confirm button -->
+			<!-- Sales Flow related buttons -->
+			<!-- Send by Email (Primary)-->
 			<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and hasclass('btn-primary')]" position="replace"/>
+			<!-- Send by Email -->
 			<xpath expr="//header/button[@name='action_quotation_send' and @states='sent,sale']" position="replace"/>
+			<!-- Send PRO-FORMA Invoice (Primary)-->
 			<xpath expr="//header/button[@name='action_quotation_send' and hasclass('btn-primary')]" position="replace"/>
-			<xpath expr="//header/button[@name='action_quotation_send']" position="replace"/>
-			<xpath expr="//header/button[@name='action_confirm' and hasclass('btn-primary')]" position="replace"/>
-			<xpath expr="//header/button[@name='action_confirm']" position="replace"/>
-
-			<!-- Add custom button action_send for moving from 'draft' to 'sent' without calling wizards. -->
+			<!-- Send PRO-FORMA Invoice -->
+			<xpath expr="//header/button[@name='action_quotation_send' and not(hasclass('btn-primary'))]" position="replace"/>
+			<!-- Confirm (Primary) -->
+			<xpath expr="//header/button[@name='action_confirm' and hasclass('btn-primary')]" position="attributes">
+				<!-- redefine attrs since the original field used attribute 'state' that interfere -->
+				<attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['draft', 'sent'])]}</attribute>
+				<!-- context.get has to be used with attribute invisible, cannot be used with attribute attrs -->
+				<attribute name="invisible">context.get('convert_lock', True)</attribute>
+			</xpath>
+			<!-- Confirm -->
+			<xpath expr="//header/button[@name='action_confirm' and not(hasclass('btn-primary'))]" position="replace">
+				<button name="action_link" id="action_link" string="Link" states="sent" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
+			</xpath>
+			<!-- Cancel Hide Cancel on record creation -->
+			<xpath expr="//header/button[@name='action_cancel']" position="attributes">
+				<attribute name="attrs">{'invisible': ['|', ('id', '=', False)]}</attribute>
+			</xpath>
+			<!-- Add new send button -->
 			<xpath expr="//header/button[@name='action_cancel']" position="before">
-				<button name="action_send" type="object" string="Send" states="draft" class="btn-primary" help="Proceed to next step to send quotation or pro-forma."/>
+				<button name="action_send" string="Send" states="draft" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
+			</xpath>
+			<!-- Hide smart button Customer Preview -->
+			<xpath expr="//button[@name='preview_sale_order']" position="replace"/>
+
+			<!-- Read-only in 'sale', 'stock' -->
+			<xpath expr="//field[@name='incoterm']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='client_order_ref']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='payment_term_id']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='origin']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
 			</xpath>
 
-			<!-- Add custom smart button for moving from 'sent' to 'sale'/'lock'  -->
-			<xpath expr="//div[@name='button_box']">
-				<button name="action_confirm_sale_order" type="object" string="Confirm Order" class="oe_statbutton" icon="fa-linux" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
-			</xpath>
-
-			<xpath expr="//div[@name='button_box']/button[@name='preview_sale_order']" position="replace"/>
 
 			<!-- 'readonly' is not universally defined in .py or .xml, implementation of each field are different. 
-			This section modify 'readonly' from front end coherently.  -->
-			<xpath expr="//field[@name='partner_id']" position="attributes">
+			This section modify 'readonly' from front-end coherently.  -->
+<!-- 			<xpath expr="//field[@name='partner_id']" position="attributes">
 				<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
 			</xpath>
 			<xpath expr="//field[@name='pricelist_id']" position="attributes">
 				<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
 			</xpath>
-
+ -->
 			<!-- This field show if all order lines are notified for tally or not, readonly set in .py with compute based on order_line.tally. -->
 			<xpath expr="//group[@name='sale_shipping']">
 				<field name="tally"/>
@@ -51,7 +77,7 @@
 
 			<!-- Show tally in tree view on one2many field order_line -->
 			<xpath expr="//tree">
-				<field name="tally" string="Tally" widget="boolean_toggle" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}" optional="show"/>
+				<field name="tally" string="Tally" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}" optional="show"/>
 			</xpath>
 
 		</field>
@@ -65,7 +91,7 @@
 
 			<xpath expr="//field[@name='price_unit']" position="before">
 				<!-- from module dev_sale_delivery_by_dates -->
-				<field name="sale_delivery_date" optional="show"/>
+				<!-- <field name="sale_delivery_date" optional="show"/> -->
 
 				<field name="tally" optional="hide"/>
 			</xpath>
