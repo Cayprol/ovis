@@ -2,7 +2,7 @@
 {
     'name': 'Sales Back Order',
     'summary': "View backordered Sales",
-    'version': '13.0.0.0.0',
+    'version': '13.0.0',
     'category': 'Sales/Sales',
     'author': 'Cayprol',
     "license": "AGPL-3",

@@ -19,52 +19,26 @@
 			<!-- Confirm (Primary) -->
 			<xpath expr="//header/button[@name='action_confirm' and hasclass('btn-primary')]" position="attributes">
 				<!-- redefine attrs since the original field used attribute 'state' that interfere -->
-				<attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['draft', 'sent'])]}</attribute>
+				<attribute name="attrs">{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('id', '!=', False)]}</attribute>
 				<!-- context.get has to be used with attribute invisible, cannot be used with attribute attrs -->
 				<attribute name="invisible">context.get('convert_lock', True)</attribute>
+				<attribute name="string">Create Sales Order</attribute>
 			</xpath>
 			<!-- Confirm -->
 			<xpath expr="//header/button[@name='action_confirm' and not(hasclass('btn-primary'))]" position="replace">
-				<button name="action_link" id="action_link" string="Link" states="sent" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
+				<button name="action_link" id="action_link" string="Duplicate" states="sent" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
 			</xpath>
-			<!-- Cancel Hide Cancel on record creation -->
-			<xpath expr="//header/button[@name='action_cancel']" position="attributes">
-				<attribute name="attrs">{'invisible': ['|', ('id', '=', False)]}</attribute>
-			</xpath>
-			<!-- Add new send button -->
-			<xpath expr="//header/button[@name='action_cancel']" position="before">
+			<!-- Cancel 2-step and Hide Cancel on record creation -->
+			<xpath expr="//header/button[@name='action_cancel']" position="replace">
 				<button name="action_send" string="Send" states="draft" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
+				<button name="action_cancel_2step" states="draft,sent,sale" type="object" string="Cancel" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
 			</xpath>
 			<!-- Hide smart button Customer Preview -->
 			<xpath expr="//button[@name='preview_sale_order']" position="replace"/>
 
-			<!-- Read-only in 'sale', 'stock' -->
-			<xpath expr="//field[@name='incoterm']" position="attributes">
-				<attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
-			</xpath>
-			<xpath expr="//field[@name='client_order_ref']" position="attributes">
-				<attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
-			</xpath>
-			<xpath expr="//field[@name='payment_term_id']" position="attributes">
-				<attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
-			</xpath>
-			<xpath expr="//field[@name='origin']" position="attributes">
-				<attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
-			</xpath>
-
-
-			<!-- 'readonly' is not universally defined in .py or .xml, implementation of each field are different. 
-			This section modify 'readonly' from front-end coherently.  -->
-<!-- 			<xpath expr="//field[@name='partner_id']" position="attributes">
-				<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
-			</xpath>
-			<xpath expr="//field[@name='pricelist_id']" position="attributes">
-				<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
-			</xpath>
- -->
-			<!-- This field show if all order lines are notified for tally or not, readonly set in .py with compute based on order_line.tally. -->
-			<xpath expr="//group[@name='sale_shipping']">
-				<field name="tally"/>
+			<xpath expr="//div[hasclass('oe_title')]" position="before">
+				<field name="tally" invisible="1"/>
+				<widget name="web_ribbon" title="Tally OK" attrs="{'invisible': [('tally', '!=', True)]}"/>
 			</xpath>
 
 			<!-- When click on one2many field order_line, show tally based on state -->
@@ -77,7 +51,7 @@
 
 			<!-- Show tally in tree view on one2many field order_line -->
 			<xpath expr="//tree">
-				<field name="tally" string="Tally" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}" optional="show"/>
+				<field name="tally" string="Tally" widget="boolean_toggle" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}" optional="show"/>
 			</xpath>
 
 		</field>

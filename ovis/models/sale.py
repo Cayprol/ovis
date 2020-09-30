@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-
 from odoo import models, fields, api, _
 import logging
 _logger = logging.getLogger(__name__)
-
 class SaleOrder(models.Model):
 
 	_inherit = 'sale.order'
@@ -16,13 +14,12 @@ class SaleOrder(models.Model):
 
 	# When action_confirm(), a write() with args of state='sale' is passed. Rename quotation name
 	def write(self, values):
-		if values.get('state') == 'sale':
+		if values.get('state') == 'sale' and values.get('date_order'):
 			values['name'] = self.env['ir.sequence'].next_by_code('sale.order')
 		return super(SaleOrder, self).write(values)
 
 	# Rely on module 'confirm.popup', call popup wizard as warning & user input log before cancelling
-	def action_cancel(self):
-		self.ensure_one()
+	def action_cancel_2step(self):
 		return {
 			'name': _('Cancel this record?'),
 			'type': 'ir.actions.act_window',
@@ -34,10 +31,9 @@ class SaleOrder(models.Model):
 			'target': 'new',
 			'res_id': self.env['confirm.popup'].create({}).id,
 			'context': {'parent_model': self._name,
-						'parent_id': self.id,
-						'method': 'update',
-						'method_params': {'state': 'cancel'},
-						'log_title': "Cancelling Reason:",
+						'parent_id': self.ids,
+						'method': 'action_cancel',
+						'log_title': _("Cancelling Reason:"),
 						},
 			}
 
@@ -45,9 +41,9 @@ class SaleOrder(models.Model):
 	# This action simply move the state
 	# Rely on module 'confirm.popup', call popup wizard as warning & optional user input for logging
 	def action_send(self):
-		self.ensure_one()
-		if self.state != 'draft':
-			raise exceptions.ValidationError(_("Only draft state are allowed to be sent."))
+		for order in self:
+			if order.state != 'draft':
+				raise exceptions.UserError(_("Only unsent Quotation are allowed to be sent."))
 
 		return {
 			'name': _('Prepare this quotation to be sent?'),
@@ -60,9 +56,9 @@ class SaleOrder(models.Model):
 			'target': 'new',
 			'res_id': self.env['confirm.popup'].create({}).id,
 			'context': {'parent_model': self._name,
-						'parent_id': self.id,
-						'method': 'update',
-						'method_params': {'state': 'sent'},
+						'parent_id': self.ids,
+						'method': 'write',
+						'method_args': [{'state': 'sent'}],
 						'log_title': "Send Memo:",
 						},
 			}
@@ -77,7 +73,8 @@ class SaleOrder(models.Model):
 			'default_currency_id': self.currency_id.id,
 			'default_date_order': self.date_order,
 			'default_partner_id': self.partner_id.id, 
-			'default_order_line': self._prepare_order_line(),
+			'default_order_line': self._prepare_order_line(self.order_line),
+			'default_sale_order_option_ids': self._prepare_order_line(self.sale_order_option_ids, option=True),
 			'default_picking_policy': self.picking_policy,
 			'default_pricelist_id': self.pricelist_id.id,
 			'default_warehouse_id': self.warehouse_id.id,
@@ -88,6 +85,7 @@ class SaleOrder(models.Model):
 			# 'default_state': self.state, # This will break following procuremnt stock.move has a field state and in context default_state='sent' will be interfere.
 			'convert_lock': False,
 			'default_origin': self.name,
+			'default_payment_term_id': self.payment_term_id.id # Due to on_change method, passing defualt_value in context doens't work. Still passing it for the overriden on_change method below.
 		}
 		return {
 			'type': 'ir.actions.act_window',
@@ -101,23 +99,37 @@ class SaleOrder(models.Model):
 		}
 
 	# Work with action_link() which reads exisiting One2many and make them re-creatable
-	def _prepare_order_line(self):
-		order_lines = []
-		for line in self.order_line:
-			order_lines.append((0, False, {
-				'order_id': self.id,
-				'customer_lead': line.customer_lead,
-				'discount': line.discount,
-				'display_type': line.display_type,
-				'is_downpayment': line.is_downpayment,
-				'is_expense': line.is_expense,
-				'name': line.name,
-				'order_partner_id': line.order_partner_id.id,
-				'price_unit': line.price_unit,
-				'product_id': line.product_id.id,
-				'product_uom': line.product_uom.id,
-				'product_uom_qty': line.product_uom_qty,
-				}))
+	def _prepare_order_line(self, order_line, option=False):
+		if option:
+			order_lines = [
+				(0, False, {
+					'order_id': self.id,
+					'discount': line.discount,
+					'name': line.name,
+					'price_unit': line.price_unit,
+					'product_id': line.product_id.id,
+					'uom_id': line.uom_id.id,
+					'quantity': line.quantity,
+						}
+					) for line in order_line ]
+		else:
+			order_lines = [
+				(0, False, {
+					'order_id': self.id,
+					'customer_lead': line.customer_lead,
+					'discount': line.discount,
+					'display_type': line.display_type,
+					'is_downpayment': line.is_downpayment,
+					'is_expense': line.is_expense,
+					'name': line.name,
+					'order_partner_id': line.order_partner_id.id,
+					'price_unit': line.price_unit,
+					'product_id': line.product_id.id,
+					'product_uom': line.product_uom.id,
+					'product_uom_qty': line.product_uom_qty,
+					'scheduled_date': line.scheduled_date,
+						}
+					) for line in order_line ]
 
 		return order_lines
 
@@ -133,58 +145,20 @@ class SaleOrder(models.Model):
 			order.update(res)
 
 	def action_draft(self):
-		super(SaleOrder, self).action_draft()
 		for line in self.order_line:
-			line.update({'tally': False,
-						# 'sale_delivery_date': fields.date.today(),
-						})
-		return True
+			line.update({'tally': False})
+		return super(SaleOrder, self).action_draft()
 
-	# @api.onchange('partner_id')
-	# def onchange_domain_partner_invoice_id(self):
-	# 	if self.partner_id:
-	# 		res = {'domain': {'partner_invoice_id': [('parent_id.id', '=', self.partner_id.id)]}}
-	# 		return res
-	# 	else:
-	# 		return False
+	@api.onchange('partner_id')
+	def onchange_partner_id(self):
+		context = self._context
+		res = {}
+		super(SaleOrder, self).onchange_partner_id()
+		if not context.get('convert_lock') and context.get('default_payment_term_id'):
+			res = {'payment_term_id': context.get('default_payment_term_id')}
+		self.update(res)
 
-	# def write(self, values):
-	# 	if values.get('order_line') and self.state == 'sale':
 
-	# 		_logger.info(values['order_line'])
-
-	# 		for order in self:
-	# 			to_log={}
-	# 			for value in values['order_line']:
-	# 				if value[1] is int:
-	# 					line = order.order_line.browse(value[1])
-	# 					if type(value[2]) == dict:
-	# 						if value[2].get('sale_delivery_date'):
-	# 							if line.sale_delivery_date != value[2]['sale_delivery_date']:
-	# 								_logger.info("Date Changed.")
-	# 								to_log[line] = (line.sale_delivery_date, value[2]['sale_delivery_date'])
-	# 			if to_log:
-	# 				documents = self.env['stock.picking']._log_activity_get_documents(to_log, 'move_ids', 'UP')
-	# 				order._log_change_delivery_date(documents)
-
-	# 	return super(SaleOrder, self).write(values)
-
-	# def _log_change_delivery_date(self, documents, cancel=False):
-	# 	def _render_note_exception_delivery_so(rendering_context):
-	# 		order_exceptions, visited_moves = rendering_context
-	# 		visited_moves = list(visited_moves)
-	# 		visited_moves = self.env[visited_moves[0]._name].concat(*visited_moves)
-	# 		order_line_ids = self.env['sale.order.line'].browse([order_line.id for order in order_exceptions.values() for order_line in order[0]])
-	# 		sale_order_ids = order_line_ids.mapped('order_id')
-	# 		impacted_pickings = visited_moves.filtered(lambda m: m.state not in ('done', 'cancel')).mapped('picking_id')
-	# 		values = {
-	# 			'sale_order_ids': sale_order_ids,
-	# 			'order_exceptions': order_exceptions.values(),
-	# 			'impacted_pickings': impacted_pickings,
-	# 			'cancel': cancel
-	# 		}
-	# 		return self.env.ref('ovis.exception_on_so').render(values=values)
-	# 	self.env['stock.picking']._log_activity(_render_note_exception_delivery_so, documents)
 
 	tally = fields.Boolean('Tally', compute="_compute_tally", store=True, readonly=True, help="This field indicates all order lines associated to this order are notified for tally or not.")
 
@@ -193,13 +167,3 @@ class SaleOrderLine(models.Model):
 	_inherit = 'sale.order.line'
 
 	tally = fields.Boolean('Tally', help="This field indicates the order line has been notified for tally or not.")
-
-	# @api.onchange('sale_delivery_date')
-	# def _onchange_sale_delivery_date(self):
-	# 	if self.state in ['sale']: 
-	# 		return {
-	# 			'warning': {
-	# 				'title': _('Delivery Order has been scheduled.'),
-	# 				'message': _("Please, double check the scheduled date of all corresponding delivery orders.")
-	# 			}
-	# 		}

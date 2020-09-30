@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, exceptions, _
-
+import logging
+_logger = logging.getLogger(__name__)
 class ConfirmPopup(models.TransientModel):
 
 	_name = 'confirm.popup'
@@ -11,9 +12,10 @@ class ConfirmPopup(models.TransientModel):
 	def action_confirm(self):
 		# .get() are non-required context
 		parent_model = self._context.get('parent_model')
-		parent_id = self._context.get('parent_id')
+		parent_id = self._context.get('parent_id') # This could be a list of ids or single integer, .browse() takes either
 		method = self._context.get('method')
-		method_params = self._context.get('method_params')
+		method_args = self._context.get('method_args', [])
+		method_kwargs = self._context.get('method_kwargs', {})
 		log_title = self._context.get('log_title')
 		force_note = self._context.get('force_note')
 		return_vals = self._context.get('return_vals')
@@ -24,9 +26,10 @@ class ConfirmPopup(models.TransientModel):
 		msg = "<b>{}</b><br/>{}".format(log_title, self.note)
 		if force_note and not self.note:
 			raise exceptions.UserError(_('Must have a reason for this action.'))
+		elif self.note:
+			recordset.message_post(body=msg)
 
-		recordset.message_post(body=msg)
-		run = getattr(recordset, method)(method_params) if method_params else getattr(recordset, action)()
+		run = getattr(recordset, method)(*method_args, **method_kwargs)
 
 		if return_vals == 'method':
 			return run

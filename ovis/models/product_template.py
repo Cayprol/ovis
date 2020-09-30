@@ -6,5 +6,4 @@ class ProductTemplate(models.Model):
 
 	_inherit = 'product.template'
 
-	# drawing = fields.Char('Drawing', related='product_variant_ids.drawing', readonly=False)
 	drawing = fields.Char('Drawing')

@@ -3,7 +3,7 @@
 	<data noupdate="1">
 		<record id='res_bank_彰銀南新莊' model='res.bank'>
 			<field name='bic'>CCBCTWTP549</field>
-			<field name='name'>彰化銀行南新莊分行</field>
+			<field name='name'>彰化商業銀行南新莊分行</field>
 			<field name='street'>中正路657之1號</field>
 			<field name='street2'></field>
 			<field name='city'>新莊區</field>
@@ -12,6 +12,30 @@
 			<field name='zip'>24257</field>
 			<field name='email'></field>
 			<field name='phone'>+886-2-2906-6599</field>
+		</record>
+		<record id='res_bank_富邦安和' model='res.bank'>
+			<field name='bic'>TPBKTWTP715</field>
+			<field name='name'>台北富邦商業銀行安和分行</field>
+			<field name='street'>仁愛路四段169號</field>
+			<field name='street2'>5F</field>
+			<field name='city'>大安區</field>
+			<field name='state' ref="l10n_tw.state_tw_tpe"/>
+			<field name='country' ref="base.tw"/>
+			<field name='zip'>10686</field>
+			<field name='email'></field>
+			<field name='phone'>+886-2-8751-6665</field>
+		</record>
+		<record id='res_bank_兆豐三重' model='res.bank'>
+			<field name='bic'>ICBCTWTP012</field>
+			<field name='name'>兆豐國際商業銀行三重分行</field>
+			<field name='street'>重陽路三段99號</field>
+			<field name='street2'></field>
+			<field name='city'>大安區</field>
+			<field name='state' ref="l10n_tw.state_tw_nwt"/>
+			<field name='country' ref="base.tw"/>
+			<field name='zip'>24145</field>
+			<field name='email'></field>
+			<field name='phone'>+886-2-2988-4455</field>
 		</record>
 	</data>
 </odoo>

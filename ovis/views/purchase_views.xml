@@ -7,29 +7,28 @@
 			<field name="inherit_id" ref="purchase.purchase_order_form"/>
 			<field name="arch" type="xml">
 
-				<!-- Hide Send by Email / Print RFQ / Confirm Order button in header-->
-				<xpath expr="//header/button[@name='action_rfq_send' and @states='draft']" position="replace"/>
-				<xpath expr="//header/button[@name='action_rfq_send' and @states='sent']" position="replace"/>
-				<xpath expr="//header/button[@name='action_rfq_send' and @states='purchase']" position="replace"/>
-				<xpath expr="//header/button[@name='print_quotation' and @states='draft']" position="replace"/>
-				<xpath expr="//header/button[@name='print_quotation' and @states='sent']" position="replace"/>
-				<xpath expr="//header/button[@name='button_confirm' and @states='draft']" position="replace"/>
-				<xpath expr="//header/button[@name='button_confirm' and @states='sent']" position="replace"/>
-
-				<!-- Add custom button action_send for moving from 'draft' to 'sent' without calling wizards. -->
-				<xpath expr="//header/button[@name='button_cancel']" position="before">
-					<button name="action_send" type="object" string="Send" states="draft" class="btn-primary" help="Proceed to next step to send RFQ."/>
+				 <!-- Hide Send by Email / Print RFQ / Confirm Order button in header -->
+				<xpath expr="//header/button[@name='action_rfq_send' and @states='draft']" position="replace"> <!-- "Send by Email" -->
+					<button name="button_send_2step" type="object" string="Send" states="draft" class="btn-primary" attrs="{'invisible': ['|', ('id', '=', False)]}" help="Proceed to next step to send RFQ."/>
+				</xpath> 
+				<xpath expr="//header/button[@name='action_rfq_send' and @states='sent']" position="replace"/> <!--  "Re-Send by Email" -->
+				<xpath expr="//header/button[@name='action_rfq_send' and @states='purchase']" position="replace"/> <!-- "Send PO by Email" -->
+				<xpath expr="//header/button[@name='print_quotation' and @states='draft']" position="replace"/> <!-- "Print RFQ" -->
+				<xpath expr="//header/button[@name='print_quotation' and @states='sent']" position="replace"/> <!-- "Print RFQ" -->
+				<xpath expr="//header/button[@name='button_confirm' and @states='draft']" position="replace"/> <!-- Confirm Order -->
+				<xpath expr="//header/button[@name='button_confirm' and @states='sent']" position="replace"> <!-- Confirm Order -->
+                    <button name="button_confirm_2step" type="object" states="sent" string="Confirm Order" class="oe_highlight"/>
 				</xpath>
-
-				<!-- Add custom smart button for moving from 'sent' to 'to approve'/'purchase'/'done'  -->
-				<xpath expr="//div[@name='button_box']">
-					<button name="action_confirm_purchase_order" type="object" class="oe_statbutton" icon="fa-linux" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+				<xpath expr="//header/button[@name='button_approve']" position="replace"> <!-- Approve -->
+					<button name="button_approve_2step" states="to approve" string="Approve Order" type="object" class="oe_highlight" groups="purchase.group_purchase_manager"/>
 				</xpath>
-
-
+				<xpath expr="//header/button[@name='button_cancel']" position="replace">
+					<button name="button_cancel_2step" states="draft,sent" string="Cancel" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
+					<button name="button_cancel_2step" states="to approve,purchase" string="Cancel" type="object" groups="purchase.group_purchase_manager"/>
+				</xpath>
 				<!-- 'readonly' is not universally defined in .py or .xml, implementation of each field are different. 
 				This section modify 'readonly' from front end coherently.  -->
-				<xpath expr="//field[@name='partner_id']" position="attributes">
+<!-- 				<xpath expr="//field[@name='partner_id']" position="attributes">
 					<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
 				</xpath>
 				<xpath expr="//field[@name='currency_id']" position="attributes">
@@ -37,7 +36,7 @@
 				</xpath>
 				<xpath expr="//field[@name='order_line']" position="attributes">
 					<attribute name="attrs">{'readonly': [('state', 'not in', ['draft'])]}</attribute>
-				</xpath>
+				</xpath> -->
 
 			</field>
 		</record>
