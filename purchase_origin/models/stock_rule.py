@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import api, models
-
+import logging
+_logger = logging.getLogger(__name__)
 class StockRule(models.Model):
 	_inherit = 'stock.rule'
 
@@ -8,6 +9,7 @@ class StockRule(models.Model):
 		"""
 		Avoid duplicated origin names.  
 		If a purchase order has been placed with Source Document, such Source Document name should be excluded in future.
+		This method process all existing Source Document names.
 
 		:param list origin_names: All relevant source document names in list, each element in list is a str
 		:param product_id: To find relevant purchase orders, and determine whether Source Document has already generated a purchase order or not.
@@ -17,13 +19,29 @@ class StockRule(models.Model):
 		draft_POLs = self.env['purchase.order.line'].search([('state', '!=', 'cancel')])
 		pol_ids_with_matching_product = draft_POLs.filtered(lambda pol: pol.product_id == product_id)
 		existing_origins = pol_ids_with_matching_product.order_id.mapped('origin') or ['']
+		# _logger.warning("existing_origins {}.".format(existing_origins))
+		# _logger.warning("origin_names {}.".format(origin_names))
+
+		existing_origins = [ existed.split(', ') for existed in existing_origins ]
+		# _logger.warning("split existing_origins {}.".format(existing_origins))
+
+		master_existing_origins = []
+		for existed in existing_origins:
+			master_existing_origins += existed
+		# _logger.warning("master_existing_origins {}.".format(master_existing_origins))
+
+		# unique_existing_origins = list(dict.fromkeys(master_existing_origins))
+		unique_existing_origins = set(master_existing_origins)
+		# _logger.warning("unique_existing_origins {}.".format(unique_existing_origins))
+
 		origin = ""
-		for existing_origin in existing_origins:
-			for name in origin_names:
-				if name in existing_origin:
-					continue
-				else:
-					origin += "{}, ".format(name)
+		for name in origin_names:
+			# _logger.warning("the name {}., the origin {}.".format(name, origin))
+			if name in unique_existing_origins:
+				continue
+			else:
+				origin += "{}, ".format(name)
+
 		return origin[:-2]
 
 	def _replace_origin(self, model_name, domain, parent_id, product_id):

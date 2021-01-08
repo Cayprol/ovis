@@ -87,8 +87,3 @@ class SaleOrderLine(models.Model):
 			r.free_qty_today = False
 			r.qty_available_today = False
 			r.warehouse_id = False
-		# remaining.virtual_available_at_date = False
-		# remaining.scheduled_date = False
-		# remaining.free_qty_today = False
-		# remaining.qty_available_today = False
-		# remaining.warehouse_id = False

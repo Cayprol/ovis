@@ -59,7 +59,7 @@ class PurchaseOrder(models.Model):
 				raise exceptions.UserError(_("There's RFQ/Purchase order not being RFQ Sent selected."))
 
 		return {
-			'name': _('Cancel this record?'),
+			'name': _('Confirm Sent RFQ to be a Purchase Order?'),
 			'type': 'ir.actions.act_window',
 			'view_type': 'form',
 			'view_mode': 'form',

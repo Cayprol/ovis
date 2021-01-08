@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api, _
+from odoo import models, fields, api, exceptions, _ 
 import logging
 _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
@@ -21,7 +21,7 @@ class SaleOrder(models.Model):
 	# Rely on module 'confirm.popup', call popup wizard as warning & user input log before cancelling
 	def action_cancel_2step(self):
 		return {
-			'name': _('Cancel this record?'),
+			'name': _('Would you like to cancel?'),
 			'type': 'ir.actions.act_window',
 			'view_type': 'form',
 			'view_mode': 'form',

@@ -1,0 +1,11 @@
+.o_form_view {
+	.o_form_statusbar {
+		flex-direction: row-reverse;
+		padding-left: unset;
+		padding-right: $o-horizontal-padding;
+		> .o_statusbar_status {
+			margin-left: unset;
+			margin-right: auto;
+		}
+	}
+}
