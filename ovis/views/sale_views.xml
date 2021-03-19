@@ -6,7 +6,6 @@
 		<field name="name">sale.order.form</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
-
 			<!-- Sales Flow related buttons -->
 			<!-- Send by Email (Primary)-->
 			<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and hasclass('btn-primary')]" position="replace"/>
@@ -22,11 +21,11 @@
 				<attribute name="attrs">{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('id', '!=', False)]}</attribute>
 				<!-- context.get has to be used with attribute invisible, cannot be used with attribute attrs -->
 				<attribute name="invisible">context.get('convert_lock', True)</attribute>
-				<attribute name="string">Create Sales Order</attribute>
 			</xpath>
+
 			<!-- Confirm -->
 			<xpath expr="//header/button[@name='action_confirm' and not(hasclass('btn-primary'))]" position="replace">
-				<button name="action_link" id="action_link" string="Duplicate" states="sent" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
+				<button name="action_create_sales_order" id="action_create_sales_order" string="Create Sales Order" states="sent" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
 			</xpath>
 			<!-- Cancel 2-step and Hide Cancel on record creation -->
 			<xpath expr="//header/button[@name='action_cancel']" position="replace">

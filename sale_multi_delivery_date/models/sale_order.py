@@ -1,39 +1,51 @@
 # -*- coding: utf-8 -*-
-# This file is override module sale_stock/models/sale_order.py
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from collections import defaultdict
-from datetime import timedelta
+
+import pytz
+
+import logging
+_logger = logging.getLogger(__name__)
+
+class SaleOrder(models.Model):
+	_inherit = 'sale.order'
+
+	# Adding the compute method
+	commitment_date = fields.Datetime('Delivery Date', copy=False, readonly=True, compute='_compute_latest_delivery_date',
+										help="This is the delivery date promised to the customer. "
+											 "If set, the delivery order will be scheduled based on "
+											 "this date rather than product lead times.")
+
+	# Change 'commitment_date' to the latest 'scheduled_date' in 'order_line'
+	@api.depends('order_line.scheduled_date')	
+	def _compute_latest_delivery_date(self):
+		for record in self:
+			times = list(filter(None, record.order_line.mapped('scheduled_date')))
+			latest = False if not times else max(times)
+			record.commitment_date = latest
+
+	@api.onchange('commitment_date')
+	def _onchange_commitment_date(self):
+		""" Warn if the commitment dates is sooner than the expected date """
+		# 'commitment_date' and 'expected_date' are datetime, 'commitment_date' is set by 'scheduled_date', 'scheduled_date' has been overriden from Datetime to Date.
+		# By default, conversion of Date to Datetime is set at midnight, which triggers warning when 'expected_date' is at a time later on the same day.
+		if (self.commitment_date and self.expected_date and self.commitment_date.date() < self.expected_date.date()):
+			return {
+				'warning': {
+					'title': _('Requested date is too soon.'),
+					'message': _("The delivery date is sooner than the expected date."
+								 "You may be unable to honor the delivery date.")
+				}
+			}
 
 class SaleOrderLine(models.Model):
-
 	_inherit = 'sale.order.line'
+	
+	# Override field type 'scheduled_date' from Datetime to Date, 
+	# If _compute_qty_at_date() has remaining.scheduled_date = False, when progressing 'state', 'scheduled_date' gets set to False.
+	scheduled_date = fields.Date(string='Delivery Date', help='Individual delivery date for sale order lines. This field change commitment_date on sale order.')
 
-	# All fields computed by _compute_qty_at_date, invsersable, and stored.
-	# All of these fields must have the same compute, inverse, store value to avoid compute_sudo() inconsistency.
-	virtual_available_at_date = fields.Float(compute='_compute_qty_at_date', inverse='_inverse_qty_at_date', store=True)
-	scheduled_date = fields.Datetime(compute='_compute_qty_at_date', inverse='_inverse_qty_at_date', store=True)
-	free_qty_today = fields.Float(compute='_compute_qty_at_date', inverse='_inverse_qty_at_date', store=True)
-	qty_available_today = fields.Float(compute='_compute_qty_at_date', inverse='_inverse_qty_at_date', store=True)
-	warehouse_id = fields.Many2one('stock.warehouse', compute='_compute_qty_at_date', inverse='_inverse_qty_at_date', store=True)
-
-	# Helper method for _inverse_qty_at_date, returns a field datetime object
-	def _calculate_latest_schedule_date(self, recordsets):
-		no_false_scheduled_dates = [scheduled_date for scheduled_date in recordsets.mapped('scheduled_date') if scheduled_date]
-		if no_false_scheduled_dates:
-			return max(no_false_scheduled_dates)
-		else:
-			return fields.datetime.now()
-
-	# Inverse the computed field in sale order line, this function controls, when SOL scheduled_date is changed,
-	# the SO commitment_date should changed to the latest, SOL scheduled_date
-	def _inverse_qty_at_date(self):
-		for line in self:
-			SOLs = self.search([('order_id', '=', line.order_id.id)])
-			latest_schedule_date = self._calculate_latest_schedule_date(SOLs)
-			line.order_id.commitment_date = latest_schedule_date
-
-	# Standard Odoo method, rewriting this method is easier than inheriting. 
-	@api.depends('product_id', 'customer_lead', 'product_uom_qty', 'order_id.warehouse_id', 'order_id.commitment_date')
+	@api.depends('product_id', 'customer_lead', 'product_uom_qty', 'product_uom', 'order_id.warehouse_id', 'order_id.commitment_date')
 	def _compute_qty_at_date(self):
 		""" Compute the quantity forecasted of product at delivery date. There are
 		two cases:
@@ -45,19 +57,18 @@ class SaleOrderLine(models.Model):
 		# We first loop over the SO lines to group them by warehouse and schedule
 		# date in order to batch the read of the quantities computed field.
 		for line in self:
-			if not line.display_qty_widget:
+			if not (line.product_id and line.display_qty_widget):
 				continue
 			line.warehouse_id = line.order_id.warehouse_id
 
-			if line.order_id.commitment_date:
-				if line.scheduled_date and line.order_id.commitment_date >= line.scheduled_date:  # New if clause for distinguishing New() and existed SOL.
-					date = line.scheduled_date
-				else:
-					date = line.order_id.commitment_date
-			else:
-				confirm_date = line.order_id.date_order if line.order_id.state in ['sale', 'done'] else fields.datetime.now()
-				date = confirm_date + timedelta(days=line.customer_lead or 0.0)
+			# 'scheduled_date' has priority to be date
+			if line.scheduled_date:
+				date = line.scheduled_date
+			elif line.order_id.commitment_date:
+				date = line.order_id.commitment_date
 
+			else:
+				date = line._expected_date()
 			grouped_lines[(line.warehouse_id.id, date)] |= line
 
 		treated = self.browse()
@@ -77,13 +88,16 @@ class SaleOrderLine(models.Model):
 				line.qty_available_today = qty_available_today - qty_processed_per_product[line.product_id.id]
 				line.free_qty_today = free_qty_today - qty_processed_per_product[line.product_id.id]
 				line.virtual_available_at_date = virtual_available_at_date - qty_processed_per_product[line.product_id.id]
+				if line.product_uom and line.product_id.uom_id and line.product_uom != line.product_id.uom_id:
+					line.qty_available_today = line.product_id.uom_id._compute_quantity(line.qty_available_today, line.product_uom)
+					line.free_qty_today = line.product_id.uom_id._compute_quantity(line.free_qty_today, line.product_uom)
+					line.virtual_available_at_date = line.product_id.uom_id._compute_quantity(line.virtual_available_at_date, line.product_uom)
 				qty_processed_per_product[line.product_id.id] += line.product_uom_qty
 			treated |= lines
-		remaining = (self - treated)
 
-		for r in remaining:
-			r.virtual_available_at_date = False
-			r.scheduled_date = r.scheduled_date # This line must be present, when SOL are stil New(), if not assigned, error occurs.
-			r.free_qty_today = False
-			r.qty_available_today = False
-			r.warehouse_id = False
+		remaining = (self - treated)
+		remaining.virtual_available_at_date = False
+		# remaining.scheduled_date = False
+		remaining.free_qty_today = False
+		remaining.qty_available_today = False
+		remaining.warehouse_id = False

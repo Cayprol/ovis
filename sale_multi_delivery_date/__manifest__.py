@@ -9,7 +9,7 @@
 	'application': False,
 	'installable': True,
 	'auto_install' : False,
-	'depends': ['sale', 'sale_stock', 'stock'],
+	'depends': ['sale', 'sale_management', 'sale_stock', 'stock'],
 	'data': [
 		'views/sale_views.xml',
 		'views/stock_picking_views.xml',

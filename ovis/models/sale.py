@@ -6,17 +6,45 @@ class SaleOrder(models.Model):
 
 	_inherit = 'sale.order'
 
-	# Quotation in 'draft' and 'sent' have different name sequence
 	@api.model
 	def create(self, vals):
 		vals['name'] = self.env['ir.sequence'].next_by_code('quotation') or _('New')
 		return super(SaleOrder, self).create(vals)
 
-	# When action_confirm(), a write() with args of state='sale' is passed. Rename quotation name
-	def write(self, values):
-		if values.get('state') == 'sale' and values.get('date_order'):
-			values['name'] = self.env['ir.sequence'].next_by_code('sale.order')
-		return super(SaleOrder, self).write(values)
+	def action_confirm(self):
+		if self._get_forbidden_state_confirm() & set(self.mapped('state')):
+			raise UserError(_(
+				'It is not allowed to confirm an order in the following states: %s'
+			) % (', '.join(self._get_forbidden_state_confirm())))
+
+		for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
+			order.message_subscribe([order.partner_id.id])
+		self.write({
+			'name': self.env['ir.sequence'].next_by_code('sale.order'),
+			'state': 'sale',
+			'date_order': fields.Datetime.now()
+		})
+
+		# Context key 'default_name' is sometimes propagated up to here.
+		# We don't need it and it creates issues in the creation of linked records.
+		context = self._context.copy()
+		context.pop('default_name', None)
+
+		self.with_context(context)._action_confirm()
+		if self.env.user.has_group('sale.group_auto_done_setting'):
+			self.action_done()
+
+		return {
+			'type': 'ir.actions.act_window',
+			'view_type': 'form',
+			'view_mode': 'form',
+			'res_model': 'sale.order',
+			'views': [(self.env.ref('sale.view_order_form').id, 'form')],
+			'res_id': self.id,
+			'target': 'main',
+			'context': {'form_view_initial_mode': 'view'}
+		}
+
 
 	# Rely on module 'confirm.popup', call popup wizard as warning & user input log before cancelling
 	def action_cancel_2step(self):
@@ -64,7 +92,7 @@ class SaleOrder(models.Model):
 			}
 
 	# Creates a pseudo-record with default values taken from current form view which 'state' is 'sent'
-	def action_link(self):
+	def action_create_sales_order(self):
 		self.ensure_one()
 		default_ctx = {
 			'default_client_order_ref': self.client_order_ref,
@@ -82,7 +110,7 @@ class SaleOrder(models.Model):
 			'default_incoterm': self.incoterm.id,
 			'default_require_signature': self.require_signature,
 			'default_require_payment': self.require_payment,
-			# 'default_state': self.state, # This will break following procuremnt stock.move has a field state and in context default_state='sent' will be interfere.
+			# 'default_state': self.state, # This will break following procuremnt stock.move has a field state and in context default_state='sent' will be interfered.
 			'convert_lock': False,
 			'default_origin': self.name,
 			'default_payment_term_id': self.payment_term_id.id # Due to on_change method, passing defualt_value in context doens't work. Still passing it for the overriden on_change method below.
@@ -95,10 +123,11 @@ class SaleOrder(models.Model):
 			'views': [(self.env.ref('sale.view_order_form').id, 'form')],
 			'view_id': self.env.ref('sale.view_order_form').id,
 			'target': 'current',
+			# 'target': 'inline',
 			'context': default_ctx
 		}
 
-	# Work with action_link() which reads exisiting One2many and make them re-creatable
+	# Work with action_create_sales_order() which reads exisiting One2many and make them re-creatable
 	def _prepare_order_line(self, order_line, option=False):
 		if option:
 			order_lines = [
@@ -127,7 +156,8 @@ class SaleOrder(models.Model):
 					'product_id': line.product_id.id,
 					'product_uom': line.product_uom.id,
 					'product_uom_qty': line.product_uom_qty,
-					'scheduled_date': line.scheduled_date,
+					'scheduled_date': line.scheduled_date, # revisit this, schedule_date is in standard odoo code. No need to create another field
+					# 'date_arranged': line.date_arranged,
 						}
 					) for line in order_line ]
 
@@ -151,11 +181,10 @@ class SaleOrder(models.Model):
 
 	@api.onchange('partner_id')
 	def onchange_partner_id(self):
-		context = self._context
 		res = {}
 		super(SaleOrder, self).onchange_partner_id()
-		if not context.get('convert_lock') and context.get('default_payment_term_id'):
-			res = {'payment_term_id': context.get('default_payment_term_id')}
+		if not self._context.get('convert_lock') and self._context.get('default_payment_term_id'):
+			res = {'payment_term_id': self._context.get('default_payment_term_id')}
 		self.update(res)
 
 
