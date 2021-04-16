@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_order_form" model="ir.ui.view">
+		<field name="model">sale.order</field>
+		<field name="name">sale.order.form</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+
+			<xpath expr="//div[@name='button_box']">
+				<button name="%(action_change_orders)d"
+						type="action"
+						class="oe_stat_button"
+						icon="fa-files-o icon"
+						attrs="{'invisible': [('change_order_count','=',0)]}"
+						context="{'search_default_sale_order_id': id}">
+						<!-- search_default_<value> only works if a search view exists -->
+					<field name="change_order_count" widget="statinfo" string="Changes"/>
+				</button>
+			</xpath>
+			<xpath expr="//button[@name='action_confirm']" position="after">
+				<button name="action_change_order" states="sale" type="object" string="Change Order"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

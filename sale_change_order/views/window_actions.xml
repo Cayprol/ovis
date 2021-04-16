@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="action_change_orders" model="ir.actions.act_window">
+		<field name="name">Change Orders</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">change.order</field>
+		<field name="view_mode">tree,form</field>
+		<!-- <field name="search_view_id" ref=""/> -->
+		<!-- <field name="context"></field> -->
+		<!-- <field name="domain"></field> -->
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+				Initiate process of changing exiting sales order or purchase order!
+			</p><p>
+				Plans never catch up with changes.<br/> Remember to manually change corresponding billing documents and inventory moves.
+			</p>
+		</field>
+	</record>
+</odoo>

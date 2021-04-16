@@ -26,6 +26,7 @@
 			<!-- Confirm -->
 			<xpath expr="//header/button[@name='action_confirm' and not(hasclass('btn-primary'))]" position="replace">
 				<button name="action_create_sales_order" id="action_create_sales_order" string="Create Sales Order" states="sent" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
+				<button name="action_test" id="action_test" string="Test" type="object"/>
 			</xpath>
 			<!-- Cancel 2-step and Hide Cancel on record creation -->
 			<xpath expr="//header/button[@name='action_cancel']" position="replace">
@@ -34,6 +35,14 @@
 			</xpath>
 			<!-- Hide smart button Customer Preview -->
 			<xpath expr="//button[@name='preview_sale_order']" position="replace"/>
+
+			<xpath expr="//field[@name='partner_invoice_id']" position="attributes">
+				<attribute name="context">{'default_type':'invoice', 'show_ref_city': 1, 'tree_view_ref': 'ovis.view_address'}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+				<attribute name="context">{'default_type':'delivery', 'show_ref_city': 1, 'tree_view_ref': 'ovis.view_address'}</attribute>
+			</xpath>
+
 
 			<xpath expr="//div[hasclass('oe_title')]" position="before">
 				<field name="tally" invisible="1"/>

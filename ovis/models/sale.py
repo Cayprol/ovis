@@ -11,6 +11,10 @@ class SaleOrder(models.Model):
 		vals['name'] = self.env['ir.sequence'].next_by_code('quotation') or _('New')
 		return super(SaleOrder, self).create(vals)
 
+	def action_test(self):
+		return {'type': 'ir.actions.client',
+				'tag': 'reload_view'}
+
 	def action_confirm(self):
 		if self._get_forbidden_state_confirm() & set(self.mapped('state')):
 			raise UserError(_(
@@ -35,16 +39,19 @@ class SaleOrder(models.Model):
 			self.action_done()
 
 		return {
-			'type': 'ir.actions.act_window',
-			'view_type': 'form',
-			'view_mode': 'form',
-			'res_model': 'sale.order',
-			'views': [(self.env.ref('sale.view_order_form').id, 'form')],
-			'res_id': self.id,
-			'target': 'main',
-			'context': {'form_view_initial_mode': 'view'}
+			'type': 'ir.actions.act_multi',
+			'actions': [{
+				'type': 'ir.actions.act_window',
+				'view_mode': 'form',
+				'res_model': 'sale.order',
+				'views': [(self.env.ref('sale.view_order_form').id, 'form')],
+				'res_id': self.id,
+				'target': 'main', # new, inline, main, current, fullscreen
+				'context': {'form_view_initial_mode': 'view'} # 'force_detailed_view': True # Not sure what this do
+				},
+				{'type': 'ir.actions.client', 'tag': 'reload'},
+			],
 		}
-
 
 	# Rely on module 'confirm.popup', call popup wizard as warning & user input log before cancelling
 	def action_cancel_2step(self):
@@ -156,8 +163,7 @@ class SaleOrder(models.Model):
 					'product_id': line.product_id.id,
 					'product_uom': line.product_uom.id,
 					'product_uom_qty': line.product_uom_qty,
-					'scheduled_date': line.scheduled_date, # revisit this, schedule_date is in standard odoo code. No need to create another field
-					# 'date_arranged': line.date_arranged,
+					'scheduled_date': line.scheduled_date,
 						}
 					) for line in order_line ]
 

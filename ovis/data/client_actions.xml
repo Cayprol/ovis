@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="reload_view" model="ir.actions.client">
+		<field name="name">Reload View</field>
+		<field name="tag">reload_view</field>
+	</record>
+</odoo>

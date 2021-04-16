@@ -20,6 +20,9 @@ class ConfirmPopup(models.TransientModel):
 		force_note = self._context.get('force_note')
 		return_vals = self._context.get('return_vals')
 
+		if not method and return_vals == 'method':
+			raise exceptions.ValidationError(_('No method to run, returning values cannot be method.'))
+
 		if parent_model and parent_id:
 			recordset = self.env[parent_model].browse(parent_id)
 
@@ -29,10 +32,13 @@ class ConfirmPopup(models.TransientModel):
 		elif self.note:
 			recordset.message_post(body=msg)
 
-		run = getattr(recordset, method)(*method_args, **method_kwargs)
+		if recordset and method:
+			run = getattr(recordset, method)(*method_args, **method_kwargs)
 
 		if return_vals == 'method':
 			return run
+		elif return_vals == 'reload':
+			return {'type': 'ir.actions.client','tag': 'reload'}
 		else:
 			return return_vals or {'type': 'ir.actions.client','tag': 'reload'}
 

@@ -4,6 +4,7 @@
 		<!-- <xpath expr="link[last()]" position="after"> -->
 		<xpath expr="." position="inside">
 			<link rel="stylesheet" type="text/scss" href="/ovis/static/src/scss/form_view.scss"/>
+			<script type="text/javascript" src="/ovis/static/src/js/core/misc.js"></script> 
 		</xpath>
 	</template>
 </odoo>
