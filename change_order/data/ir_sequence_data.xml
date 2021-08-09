@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="seq_change_sale_order" model="ir.sequence">
+			<field name="name">Change Sales Order</field>
+			<field name="code">change.sale.order</field>
+			<field name="prefix">CSO</field>
+			<field name="padding">5</field>
+			<field name="company_id" eval="False"/>
+		</record>
+		<record id="seq_change_purchase_order" model="ir.sequence">
+			<field name="name">Change Purchase Order</field>
+			<field name="code">change.purchase.order</field>
+			<field name="prefix">CPO</field>
+			<field name="padding">5</field>
+			<field name="company_id" eval="False"/>
+		</record>
+	</data>
+</odoo>

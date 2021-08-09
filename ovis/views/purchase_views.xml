@@ -26,6 +26,14 @@
 					<button name="button_cancel_2step" states="draft,sent" string="Cancel" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
 					<button name="button_cancel_2step" states="to approve,purchase" string="Cancel" type="object" groups="purchase.group_purchase_manager"/>
 				</xpath>
+
+				<xpath expr="//field[@name='order_line']/tree/field[@name='date_planned']" position="attributes">
+					<attribute name="widget">date</attribute>
+				</xpath>
+				<xpath expr="//field[@name='order_line']/form//field[@name='date_planned']" position="attributes">
+					<attribute name="widget"/>
+				</xpath>
+
 				<!-- 'readonly' is not universally defined in .py or .xml, implementation of each field are different. 
 				This section modify 'readonly' from front end coherently.  -->
 <!-- 				<xpath expr="//field[@name='partner_id']" position="attributes">

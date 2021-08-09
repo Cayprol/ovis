@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-
+import logging
+_logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
 
 	_inherit = 'sale.order'
@@ -24,6 +25,21 @@ class SaleOrder(models.Model):
 	backed_amount_untaxed = fields.Monetary(string='Backorder Untaxed Amount', store=True, readonly=True, compute='_amount_all', tracking=5)
 	backed_amount_tax = fields.Monetary(string='Backorder Taxes', store=True, readonly=True, compute='_amount_all')
 	backed_amount_total = fields.Monetary(string='Backorder Total', store=True, readonly=True, compute='_amount_all', tracking=4)
+
+	@api.model
+	def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+		res = super(SaleOrder, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
+		if toolbar:
+			actions_in_toolbar = res['toolbar'].get('action')
+			if actions_in_toolbar:
+				for action in actions_in_toolbar:
+					if action.get('xml_id'):
+						if action['xml_id'] == 'sale.model_sale_order_action_quotation_sent' and self._context.get('act_window_id') == 'sale_back_order.action_back_orders':
+							res['toolbar']['action'].remove(action)
+						if action['xml_id'] == 'sale_back_order.action_backorder_line' and not self._context.get('act_window_id') == 'sale_back_order.action_backorder_line':
+							res['toolbar']['action'].remove(action)
+
+		return res
 
 class SaleOrderLine(models.Model):
 

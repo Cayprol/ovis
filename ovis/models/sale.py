@@ -202,3 +202,12 @@ class SaleOrderLine(models.Model):
 	_inherit = 'sale.order.line'
 
 	tally = fields.Boolean('Tally', help="This field indicates the order line has been notified for tally or not.")
+
+	def action_tally(self):
+		for line in self:
+			line.update({'tally': not line.tally})
+
+	# correction
+	@api.depends('tally')
+	def _compute_amount(self):
+		return super(SaleOrderLine, self)._compute_amount()

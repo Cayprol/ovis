@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="change_purchase_order_search" model="ir.ui.view">
+		<field name="model">change.purchase.order</field>
+		<field name="name">change.purchase.order.search</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+			<search string="Search Change Sales Order">
+				<field name="name"/>
+				<field name="purchase_order_id"/>
+				<field name="state"/>
+				<filter name="filter_to_approve" string="To Approve" domain="[('state', '=', 'to approve')]"/>
+				<filter name="filter_approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+				<filter name="filter_done" string="Done" domain="[('state', '=', 'done')]"/>
+				<group expand="0" string="Group By">
+					<filter name="group_state" string="State" domain="" context="{'group_by':'state'}"/>
+					<filter name="group_create_uid" string="Creator" domain="" context="{'group_by':'create_uid'}"/>
+					<filter name="group_approver_id" string="Approver" domain="" context="{'group_by':'approver_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="change_purchase_order_tree" model="ir.ui.view">
+		<field name="model">change.purchase.order</field>
+		<field name="name">change.purchase.order.tree</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="purchase_order_id"/>
+				<field name="state"/>
+				<field name="create_uid" string="Creator"/>
+				<field name="approver_id"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="change_purchase_order_form" model="ir.ui.view">
+		<field name="name">change.purchase.order.form</field>
+		<field name="model">change.purchase.order</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Change Purchase Order">
+				<header states="to approve,approved,done">
+					<!-- Don't use 'states' to control visibility, because it mis-match default state with the time when a record is 'New' aka not saved psuedo-record. -->
+					<button name="action_approve" string="Approve" type="object" class="btn-primary" groups="purchase.group_purchase_manager" attrs="{'invisible': ['|', ('id','=',False), ('state','not in', 'to approve')]}"/>
+					<button name="action_done" string="Done" states="approved" type="object" class="btn-primary"/>
+					<button name="action_cancel" string="Cancel" type="object" attrs="{'invisible': ['|', ('name','=','New'), ('state','not in', ('to approve','approved'))]}"/>
+					<field name="state" widget="statusbar" statusbar_visible="to approve,approved,done"/>
+				</header>
+				<!-- 
+					inline form/tree/kanban view can refer 'parent.field_name' such as 'parent.company_id'
+					For the 'parent.field_name' to work, the main view of which inline view must contain such field.
+				 -->
+				<field name="company_id" invisible="1"/>
+				<field name="partner_id" invisible="1"/>
+				<field name="currency_id" invisible="1"/>
+				<sheet>
+					<widget name="web_ribbon" title="Approved" bg_color="bg-warning" attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+					<widget name="web_ribbon" title="Done" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+					<widget name="web_ribbon" title="Cancelled" bg_color="bg-dark" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+					<!-- bg-primary, bg-secondary, bg-success, bg-danger, bg-warning, bg-info, bg-light, bg-dark, bg-white -->
+					<div class="oe_title">
+						<h1>
+							<field name="name"/>
+						</h1>
+						<group>
+							<group name="parent">
+								<field name="purchase_order_id" options="{'no_create': 1}"/>
+								<field name="create_uid" string="Creator"/>
+							</group>
+						
+							<group name="approval">
+								<field name="approver_id"/>
+								<field name="executioner_id" states="done"/>
+							</group>
+						</group>
+					</div>
+					<notebook name="source_and_original">
+						<page string="Source" name="source_lines" states="to approve,approved,cancel">
+							<field name="purchase_order_line"
+								widget="section_and_note_one2many"
+								mode="tree">
+								<tree string="Purchase Order Lines" editable="bottom">
+									<control>
+										<create name="add_product_control" string="Add a product"/>
+										<create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+										<create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+									</control>
+									<field name="display_type" invisible="1"/>
+									<field name="state" invisible="1" readonly="1"/>
+									<field name="product_type" invisible="1"/>
+									<field name="product_uom_category_id" invisible="1"/>
+									<field name="invoice_lines" invisible="1"/>
+									<field name="sequence" widget="handle"/>
+									<field
+										name="product_id"
+										attrs="{'required': [('display_type', '=', False)],}"
+										context="{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}"
+										force_save="1" 
+										domain="[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="name" widget="section_and_note_text" optional="hide"/>
+									<field name="date_planned" optional="show" widget="date" attrs="{'required': [('display_type', '=', False)]}"/>
+									<field name="account_analytic_id" optional="hide" context="{'default_partner_id':parent.partner_id}" groups="analytic.group_analytic_accounting" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="analytic_tag_ids" optional="hide" groups="analytic.group_analytic_tags" widget="many2many_tags" options="{'color_field': 'color'}" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="product_qty"/>
+									<field name="qty_received_manual" invisible="1"/>
+									<field name="qty_received_method" invisible="1"/>
+									<field name="qty_received" string="Received" optional="show"/>
+									<field name="qty_invoiced" string="Billed" optional="show"/>
+									<field name="product_uom" string="UoM" groups="uom.group_uom" attrs="{'required': [('display_type', '=', False)]}" force_save="1" optional="hide"/>
+									<field name="price_unit"/>
+									<field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase'), ('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'purchase', 'search_view_ref': 'account.account_tax_view_search'}" options="{'no_create': True}" optional="show"/>
+									<field name="price_subtotal" widget="monetary"/>
+								</tree>
+							</field>
+						</page>
+						<page string="Original" name="original_lines" states="done">
+							<field name="original_purchase_order_line"
+								widget="section_and_note_one2many"
+								mode="tree">
+								<tree string="Purchase Order Lines" editable="bottom">
+									<control>
+										<create name="add_product_control" string="Add a product"/>
+										<create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+										<create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+									</control>
+									<field name="display_type" invisible="1"/>
+									<field name="state" invisible="1" readonly="1"/>
+									<field name="product_type" invisible="1"/>
+									<field name="product_uom_category_id" invisible="1"/>
+									<field name="invoice_lines" invisible="1"/>
+									<field name="sequence" widget="handle"/>
+									<field
+										name="product_id"
+										attrs="{
+											'readonly': [('state', 'in', ('purchase', 'to approve','done', 'cancel'))],
+											'required': [('display_type', '=', False)],
+										}"
+										context="{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}"
+										force_save="1" domain="[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="name" widget="section_and_note_text"/>
+									<field name="date_planned" optional="hide" attrs="{'required': [('display_type', '=', False)]}"/>
+									<field name="account_analytic_id" optional="hide" context="{'default_partner_id':parent.partner_id}" groups="analytic.group_analytic_accounting" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="analytic_tag_ids" optional="hide" groups="analytic.group_analytic_tags" widget="many2many_tags" options="{'color_field': 'color'}" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="product_qty"/>
+									<field name="qty_received_manual" invisible="1"/>
+									<field name="qty_received_method" invisible="1"/>
+									<field name="qty_received" string="Received" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))], 'readonly': [('qty_received_method', '!=', 'manual')]}" optional="show"/>
+									<field name="qty_invoiced" string="Billed" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}" optional="show"/>
+									<field name="product_uom" string="UoM" groups="uom.group_uom"
+										attrs="{'required': [('display_type', '=', False)]}"
+										force_save="1" 
+										optional="show"/>
+									<field name="price_unit"/>
+									<field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase'), ('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'purchase', 'search_view_ref': 'account.account_tax_view_search'}" options="{'no_create': True}" optional="show"/>
+									<field name="price_subtotal" widget="monetary"/>
+								</tree>
+							</field>
+							<group name="origianl_description_group" col="6">
+								<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+									<field name="original_amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+									<field name="original_amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+									<div class="oe_subtotal_footer_separator oe_inline o_td_label">
+										<label for="original_amount_total" />
+									</div>
+									<field name="original_amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								</group>
+								<div class="oe_clear"/>
+							</group>
+						</page>
+					</notebook>
+					<notebook name="to_approve_and_approved">
+						<page string="To Approve" name="page_to_approve" states="to approve">
+							<!-- 
+							Inline views (tree/form/kanban etc... for example, mode="tree") is One-to-one to a field.
+							The same field regardless how many times appeared in the form, can only have 1 inline def.
+							The latest field with mode, would override all previous defined with in the same form.
+							Therefore, the below 'approved_sale_order_line' doesn't need to be defined. 
+							It will be defined in the next page 'approved_sale_order_line'.
+							-->
+							<field name="approved_purchase_order_line" widget="section_and_note_one2many" mode="tree"/>
+							<group name="to_approve_description_group" col="6">
+								<group colspan="4">
+									<field name="description" nolabel="1" placeholder="Describe all details for the change..."/>
+								</group>
+								<group class="oe_subtotal_footer oe_right" colspan="2" name="purchase_total">
+									<field name="changed_amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+									<field name="changed_amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+									<div class="oe_subtotal_footer_separator oe_inline o_td_label">
+										<label for="changed_amount_total"/>
+									</div>
+									<field name="changed_amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								</group>
+								<div class="oe_clear"/>
+							</group>
+						</page>
+						<page string="Approved" name="page_approved" states="approved,done">
+							<field name="approved_purchase_order_line" widget="section_and_note_one2many" mode="tree">
+								<tree string="Purchase Order Lines" editable="bottom">
+									<control>
+										<create name="add_product_control" string="Add a product"/>
+										<create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+										<create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+									</control>
+									<field name="display_type" invisible="1"/>
+									<field name="state" invisible="1" readonly="1"/>
+									<field name="product_type" invisible="1"/>
+									<field name="product_uom_category_id" invisible="1"/>
+									<field name="invoice_lines" invisible="1"/>
+									<field name="sequence" widget="handle"/>
+									<field
+										name="product_id"
+										attrs="{
+											'required': [('display_type', '=', False)],
+										}" 
+										options="{'no_create': True}" 
+										context="{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}"
+										force_save="1" domain="[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="name" optional="hide" widget="section_and_note_text"/>
+									<field name="date_planned" optional="show" widget="date" attrs="{'required': [('display_type', '=', False)]}"/>
+									<field name="account_analytic_id" optional="hide" context="{'default_partner_id':parent.partner_id}" groups="analytic.group_analytic_accounting" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="analytic_tag_ids" optional="hide" groups="analytic.group_analytic_tags" widget="many2many_tags" options="{'color_field': 'color'}" domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+									<field name="product_qty"/>
+									<field name="qty_received_manual" invisible="1"/>
+									<field name="qty_received_method" invisible="1"/>
+									<field name="qty_received" string="Received" attrs="{'readonly': [('qty_received_method', '!=', 'manual')]}" optional="show"/>
+									<field name="qty_invoiced" string="Billed" optional="show"/>
+									<field name="product_uom" string="UoM" groups="uom.group_uom" attrs="{'required': [('display_type', '=', False)]}" force_save="1" optional="hide"/>
+									<field name="price_unit"/>
+									<field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase'), ('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'purchase', 'search_view_ref': 'account.account_tax_view_search'}" options="{'no_create': True}" optional="hide"/>
+									<field name="price_subtotal" widget="monetary"/>
+								</tree> 
+							</field>
+							<group name="to_approve_description_group" col="6">
+								<group colspan="4">
+									<field name="description" nolabel="1" placeholder="Describe all details for the change..."/>
+								</group>
+								<group class="oe_subtotal_footer oe_right" colspan="2" name="purchase_total">
+									<field name="changed_amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+									<field name="changed_amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+									<div class="oe_subtotal_footer_separator oe_inline o_td_label">
+										<label for="changed_amount_total"/>
+									</div>
+									<field name="changed_amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								</group>
+								<div class="oe_clear"/>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_change_purchase_order" model="ir.actions.act_window">
+		<field name="name">Change Purchase Orders</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">change.purchase.order</field>
+		<!-- <field name="view_mode">tree,form</field> Default is tree,form -->
+		<!-- 
+		For multiple views binding to a single window action, 'view_id' and 'view_ids' can be buggy. Despite view_ids 5,0,0 or 6,0 definition
+		Use ir.actions.act_window.view instead
+		 -->	
+ 		<!-- <field name="view_id" ref="change_purchase_order_tree"/> -->
+		<!-- <field name="view_ids" eval="[(6, 0, [ref('change_purchase_order_tree'), ref('change_purchase_order_form')])]"/> -->
+		<field name="search_view_id" ref="change_purchase_order_search"/>
+		<!-- <field name="context"></field> -->
+		<!-- <field name="domain"></field> -->
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+				Initiate process of changing exiting purchase order!
+			</p><p>
+				Plans never catch up with changes.<br/> Remember to manually change corresponding billing documents and inventory moves.
+			</p>
+		</field>
+	</record>
+
+	<record id="purchase_order_form" model="ir.ui.view">
+		<field name="model">purchase.order</field>
+		<field name="name">purchase.order.form</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//div[@name='button_box']">
+				<button name="%(action_change_purchase_order)d"
+						type="action"
+						class="oe_stat_button"
+						icon="fa-files-o icon"
+						attrs="{'invisible': [('change_purchase_order_count','=',0)]}"
+						context="{'search_default_purchase_order_id': id}">
+						<!-- search_default_<value> only works if a search view exists -->
+					<field name="change_purchase_order_count" widget="statinfo" string="Changes"/>
+				</button>
+			</xpath>
+			<xpath expr="//button[@name='button_done']" position="replace"/>
+			<xpath expr="//button[@name='action_view_invoice' and not(hasclass('oe_highlight'))]" position="after">
+				<button name="action_create_change_purchase_order" states="purchase" type="object" string="Create Change Order"/>
+			</xpath>
+
+			<xpath expr="//field[@name='order_line']" position="attributes">
+				<attribute name="attrs">{'readonly': [('state','in',('sale','done','cancel'))]}</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<menuitem id="change_purchase_order"
+		name="Change Orders"
+		action="action_change_purchase_order"
+		parent="purchase.menu_procurement_management"
+		groups="purchase.group_purchase_user"
+		sequence="15"/>
+
+</odoo>

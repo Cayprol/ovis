@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- This view exists for debugging -->
+	<record id="product_supplierinfo_tree_view" model="ir.ui.view" >
+		<field name="model">product.supplierinfo</field>
+		<field name="name">product.supplierinfo.tree.view</field>
+		<field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//tree">
+				<field name="intrinsic_price" optional="hide"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

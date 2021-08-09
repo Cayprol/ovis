@@ -26,7 +26,6 @@
 			<!-- Confirm -->
 			<xpath expr="//header/button[@name='action_confirm' and not(hasclass('btn-primary'))]" position="replace">
 				<button name="action_create_sales_order" id="action_create_sales_order" string="Create Sales Order" states="sent" class="btn-primary" type="object" attrs="{'invisible': ['|', ('id', '=', False)]}"/>
-				<button name="action_test" id="action_test" string="Test" type="object"/>
 			</xpath>
 			<!-- Cancel 2-step and Hide Cancel on record creation -->
 			<xpath expr="//header/button[@name='action_cancel']" position="replace">
@@ -50,7 +49,7 @@
 			</xpath>
 
 			<!-- When click on one2many field order_line, show tally based on state -->
-			<xpath expr="//form/group/group">
+			<xpath expr="//field[@name='order_line']//form/group/group">
 				<label for="tally" string="Tally" attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}"/>
 				<div name="tally" attrs="{'invisible': [('parent.state', 'not in', ['sale', 'done'])]}">
 					<field name="tally"/>
@@ -58,12 +57,25 @@
 			</xpath>
 
 			<!-- Show tally in tree view on one2many field order_line -->
-			<xpath expr="//tree">
-				<field name="tally" string="Tally" widget="boolean_toggle" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}" optional="show"/>
+			<xpath expr="//field[@name='order_line']//tree">
+			<!-- 				
+			<field name="tally" string="Tally" widget="boolean_toggle" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}" optional="show"/>
+			-->
+				<field name="tally" invisible="1"/>
+				<button name="action_tally" string="Tally" type="object" widget="toggle_button" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}" optional="show"/>
 			</xpath>
 
+			<xpath expr="//tree" position="attributes">
+				<attribute name="decoration-it">(tally == True)</attribute>
+				<attribute name="decoration-bf">(tally == True)</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_line']//tree/field[@name='product_id']" position="attributes">
+				<attribute name="options">{'no_create': True , 'no_open': True}</attribute>
+				<attribute name="widget"/>
+			</xpath>
 		</field>
 	</record>
+
 	<record  id="view_backorder_line_tree" model="ir.ui.view">
 		<field name="model">sale.order.line</field>
 		<field name="name">sale.backorder.line.tree</field>

@@ -1,1 +1,1 @@
-﻿from . import account_move, product_template, purchase, res_config_settings, res_bank, res_partner, sale
+﻿from . import account_move, product_template, purchase, res_bank, res_config_settings, res_partner, sale

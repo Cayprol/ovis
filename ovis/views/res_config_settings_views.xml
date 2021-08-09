@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<record id="res_config_settings_view_form" model="ir.ui.view">
-		<field name="name">res.config.settings.view.form.inherit.sale</field>
+		<field name="name">res.config.settings.view.form</field>
 		<field name="model">res.config.settings</field>
-		<field name="priority" eval="10"/>
+		<field name="priority" eval="150"/>
 		<field name="inherit_id" ref="base.res_config_settings_view_form" />
 		<field name="arch" type="xml">
 			<xpath expr="//div[@data-key='sale_management']/div[hasclass('row', 'mt16', 'o_settings_container')][3]" position="inside">
+				<div class="col-12 col-lg-6 o_setting_box">
+					<div class="o_setting_left_pane">
+						<field name="module_change_order"/>
+					</div>
+					<div class="o_setting_right_pane">
+						<label for="module_change_order"/>
+						<div class="text-muted">Modify confirmed sales/purchase order</div>
+					</div>
+				</div>
 				<div class="col-12 col-lg-6 o_setting_box">
 					<div class="o_setting_left_pane">
 						<field name="module_sale_multi_delivery_date"/>
@@ -17,6 +26,51 @@
 					</div>
 				</div>
 			</xpath>
+			<xpath expr="//div[@data-key='general_settings']/div[@id='contacts_settings']/div[hasclass('row', 'mt16', 'o_settings_container')]">
+				<div class="col-12 col-lg-6 o_setting_box">
+					<div class="o_setting_left_pane">
+						<field name="module_chinese_conversion"/>
+					</div>
+					<div class="o_setting_right_pane">
+						<label for="module_chinese_conversion"/>
+						<div class="text-muted">Traditional/Simplify Chinese</div>
+					</div>
+				</div>				
+			</xpath>
+			<xpath expr="//div[@data-key='purchase']/div[hasclass('row', 'mt16', 'o_settings_container')][3]">
+				<div class="col-12 col-lg-6 o_setting_box">
+					<div class="o_setting_left_pane">
+						<field name="module_purchase_common_vendor"/>
+					</div>
+					<div class="o_setting_right_pane">
+						<label for="module_purchase_common_vendor"/>
+						<div class="text-muted">Remove default company on supplier info</div>
+					</div>
+				</div>				
+			</xpath>
+			<xpath expr="//div[@data-key='purchase']/div[hasclass('row', 'mt16', 'o_settings_container')][1]">
+				<div class="col-12 col-lg-6 o_setting_box">
+					<div class="o_setting_left_pane">
+						<field name="module_purchase_vendor_select"/>
+					</div>
+					<div class="o_setting_right_pane">
+						<label for="module_purchase_vendor_select"/>
+						<div class="text-muted">Conditionally select vendors for auto-generated RFQ</div>
+					</div>
+				</div>				
+			</xpath>
+			<xpath expr="//div[@data-key='mrp']//div[@id='security_lead_time']" position="after">
+				<div class="col-12 col-lg-6 o_setting_box">
+					<div class="o_setting_left_pane">
+						<field name="module_mrp_common_bom"/>
+					</div>
+					<div class="o_setting_right_pane">
+						<label for="module_mrp_common_bom"/>
+						<div class="text-muted">Remove default company on BoM</div>
+					</div>
+				</div>				
+			</xpath>
 		</field>
 	</record>
 </odoo>
+

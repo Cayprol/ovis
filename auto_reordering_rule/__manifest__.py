@@ -13,7 +13,7 @@ Create a new Product would trigger creation of Orderpoint if the product is Stor
     'installable': True,
     'auto_install' : False,
     'depends': ['product','stock'],
-    'data': [],
+    'data': ['data/ir_cron.xml'],
     'demo': [],
     'test': [],
 }

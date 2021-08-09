@@ -28,7 +28,8 @@ class Partner(models.Model):
 	@api.depends('parent_id.ref')
 	def _compute_ref(self):
 		for partner in self:
-			partner.ref = partner.parent_id.ref
+			if partner.parent_id:
+				partner.ref = partner.parent_id.ref
 
 	def _inverse_ref(self):
 		for partner in self:

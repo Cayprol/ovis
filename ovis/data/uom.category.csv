@@ -1,4 +1,5 @@
-"id","name"
-uom.product_uom_categ_set,"Set"
-uom.product_uom_categ_roll,"Roll"
-uom.product_uom_categ_bottle,"Bottle"
+id,name
+uom.product_uom_categ_set,Set
+uom.product_uom_categ_roll,Roll
+uom.product_uom_categ_bottle,Bottle
+uom.product_uom_categ_reel,Reel

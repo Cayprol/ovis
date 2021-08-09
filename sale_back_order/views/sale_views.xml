@@ -105,12 +105,13 @@
 	<record id="sale_order_view_search_inherit_backorder" model="ir.ui.view">
 		<field name="name">sale.order.search.inherit.backorder</field>
 		<field name="model">sale.order</field>
+		<field name="type">search</field>
 		<field name="mode">primary</field>
 		<field name="inherit_id" ref="sale.view_sales_order_filter"/>
 		<field name="arch" type="xml">
 			<xpath expr="//filter[@name='my_sale_orders_filter']" position="replace">
-				<filter string="Back Orders" name="backorder" domain="[('backed_amount_total', '&gt;', 0)]"/>
-				<separator/>
+				<!-- <filter string="Back Orders" name="backorder" domain="[('backed_amount_total', '&gt;', 0)]"/>
+				<separator/> -->
 				<filter string="To Invoice" name="to_invoice" domain="[('invoice_status','=','to invoice')]" />
 				<filter string="To Upsell" name="upselling" domain="[('invoice_status','=','upselling')]" />
 				<separator/>
@@ -121,12 +122,14 @@
 
 	<record id="action_back_orders" model="ir.actions.act_window">
 		<field name="name">Back Orders</field>
-		<field name="type">ir.actions.act_window</field>
 		<field name="res_model">sale.order</field>
+		<field name="view_id" ref="view_backorder_tree"/>
 		<field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
 		<field name="search_view_id" ref="sale_order_view_search_inherit_backorder"/>
-		<field name="context">{'search_default_backorder': 1}</field>
-		<field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
+		<!-- act_window_id in context used for fields_view_get() method 
+			to distinguish SaleOrder and BackOrder tree views on the same model -->
+		<field name="context">{'act_window_id': 'sale_back_order.action_back_orders'}</field>
+		<field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('backed_amount_total', '&gt;', 0)]</field>
 		<field name="help" type="html">
 			<p class="o_view_nocontent_smiling_face">
 				Create a new quotation, the first step of a new sale!
@@ -190,6 +193,7 @@
 	<record id="view_backorder_line_tree" model="ir.ui.view">
 		<field name="name">sale.backorder.line.tree</field>
 		<field name="model">sale.order.line</field>
+		<field name="type">tree</field>
 		<field name="mode">primary</field>
 		<field name="inherit_id" ref="sale.view_order_line_tree"/>
 		<field name="arch" type="xml">
@@ -228,6 +232,7 @@
 	<record id="view_backorder_line_kanban" model="ir.ui.view" >
 		<field name="name">sale.backorder.line.kanban</field>
 		<field name="model">sale.order.line</field>
+		<field name="type">kanban</field>
 		<field name="arch" type="xml">
 			<kanban class="o_kanban_mobile">
 				<field name="partner_shipping_id"/>
@@ -282,19 +287,20 @@
 
 	<record id="action_backorder_line" model="ir.actions.act_window">
 		<field name="name">Back Order Lines</field>
-		<field name="type">ir.actions.act_window</field>
 		<field name="res_model">sale.order.line</field>
+		<field name="view_id" ref="view_backorder_line_tree"/>
 		<field name="view_mode">tree,kanban</field>
 		<field name="search_view_id" ref="sale_order_line_view_search_inherit_backorder"/>
-		<field name="context">{'search_default_ship_to': 1}</field>
-		<field name="domain">[('backed_price_total', '&gt;', 0), ('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
+		<field name="binding_model_id" ref="model_sale_order"/>
+		<field name="context">{'search_default_ship_to': 1, 'act_window_id': 'sale_back_order.action_backorder_line'}</field>
+		<field name="domain">['&amp;', ('order_id', '!=', False), ('backed_price_total', '&gt;', 0), ('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
 	</record>
 
-	<menuitem id="backrder_line"
+<!-- 	<menuitem id="backrder_line"
 		name="Back Order Lines"
 		action="action_backorder_line"
 		parent="sale.sale_order_menu"
-		sequence="6" groups="sales_team.group_sale_salesman"/>
+		sequence="6" groups="sales_team.group_sale_salesman"/> -->
 
 	<record id="backorder_line_action_view_tree" model="ir.actions.act_window.view">
 		<field name="sequence" eval="1"/>
