@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, exceptions, _ 
 
+import logging
+_logger = logging.getLogger(__name__)
+
 class SaleOrder(models.Model):
 
 	_inherit = 'sale.order'
@@ -21,6 +24,7 @@ class SaleOrder(models.Model):
 			record.change_sale_order_count = count
 
 	change_sale_order_count = fields.Integer(string='Change Order Count', compute='_compute_change_sale_order_count', readonly=True)
+	order_line_confirmed = fields.One2many('sale.order.line', 'order_id', string='Order Lines', states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, copy=True, auto_join=True)
 
 	# If 1 or more CSO been done, new SOLs created. The invoices created by original SOLs must be linked to the new SOLs.
 	@api.depends('order_line.invoice_lines')
@@ -58,12 +62,42 @@ class SaleOrderLine(models.Model):
 		# execution seqeunce sale -> sale_stock -> change_order
 		super(SaleOrderLine, self)._compute_qty_delivered_method() 
 		for line in self:
-			if line.approved_order_id:
+			if (line.approved_order_id and line.state not in ['sale', 'done']) or (not line.order_id and line.original_order_id):
 				line.qty_delivered_method = 'manual'
+
+	@api.depends('move_ids.state', 'move_ids.scrapped', 'move_ids.product_uom_qty', 'move_ids.product_uom')
+	def _compute_qty_delivered(self):
+		super(SaleOrderLine, self)._compute_qty_delivered()
+
+		for line in self:  # TODO: maybe one day, this should be done in SQL for performance sake
+			if line.qty_delivered_method == 'stock_move' and line.approved_order_id:
+				qty = 0.0
+				outgoing_moves, incoming_moves = line._get_outgoing_incoming_moves()
+				for move in outgoing_moves:
+					if move.state != 'done':
+						continue
+					qty += move.product_uom._compute_quantity(move.product_uom_qty, line.product_uom, rounding_method='HALF-UP')
+				for move in incoming_moves:
+					if move.state != 'done':
+						continue
+					qty -= move.product_uom._compute_quantity(move.product_uom_qty, line.product_uom, rounding_method='HALF-UP')
+				# line.qty_delivered = qty
+				line.qty_delivered = line.qty_delivered_manual + qty
+
+	def _get_qty_procurement(self, previous_product_uom_qty=False):
+		qty = super(SaleOrderLine, self)._get_qty_procurement(previous_product_uom_qty)
+		if self.approved_order_id:
+			qty += self.qty_delivered
+		return qty
 
 	def _inverse_invoice_qty(self):
 		for line in self:
 			if line.approved_order_id:
 				line.qty_invoiced = line.qty_invoiced
 
+	def unlink(self):
+		for rec in self:
+			if rec.state in ['sale', 'done', 'cancel']:
+				raise exceptions.UserError(_("Confirmed sales order line cannot be deleted.\nCreate a change order."))
 
+		return super(SaleOrderLine, self).unlink()

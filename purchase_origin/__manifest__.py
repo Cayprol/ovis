@@ -14,7 +14,10 @@ Depends on the setting, it can be based on Delivery Order or Sales Order.
     'installable': True,
     'auto_install' : False,
     'depends': ['purchase', 'sale_stock', 'stock'],
-    'data': ['views/res_config_settings_views.xml',],
+    'data': [
+                'views/purchase_views.xml',
+                'views/res_config_settings_views.xml',
+            ],
     'demo': [],
     'test': [],
 }

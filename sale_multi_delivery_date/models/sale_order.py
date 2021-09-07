@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
 	_inherit = 'sale.order'
 
 	# Adding the compute method
-	commitment_date = fields.Datetime('Delivery Date', copy=False, readonly=True, compute='_compute_latest_delivery_date',
+	commitment_date = fields.Datetime('Delivery Date', copy=False, readonly=False, compute='_compute_latest_delivery_date',
 										help="This is the delivery date promised to the customer. "
 											 "If set, the delivery order will be scheduled based on "
 											 "this date rather than product lead times.")

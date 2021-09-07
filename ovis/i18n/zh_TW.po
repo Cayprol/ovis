@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0-20200924\n"
+"Project-Id-Version: Odoo Server 13.0-20210723\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 00:00+0000\n"
-"PO-Revision-Date: 2020-10-02 00:00+0800\n"
+"POT-Creation-Date: 2021-08-13 03:23+0000\n"
+"PO-Revision-Date: 2021-09-01 11:05+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_TW\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0\n"
 
 #. module: ovis
 #: model_terms:ir.ui.view,arch_db:ovis.exception_on_so
@@ -61,7 +61,7 @@ msgid "Cancel"
 msgstr "取消"
 
 #. module: ovis
-#: code:addons/ovis/models/purchase.py:0 code:addons/ovis/models/sale.py:0
+#: code:addons/ovis/models/purchase.py:0
 #, python-format
 msgid "Cancel this record?"
 msgstr ""
@@ -83,6 +83,26 @@ msgid "Cancelling Reason:"
 msgstr "取消原因："
 
 #. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_res_config_settings__module_change_order
+msgid "Change Orders"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_res_config_settings__module_mrp_common_bom
+msgid "Common Bill of Materials"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_res_config_settings__module_purchase_common_vendor
+msgid "Common Vendors"
+msgstr ""
+
+#. module: ovis
+#: model_terms:ir.ui.view,arch_db:ovis.res_config_settings_view_form
+msgid "Conditionally select vendors for auto-generated RFQ"
+msgstr ""
+
+#. module: ovis
 #: model:ir.model,name:ovis.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置設定"
@@ -96,6 +116,22 @@ msgstr ""
 #. module: ovis
 #: model_terms:ir.ui.view,arch_db:ovis.purchase_order_form
 msgid "Confirm Order"
+msgstr "確認訂單"
+
+#. module: ovis
+#: code:addons/ovis/models/purchase.py:0
+#, python-format
+msgid "Confirm Sent RFQ to be a Purchase Order?"
+msgstr ""
+
+#. module: ovis
+#: model:ir.model,name:ovis.model_res_partner
+msgid "Contact"
+msgstr "聯繫人"
+
+#. module: ovis
+#: model_terms:ir.ui.view,arch_db:ovis.view_address
+msgid "Contacts"
 msgstr ""
 
 #. module: ovis
@@ -104,18 +140,13 @@ msgid "Create Sales Order"
 msgstr "創建銷售訂單"
 
 #. module: ovis
-#: model_terms:ir.ui.view,arch_db:ovis.report_saleorder_document
-msgid "Draft #"
-msgstr "草稿 ＃"
+#: model_terms:ir.actions.act_window,help:ovis.action_product_supplierinfo
+msgid "Create a new offer by vendor"
+msgstr ""
 
 #. module: ovis
 #: model_terms:ir.ui.view,arch_db:ovis.report_invoice_document
 msgid "Draft Invoice"
-msgstr ""
-
-#. module: ovis
-#: model_terms:ir.ui.view,arch_db:ovis.report_saleorder_document
-msgid "Draft Pro-Forma Invoice #"
 msgstr ""
 
 #. module: ovis
@@ -136,11 +167,6 @@ msgid "Drawing"
 msgstr "圖號"
 
 #. module: ovis
-#: model_terms:ir.ui.view,arch_db:ovis.view_order_form
-msgid "Duplicate"
-msgstr "複製"
-
-#. module: ovis
 #: model_terms:ir.ui.view,arch_db:ovis.exception_on_so
 msgid "Exception(s) occurred on the sale order(s):"
 msgstr ""
@@ -148,6 +174,11 @@ msgstr ""
 #. module: ovis
 #: model_terms:ir.ui.view,arch_db:ovis.exception_on_so
 msgid "Exception(s):"
+msgstr ""
+
+#. module: ovis
+#: model_terms:ir.ui.view,arch_db:ovis.view_address
+msgid "Full Name"
 msgstr ""
 
 #. module: ovis
@@ -161,6 +192,12 @@ msgid "Invoice"
 msgstr ""
 
 #. module: ovis
+#: code:addons/ovis/models/sale.py:0
+#, python-format
+msgid "It is not allowed to confirm an order in the following states: %s"
+msgstr "不允許在以下狀態確認訂單：%s"
+
+#. module: ovis
 #: model:ir.model,name:ovis.model_account_move
 msgid "Journal Entries"
 msgstr "日記帳分錄"
@@ -168,6 +205,16 @@ msgstr "日記帳分錄"
 #. module: ovis
 #: model_terms:ir.ui.view,arch_db:ovis.exception_on_so
 msgid "Manual actions may be needed."
+msgstr ""
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_res_config_settings__module_chinese_conversion
+msgid "Mix-search Chinese"
+msgstr ""
+
+#. module: ovis
+#: model_terms:ir.ui.view,arch_db:ovis.res_config_settings_view_form
+msgid "Modify confirmed sales/purchase order"
 msgstr ""
 
 #. module: ovis
@@ -182,6 +229,7 @@ msgstr "每張單據有多個交貨日期"
 
 #. module: ovis
 #: model:ir.model.fields,field_description:ovis.field_res_bank__name
+#: model_terms:ir.ui.view,arch_db:ovis.view_address
 msgid "Name"
 msgstr "名稱"
 
@@ -210,11 +258,6 @@ msgid "Only unsent RFQ are allowed to be sent."
 msgstr "只有未寄送的詢價單可以被送出。"
 
 #. module: ovis
-#: model_terms:ir.ui.view,arch_db:ovis.report_saleorder_document
-msgid "Order #"
-msgstr ""
-
-#. module: ovis
 #: code:addons/ovis/models/purchase.py:0
 #, python-format
 msgid "Prepare this RFQ to be sent?"
@@ -225,11 +268,6 @@ msgstr "準備送出此張詢價單？"
 #, python-format
 msgid "Prepare this quotation to be sent?"
 msgstr "準備送出此張報價單？"
-
-#. module: ovis
-#: model_terms:ir.ui.view,arch_db:ovis.report_saleorder_document
-msgid "Pro-Forma Invoice #"
-msgstr ""
 
 #. module: ovis
 #: model_terms:ir.ui.view,arch_db:ovis.purchase_order_form
@@ -252,9 +290,25 @@ msgid "Purchase Order #"
 msgstr "採購訂單 ＃"
 
 #. module: ovis
-#: model_terms:ir.ui.view,arch_db:ovis.report_saleorder_document
-msgid "Quotation #"
-msgstr "報價單 ＃"
+#: model:ir.model.fields,field_description:ovis.field_res_partner__ref
+#: model:ir.model.fields,field_description:ovis.field_res_users__ref
+msgid "Reference"
+msgstr "編號"
+
+#. module: ovis
+#: model:ir.actions.client,name:ovis.reload_view
+msgid "Reload View"
+msgstr ""
+
+#. module: ovis
+#: model_terms:ir.ui.view,arch_db:ovis.res_config_settings_view_form
+msgid "Remove default company on BoM"
+msgstr "移除BoM的預設公司"
+
+#. module: ovis
+#: model_terms:ir.ui.view,arch_db:ovis.res_config_settings_view_form
+msgid "Remove default company on supplier info"
+msgstr "移除供應商報價的預設公司"
 
 #. module: ovis
 #: model_terms:ir.ui.view,arch_db:ovis.report_purchasequotation_document
@@ -282,6 +336,17 @@ msgstr "寄送"
 #, python-format
 msgid "Send Memo:"
 msgstr "寄送備忘："
+
+#. module: ovis
+#: model:ir.model.fields,field_description:ovis.field_res_config_settings__module_purchase_vendor_select
+msgid "Smart Vendor Select"
+msgstr "智慧選擇供應商"
+
+#. module: ovis
+#: model:ir.actions.act_window,name:ovis.action_product_supplierinfo
+#: model:ir.ui.menu,name:ovis.product_supplierinfo
+msgid "Supplier Info"
+msgstr "供應商報價"
 
 #. module: ovis
 #: model:ir.model.fields,field_description:ovis.field_sale_order__tally
@@ -317,6 +382,25 @@ msgstr ""
 #: model:ir.model.fields,help:ovis.field_sale_order_line__tally
 msgid ""
 "This field indicates the order line has been notified for tally or not."
+msgstr ""
+
+#. module: ovis
+#: model_terms:ir.ui.view,arch_db:ovis.res_config_settings_view_form
+msgid "Traditional/Simplify Chinese"
+msgstr ""
+
+#. module: ovis
+#: code:addons/ovis/models/sale.py:0
+#, python-format
+msgid "Would you like to cancel?"
+msgstr ""
+
+#. module: ovis
+#: model_terms:ir.actions.act_window,help:ovis.action_product_supplierinfo
+msgid ""
+"You must define a vendor offer also known as a supplier info for auto-"
+"generated RFQ,<br>\n"
+"\t\t\tSupplier Info and Reordering Rules together create RFQ automatically."
 msgstr ""
 
 #. module: ovis

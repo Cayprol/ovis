@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api, exceptions, _, SUPERUSER_ID
-from lxml import etree
-import json
+from odoo import api, exceptions, fields, models, _
 from datetime import timedelta
+
 import logging
 _logger = logging.getLogger(__name__)
+
 class ChangeSaleOrder(models.Model):
 
 	_name = 'change.sale.order'
@@ -46,7 +46,7 @@ class ChangeSaleOrder(models.Model):
 		return super(ChangeSaleOrder, self).write(vals)
 
 	name = fields.Char(string='Change Order', copy=False, readonly=True, index=True, default=lambda self: _('New'))
-	sale_order_id = fields.Many2one('sale.order', string='Sales Order', domain="[('state','=','sale')]", required=True)
+	sale_order_id = fields.Many2one('sale.order', string='Sales Order', domain="[('state','=','sale')]", required=True, states={'to approve': [('readonly', False)], 'approved': [('readonly', True)], 'done': [('readonly', True)], 'cancel': [('readonly', True)]})
 	sale_order_line = fields.One2many(related='sale_order_id.order_line', readonly=True, string="Sales Order Lines")
 
 	description = fields.Text(string='Description', required=True, states=READONLY_STATES, help='Word description for changing details and reasons.')
@@ -67,8 +67,8 @@ class ChangeSaleOrder(models.Model):
 	original_amount_tax = fields.Monetary(string='Original Taxes', store=True, readonly=True, compute='_original_amount_all')
 	original_amount_total = fields.Monetary(string='Original Total', store=True, readonly=True, compute='_original_amount_all', tracking=4)
 
-	changed_amount_untaxed = fields.Monetary(string='Changed Order Untaxed Amount', store=True, readonly=True, compute='_changed_amount_all', tracking=5)
-	changed_amount_tax = fields.Monetary(string='Changed Order Taxes', store=True, readonly=True, compute='_changed_amount_all')
+	changed_amount_untaxed = fields.Monetary(string='Changed Untaxed Amount', store=True, readonly=True, compute='_changed_amount_all', tracking=5)
+	changed_amount_tax = fields.Monetary(string='Changed Taxes', store=True, readonly=True, compute='_changed_amount_all')
 	changed_amount_total = fields.Monetary(string='Changed Total', store=True, readonly=True, compute='_changed_amount_all', tracking=4)
 
 	state = fields.Selection([
@@ -102,7 +102,7 @@ class ChangeSaleOrder(models.Model):
 					order.sale_order_id.message_subscribe(partner_ids=[self.env.user.partner_id.id])
 
 			else:
-				raise UserError(_("Cannot approve {name}. Must be a manager to approve change orders.".format(name=order.name)))
+				raise exceptions.UserError(_("Cannot approve {name}. Must be a manager to approve change orders.".format(name=order.name)))
 
 
 	def action_cancel(self):
@@ -115,15 +115,22 @@ class ChangeSaleOrder(models.Model):
 	def action_done(self):
 		for order in self:
 			for source_line in order.sale_order_line:
+				moves = self.env['stock.move'].search([('sale_line_id','=',source_line.id),('state','not in',['cancel','done'])])
+				moves._do_unreserve()
+				moves._clean_merged()
+				moves._action_cancel()
 				source_line.update({
 					'original_order_id': order.id,
 					'order_id': False,
+					'qty_delivered_manual': source_line.qty_delivered,
 					})
 
 			for approved_line in order.approved_sale_order_line:
 				approved_line.update({
 					'order_id': order.sale_order_id,
 						})
+
+			order.sale_order_id.action_confirm()
 
 			order.update({
 				'state': 'done',

@@ -65,8 +65,8 @@ class ChangePurchaseOrder(models.Model):
 	original_amount_tax = fields.Monetary(string='Original Taxes', store=True, readonly=True, compute='_original_amount_all')
 	original_amount_total = fields.Monetary(string='Original Total', store=True, readonly=True, compute='_original_amount_all', tracking=4)
 
-	changed_amount_untaxed = fields.Monetary(string='Changed Order Untaxed Amount', store=True, readonly=True, compute='_changed_amount_all', tracking=5)
-	changed_amount_tax = fields.Monetary(string='Changed Order Taxes', store=True, readonly=True, compute='_changed_amount_all')
+	changed_amount_untaxed = fields.Monetary(string='Changed Untaxed Amount', store=True, readonly=True, compute='_changed_amount_all', tracking=5)
+	changed_amount_tax = fields.Monetary(string='Changed Taxes', store=True, readonly=True, compute='_changed_amount_all')
 	changed_amount_total = fields.Monetary(string='Changed Total', store=True, readonly=True, compute='_changed_amount_all', tracking=4)
 
 	state = fields.Selection([

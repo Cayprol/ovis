@@ -26,6 +26,8 @@ class SaleOrderLine(models.Model):
 					line.qty_to_invoice = line.product_uom_qty - line.qty_invoiced
 				elif line.product_id.invoice_policy == 'delivery':
 					line.qty_to_invoice = line.qty_delivered - line.qty_invoiced
+				elif line.display_type:
+					line.qty_to_invoice = 0
 				else:
 					raise ValidationError(_("No feasible invoice policy found to calculate Quantity to Invoice."))
 			else:
