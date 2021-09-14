@@ -10,7 +10,7 @@ User can still manually specify a company on existing BoMs.\n
 If a company is manually specified, particular BoM behaves as Odoo default. 
 """,
     'version': '13.0.0',
-    'category': 'Operations/Purchase',
+    'category': 'Manufacturing/Manufacturing',
     'author': 'Cayprol',
     "license": "AGPL-3",
     "application": False,
