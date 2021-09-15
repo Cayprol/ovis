@@ -9,7 +9,7 @@ class ProductTemplate(models.Model):
 	1. Two conditions to apply for the domain, 
 	   One2many would only store 'mrp.bom.line' records which its 'product_tmpl_id' matching current template.id
 	   One of the condition contradicts this rule.
-	   The above condition is when this product is being one of the alternatives.
+	   The contradicted condition is when this template being one of the alternatives.
 	2. We do not wish to edit alternative_bom_line_ids from 'product.template', but only from 'mrp.bom' 
 	"""
 	# alternative_bom_line_ids = fields.One2many('mrp.bom.line', 'product_tmpl_id', string='Alternative BoM Components', domain=[('alternative_product_ids','!=',False)])
