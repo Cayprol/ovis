@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields
 
 class MrpBomLine(models.Model):
 	_inherit = 'mrp.bom.line'
