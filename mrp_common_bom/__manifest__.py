@@ -9,7 +9,7 @@ When installed, newly created BoM has the default company set to None.\n
 User can still manually specify a company on existing BoMs.\n
 If a company is manually specified, particular BoM behaves as Odoo default. 
 """,
-    'version': '13.0.0',
+    'version': '1.15',
     'category': 'Manufacturing/Manufacturing',
     'author': 'Cayprol',
     "license": "AGPL-3",

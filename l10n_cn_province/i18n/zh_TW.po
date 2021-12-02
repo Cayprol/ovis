@@ -1,353 +1,186 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_cn_province
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 15.0-20211107\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-01 00:00+0000\n"
-"PO-Revision-Date: 2018-11-01 00:00+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2021-11-08 09:45+0000\n"
+"PO-Revision-Date: 2021-11-08 09:45+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: zh_TW\n"
 "Plural-Forms: \n"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_ah
+#. module: base
+#: model:res.country.state,name:base.state_cn_AH
 msgid "Anhui"
 msgstr "安徽省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_bj
+#. module: base
+#: model:res.country.state,name:base.state_cn_BJ
 msgid "Beijing"
 msgstr "北京市"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_cq
+#. module: base
+#: model:res.country.state,name:base.state_cn_CQ
 msgid "Chongqing"
 msgstr "重慶市"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_fj
+#. module: base
+#: model:res.country.state,name:base.state_cn_FJ
 msgid "Fujian"
 msgstr "福建省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_gd
+#. module: base
+#: model:res.country.state,name:base.state_cn_GD
 msgid "Guangdong"
 msgstr "廣東省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_gs
+#. module: base
+#: model:res.country.state,name:base.state_cn_GS
 msgid "Gansu"
 msgstr "甘肅省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_gx
+#. module: base
+#: model:res.country.state,name:base.state_cn_GX
 msgid "Guangxi"
 msgstr "廣西壯族自治區"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_gz
+#. module: base
+#: model:res.country.state,name:base.state_cn_GZ
 msgid "Guizhou"
 msgstr "貴州省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_ha
+#. module: base
+#: model:res.country.state,name:base.state_cn_HA
 msgid "Henan"
 msgstr "河南省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_hb
+#. module: base
+#: model:res.country.state,name:base.state_cn_HB
 msgid "Hubei"
 msgstr "湖北省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_he
+#. module: base
+#: model:res.country.state,name:base.state_cn_HE
 msgid "Hebei"
 msgstr "河北省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_hi
+#. module: base
+#: model:res.country.state,name:base.state_cn_HI
 msgid "Hainan"
 msgstr "海南省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_hk
+#. module: base
+#: model:res.country.state,name:base.state_cn_HK
 msgid "Hong Kong"
 msgstr "香港特別行政區"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_hl
+#. module: base
+#: model:res.country.state,name:base.state_cn_HL
 msgid "Heilongjiang"
 msgstr "黑龍江省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_hn
+#. module: base
+#: model:res.country.state,name:base.state_cn_HN
 msgid "Hunan"
 msgstr "湖南省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_jl
+#. module: base
+#: model:res.country.state,name:base.state_cn_JL
 msgid "Jilin"
 msgstr "吉林省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_js
+#. module: base
+#: model:res.country.state,name:base.state_cn_JS
 msgid "Jiangsu"
 msgstr "江蘇省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_jx
+#. module: base
+#: model:res.country.state,name:base.state_cn_JX
 msgid "Jiangxi"
 msgstr "江西省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_ln
+#. module: base
+#: model:res.country.state,name:base.state_cn_LN
 msgid "Liaoning"
 msgstr "遼寧省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_mo
+#. module: base
+#: model:res.country.state,name:base.state_cn_MO
 msgid "Macao"
 msgstr "澳門特別行政區"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_nm
-msgid "Nei Mongol"
+#. module: base
+#: model:res.country.state,name:base.state_cn_NM
+msgid "Mongolia"
 msgstr "內蒙古自治區"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_nx
+#. module: base
+#: model:res.country.state,name:base.state_cn_NX
 msgid "Ningxia"
 msgstr "寧夏回族自治區"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_qh
+#. module: base
+#: model:res.country.state,name:base.state_cn_QH
 msgid "Qinghai"
 msgstr "青海省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_sc
+#. module: base
+#: model:res.country.state,name:base.state_cn_SC
 msgid "Sichuan"
 msgstr "四川省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_sd
+#. module: base
+#: model:res.country.state,name:base.state_cn_SD
 msgid "Shandong"
 msgstr "山東省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_sh
+#. module: base
+#: model:res.country.state,name:base.state_cn_SH
 msgid "Shanghai"
 msgstr "上海市"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_sn
+#. module: base
+#: model:res.country.state,name:base.state_cn_SN
 msgid "Shaanxi"
 msgstr "陝西省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_sx
+#. module: base
+#: model:res.country.state,name:base.state_cn_SX
 msgid "Shanxi"
 msgstr "山西省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_tj
+#. module: base
+#: model:res.country.state,name:base.state_cn_TJ
 msgid "Tianjin"
 msgstr "天津市"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_tw
+#. module: base
+#: model:res.country.state,name:base.state_cn_TW
 msgid "Taiwan"
 msgstr "台灣省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_xj
-msgid "Xinjiang Uygur"
+#. module: base
+#: model:res.country.state,name:base.state_cn_XJ
+msgid "Xinjiang"
 msgstr "新疆維吾爾自治區"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_xz
-msgid "Xizang"
+#. module: base
+#: model:res.country.state,name:base.state_cn_XZ
+msgid "Tibet"
 msgstr "西藏自治區"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_yn
+#. module: base
+#: model:res.country.state,name:base.state_cn_YN
 msgid "Yunnan"
 msgstr "雲南省"
 
-#. module: l10n_cn_province
-#: model:res.country.state,name:l10n_cn_province.state_cn_zj
+#. module: base
+#: model:res.country.state,name:base.state_cn_ZJ
 msgid "Zhejiang"
 msgstr "浙江省"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_ah
-msgid "CN-AH"
-msgstr "皖"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_bj
-msgid "CN-BJ"
-msgstr "京"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_cq
-msgid "CN-CQ"
-msgstr "渝"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_fj
-msgid "CN-FJ"
-msgstr "閩"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_gd
-msgid "CN-GD"
-msgstr "粵"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_gs
-msgid "CN-GS"
-msgstr "甘"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_gx
-msgid "CN-GX"
-msgstr "桂"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_gz
-msgid "CN-GZ"
-msgstr "黔"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_ha
-msgid "CN-HA"
-msgstr "豫"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_hb
-msgid "CN-HB"
-msgstr "鄂"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_he
-msgid "CN-HE"
-msgstr "冀"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_hi
-msgid "CN-HI"
-msgstr "琼"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_hk
-msgid "CN-HK"
-msgstr "港"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_hl
-msgid "CN-HL"
-msgstr "黑"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_hn
-msgid "CN-HN"
-msgstr "湘"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_jl
-msgid "CN-JL"
-msgstr "吉"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_js
-msgid "CN-JS"
-msgstr "蘇"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_jx
-msgid "CN-JX"
-msgstr "贛"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_ln
-msgid "CN-LN"
-msgstr "遼"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_mo
-msgid "CN-MO"
-msgstr "澳"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_nm
-msgid "CN-NM"
-msgstr "蒙"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_nx
-msgid "CN-NX"
-msgstr "寧"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_qh
-msgid "CN-QH"
-msgstr "青"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_sc
-msgid "CN-SC"
-msgstr "蜀"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_sd
-msgid "CN-SD"
-msgstr "魯"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_sh
-msgid "CN-SH"
-msgstr "滬"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_sn
-msgid "CN-SN"
-msgstr "陜"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_sx
-msgid "CN-SX"
-msgstr "晉"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_tj
-msgid "CN-TJ"
-msgstr "津"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_tw
-msgid "CN-TW"
-msgstr "台"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_xj
-msgid "CN-XJ"
-msgstr "新"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_xz
-msgid "CN-XZ"
-msgstr "藏"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_yn
-msgid "CN-YN"
-msgstr "滇"
-
-#. module: l10n_cn_province
-#: model:res.country.state,code:l10n_cn_province.state_cn_zj
-msgid "CN-ZJ"
-msgstr "浙"

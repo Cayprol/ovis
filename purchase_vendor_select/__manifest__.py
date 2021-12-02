@@ -12,7 +12,7 @@ Select the cheapest supplier info taking the following into account.\n
 Filter out vendor offers which MoQ larger than demand quantity.\n
 Filter out vendor offers which date are invalid.
 """,
-    'version': '13.0.0',
+    'version': '1.15',
     'category': 'Operations/Purchase',
     'author': 'Cayprol',
     "license": "AGPL-3",

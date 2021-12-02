@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
-import logging
-_logger = logging.getLogger(__name__)
+from odoo import api, fields, models
 
 class SupplierInfo(models.Model):
 	_inherit = "product.supplierinfo"
@@ -21,7 +19,7 @@ class ProductProduct(models.Model):
 	"""
 	_prepare_sellers() and _select_seller() are run by "Run Scheduler" which is a threaded implementation.
 	If Cursor not closed explicit error occurs, restart postgresql and odoo do NOT resolve.
-	Undo all modification to these 2 methods by uninstall addon, and "Run Scheduler" at its default form at least 1 time.
+	Undo all modification to these 2 methods by uninstall this addon, and "Run Scheduler" at its default form at least 1 time.
 	"""
 
 	def _prepare_sellers(self, params):

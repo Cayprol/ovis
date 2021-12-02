@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Custom Partner Tree View for Sale -->
+	<record id="view_address" model="ir.ui.view">
+		<field name="name">res.partner.tree</field>
+		<field name="model">res.partner</field>
+		<field name="arch" type="xml">
+			<tree string="Contacts">
+				<field name="ref"/>
+				<field name="name" string="Name" optional="show"/>
+				<field name="display_name" string="Full Name" optional="hide"/>
+				<field name="country_id"/>
+				<field name="state_id"/>
+				<field name="city"/>
+				<field name="type" optional="show"/>
+				<field name="phone" class="o_force_ltr" optional="hide"/>
+				<field name="email" optional="hide"/>
+				<field name="company_id" groups="base.group_multi_company" optional="hide"/>			
+				<field name="function" invisible="1"/>
+				<field name="user_id" invisible="1"/>
+				<field name="is_company" invisible="1"/>
+				<field name="parent_id" invisible="1"/>
+				<field name="active" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_order_form" model="ir.ui.view" >
+		<field name="model">sale.order</field>
+		<field name="name">sale.order.form</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+
+			<!-- Send by Email (Primary)-->
+			<xpath expr="//header/button[@name='action_quotation_send' and @states='draft' and hasclass('btn-primary')]" position="replace"/>
+			<!-- Send by Email -->
+			<xpath expr="//header/button[@name='action_quotation_send' and @states='sent,sale']" position="replace"/>
+			<!-- Send PRO-FORMA Invoice (Primary)-->
+			<xpath expr="//header/button[@name='action_quotation_send' and hasclass('btn-primary')]" position="replace"/>
+			<!-- Send PRO-FORMA Invoice -->
+			<xpath expr="//header/button[@name='action_quotation_send' and not(hasclass('btn-primary'))]" position="replace"/>
+
+			<xpath expr="//button[@name='preview_sale_order']" position="replace"/>
+
+			<!-- link tree view to many2one field -->
+			<xpath expr="//field[@name='partner_invoice_id']" position="attributes">
+				<attribute name="context">{'default_type':'invoice', 'show_address': 1, 'tree_view_ref': 'sale_enhanced_view.view_address'}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+				<attribute name="context">{'default_type':'delivery', 'show_address': 1, 'tree_view_ref': 'sale_enhanced_view.view_address'}</attribute>
+			</xpath>
+
+			<!-- no_create - no_quick_create and no_create_edit combined. -->
+			<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+				<attribute name="options">{'no_open': True, 'no_create': True}</attribute>
+			</xpath>
+			<xpath expr="//field[@name='order_line']/tree/field[@name='product_template_id']" position="attributes">
+				<attribute name="options">{'no_open': True, 'no_create': True}</attribute>
+			</xpath>
+
+			<!-- Add technical fields for domain use to hide Online Signature and Online Payment conditionally -->
+			<xpath expr="//page[@name='other_information']//field[@name='require_signature']" position="after">
+				<field name="display_require_signature" invisible="1"/>
+				<field name="display_require_payment" invisible="1"/>
+			</xpath>
+			<xpath expr="//page[@name='other_information']//field[@name='require_signature']" position="attributes">
+				<attribute name="attrs">{'invisible': [('display_require_signature', '=', False)]}</attribute>
+			</xpath>
+			<xpath expr="//page[@name='other_information']//field[@name='require_payment']" position="attributes">
+				<attribute name="attrs">{'invisible': [('display_require_payment', '=', False)]}</attribute>
+			</xpath>
+		</field>
+	</record>
+</odoo>

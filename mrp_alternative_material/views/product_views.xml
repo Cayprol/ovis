@@ -11,11 +11,11 @@
                 <field string="Used In" name="used_in_bom_count" widget="statinfo" invisible="1"/>
                 <field name="alternative_bom_line_count" invisible="1"/>
                 <page name="manufacture" string="Manufacture">
-                    <group name="alternative" string="Alternatives" attrs="{'invisible': [('used_in_bom_count','&lt;=',0),('alternative_bom_line_count','&lt;=',0)]}">
+                    <group name="alternative" string="Alternatives" groups="mrp.group_mrp_user" attrs="{'invisible': [('used_in_bom_count','&lt;=',0),('alternative_bom_line_count','&lt;=',0)]}">
                         <field name="alternative_bom_line_ids" widget="one2many" nolabel="1">
                             <tree string="Components" editable="bottom">
                                 <field name="company_id" invisible="1"/>
-                                <field name="routing_id" invisible="1"/>
+                                <!-- <field name="routing_id" invisible="1"/> When migrating to v15, this field doesn't exist, not looking into yet -->
                                 <field name="code"/>
                                 <field name="sequence" widget="handle"/>
                                 <field name="product_id" context="{'default_type': 'product'}"/>
@@ -28,8 +28,6 @@
                                 <field name="parent_product_tmpl_id" invisible="1" />
                                 <field name="possible_bom_product_template_attribute_value_ids" invisible="1"/>
                                 <field name="product_uom_id" options="{'no_open':True,'no_create':True}" groups="uom.group_uom"/>
-<!--                                    <field name="bom_product_template_attribute_value_ids" widget="many2many_tags" options="{'no_create': True}" attrs="{'column_invisible': [('parent.product_id', '!=', False)]}" groups="product.group_product_variant"/>-->
-<!--                                    <field name="operation_id" groups="mrp.group_mrp_routings" attrs="{'column_invisible': [('parent.type','not in', ('normal', 'phantom'))]}" options="{'no_quick_create':True,'no_create_edit':True}"/>-->
                                 <field name="alternative_product_ids" widget="many2many_tags"/>
                             </tree>
                         </field>

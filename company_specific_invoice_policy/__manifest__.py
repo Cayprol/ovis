@@ -5,7 +5,7 @@
     'description': """
 This module makes sales and purchase invoicing policy company specific. 
     """,
-    'version': '13.0.0',
+    'version': '1.15',
     'category': 'Other',
     'author': 'Cayprol',
     'license': "LGPL-3",

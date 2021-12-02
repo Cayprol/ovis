@@ -6,10 +6,7 @@
 			<field name="name">confirm.popup.form</field>
 			<field name="arch" type="xml">
 				<form>
-					<group>
-						<field name="note" nolabel="1" placeholder="Enter reason for this action."/>
-					</group>
-
+					<field name="note" nolabel="1" placeholder="Enter reason for this action."/>
 					<footer>
 						<button name="action_confirm" string="Confirm" type="object" class="oe_highlight"/>
 						<button string="_Cancel" class="btn-secondary" special="cancel"/>

@@ -2,7 +2,7 @@
 {
     'name': 'OVIS Chart of Account',
     'summary': "Insert records of all chart of accounts",
-    'version': '13.0.0',
+    'version': '1.13',
     'category': 'Localization',
     'author': 'Cayprol',
     "application": False,
@@ -15,6 +15,7 @@
         'data/account_chart_template.xml',
         'data/bank.xml',
     ],
+    'license': 'AGPL-3', 
     # 'post_init_hook': 'add_account_journal',
     'demo': [],
     'test': [],

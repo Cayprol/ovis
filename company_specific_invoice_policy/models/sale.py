@@ -15,20 +15,13 @@ class SaleOrderLine(models.Model):
 		for line in self:
 			if line.order_id.state in ['sale', 'done']:
 				if line.company_id.force_invoice_policy:
-					if line.company_id.default_invoice_policy == 'order':
+					if line.company_id.invoice_policy_forced == 'order':
 						line.qty_to_invoice = line.product_uom_qty - line.qty_invoiced
-					elif line.company_id.default_invoice_policy == 'delivery':
+					elif line.company_id.invoice_policy_forced == 'delivery':
 						line.qty_to_invoice = line.qty_delivered - line.qty_invoiced
 					else:
 						raise ValidationError(_("Force Policy is enabled, but no feasible invoice policy found to calculate Quantity to Invoice."))
-
-				elif line.product_id.invoice_policy == 'order':
-					line.qty_to_invoice = line.product_uom_qty - line.qty_invoiced
-				elif line.product_id.invoice_policy == 'delivery':
-					line.qty_to_invoice = line.qty_delivered - line.qty_invoiced
-				elif line.display_type:
-					line.qty_to_invoice = 0
 				else:
-					raise ValidationError(_("No feasible invoice policy found to calculate Quantity to Invoice."))
+					super(SaleOrderLine, self)._get_to_invoice_qty()
 			else:
 				line.qty_to_invoice = 0

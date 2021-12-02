@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 {
     'name': "Taiwan - County",
-    'version': '1.0',
+    'version': '1.13',
     'category': 'Localization',
     'summary': 'Multi-language Localization',
     'description': """

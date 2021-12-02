@@ -12,7 +12,10 @@ Provide a popup wizard that run function based on context.
     "application": False,
     "installable": True,
     'depends': ['base'],
-    'data': ['wizard/confirm_popup.xml'],
+    'data': [
+            'wizard/confirm_popup.xml',
+            'security/ir.model.access.csv',
+            ],
     'demo': [],
     'test': [],
 }

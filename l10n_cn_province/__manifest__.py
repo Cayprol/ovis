@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 {
     'name': "China - Province",
-    'version': '1.0',
+    'version': '1.1',
     'category': 'Localization',
     'summary': 'Multi-language Localization',
     'description': """  
@@ -17,13 +17,8 @@ This module only includes provincial level administrative regions, including\n
 	\n
     """,
     'author': 'Cayprol',
-    "depends" : ['base'],
-    'data': ['data/china_provinces.xml',
-             ],
-    "images": [],
-    'license': 'LGPL-3',
-    'qweb': [
-            ],  
-    
+    'depends' : ['base'],
+    'data': ['data/res.country.state.csv',],
+    'license': 'LGPL-3',    
     'installable': True,
 }

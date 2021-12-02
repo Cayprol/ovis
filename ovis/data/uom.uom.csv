@@ -1,5 +1,4 @@
 id,name,category_id,uom_type,factor,rounding
-uom.product_uom_mm,mm,Length / Distance,Smaller than the reference Unit of Measure,1000,0.01
 uom.product_uom_set,Sets,Set,Reference Unit of Measure for this category,1,0.01
 uom.product_uom_roll,Rolls,Roll,Reference Unit of Measure for this category,1,0.01
 uom.product_uom_bottle,Bottles,Bottle,Reference Unit of Measure for this category,1,0.01

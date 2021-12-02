@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="product_supplierinfo_tree_view" model="ir.ui.view" >
+		<field name="model">product.supplierinfo</field>
+		<field name="name">product.supplierinfo.tree.view</field>
+		<!-- <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/> -->
+		<!-- <feild name="mode">primary</feild> -->
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="product_tmpl_id"/>
+				<field name="product_variant_count" groups="product.group_product_variant"/>
+				<field name="product_id" groups="product.group_product_variant"/>
+				<field name="name"/>
+				<field name="product_name"/>
+				<field name="product_code"/>
+				<field name="min_qty"/>
+				<field name="price"/>
+				<field name="currency_id"/>
+				<field name="date_start"/>
+				<field name="date_end"/>
+				<field name="delay"/>
+				<field name="company_id" groups="base.group_multi_company"/>
+			</tree>
+		</field>
+	</record>
+
+
+	<record id="action_product_supplierinfo" model="ir.actions.act_window">
+		<field name="name">Supplier Info</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">product.supplierinfo</field>
+		<field name="view_ids"
+				eval="[(5, 0, 0),
+					(0, 0, {'view_mode': 'tree', 'view_id': ref('product_supplierinfo_tree_view')}),
+					(0, 0, {'view_mode': 'form', 'view_id': ref('product.product_supplierinfo_form_view')}),
+					(0, 0, {'view_mode': 'kanban'})]"/>
+		<!-- <field name="search_view_id" ref="product.product_template_search_view"/> -->
+		<field name="help" type="html">
+		  <p class="o_view_nocontent_smiling_face">
+			Create a new offer by vendor
+		  </p><p>
+			You must define a vendor offer also known as a supplier info for auto-generated RFQ,<br/>
+			Supplier Info and Reordering Rules together create RFQ automatically.
+		  </p>
+		</field>
+	</record>
+
+	<menuitem id="product_supplierinfo"
+			name="Supplier Info"
+			action="action_product_supplierinfo"
+			parent="purchase.menu_purchase_products"
+			sequence="35" groups="purchase.group_purchase_user"/>
+</odoo>

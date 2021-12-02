@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- 	<record id="view_blanket_order_line_form_sale" model="ir.ui.view">
+		<field name="name">blanket.order.line.form.sale</field>
+		<field name="model">blanket.order.line</field>
+		<field name="arch" type="xml">
+			<form string="Blanket Order Item">
+				<sheet>
+					<div class="oe_title">
+						<h1>
+							<field name="name" readonly="1"/>
+						</h1>
+					</div>
+					<group>
+						<group>
+							<field name="order_id" readonly="1"/>
+							<field name="product_id" readonly="1"/>
+							<field name="name" readonly="1"/>
+							<field name="product_uom_qty" readonly="1"/>
+							<field name="qty_delivered" readonly="1"/>
+							<field name="qty_invoiced"/>
+							<field name="product_uom" readonly="1"/>
+							<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+							<field name="order_partner_id" invisible="1"/>
+							<field name="display_type" invisible="1"/>
+							<field name="product_updatable" invisible="1"/>
+						</group>
+						<group>
+							<field name="price_unit" readonly="1"/>
+							<field name="discount" groups="product.group_discount_per_so_line" readonly="1"/>
+							<field name="price_subtotal" widget="monetary"/>
+							<field name="tax_id" widget="many2many_tags" readonly="1"/>
+							<field name="price_tax" widget="monetary"/>
+							<field name="price_total" widget="monetary"/>
+							<field name="currency_id" invisible="1"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record> -->
+
+</odoo>
